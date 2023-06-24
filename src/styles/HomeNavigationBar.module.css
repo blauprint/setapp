@@ -1,0 +1,23 @@
+.container {
+  background-color: var(--surface-color-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+.logo {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: var(--text-color-dark);
+  font-size: 20px;
+}
+
+.loginBtn {
+  border: none;
+  outline: none;
+  font-family: "Ubuntu Mono", monospace;
+  background-color: var(--primary-color-dark);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+}
