@@ -17,8 +17,8 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className={styles.techAndDate}>
-        <p className={styles.tech}>{project.tech.join(" / ")}</p>
-        <p className={styles.date}> 24 June</p>
+        <p className={styles.tech}>{project.techStacks.join(" / ")}</p>
+        <p className={styles.created_at}> 24 June</p>
       </div>
     </div>
   );
