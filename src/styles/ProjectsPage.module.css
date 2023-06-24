@@ -1,0 +1,6 @@
+.addProjectButton {
+  border: 5px solid grey;
+  border-radius: 10px;
+  padding: 2%;
+  width: 200px;
+}
