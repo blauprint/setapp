@@ -1,12 +1,13 @@
 import ProjectsList from "@/components/ProjectsList";
+import styles from '@/styles/ProjectsPage.module.css';
 
-export default function Projects() {
+export default function ProjectsPage() {
   return (
     <>
-      <HomeNavigationBar></HomeNavigationBar>
-      <div className="projects-container">
+      {/* <HomeNavigationBar></HomeNavigationBar> */}
+      <div className={styles.projectsContainer}>
         <ProjectsList></ProjectsList>
-        <button>Add Project</button>
+        <button className={styles.addProjectButton}>Add Project</button>
       </div>
     </>
   )

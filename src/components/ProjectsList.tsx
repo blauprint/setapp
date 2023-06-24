@@ -2,6 +2,8 @@ import { Project } from "@/types/Project";
 import { projectsMock } from "./moks-projects";
 import ProjectCard from "./ProjectCard";
 
+import styles from '@/styles/ProjectsList.module.css';
+
 export default function ProjectsList() {
 
   // const projects: Project[] = [];
@@ -10,8 +12,8 @@ export default function ProjectsList() {
 
   return (
     <>
-      <div className="projects-list">
-        {projects.map((project) => (<ProjectCard project={project}></ProjectCard>))}
+      <div className={styles.projectsList}>
+        {projects.map((project) => (<ProjectCard project={project} key={project.id}></ProjectCard>))}
       </div>
     </>
   )
