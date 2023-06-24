@@ -1,6 +1,9 @@
 .addProjectButton {
-  border: 5px solid grey;
-  border-radius: 10px;
-  padding: 2%;
-  width: 200px;
+  border: none;
+  outline: none;
+  font-family: "Ubuntu Mono", monospace;
+  background-color: var(--primary-color-dark);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
 }

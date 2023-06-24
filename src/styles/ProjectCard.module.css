@@ -1,8 +1,38 @@
 .projectCard {
+  background-color: var(--surface-color-dark);
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  padding: 20px;
+  border-radius: 25px;
+  width: 180px;
+  cursor: pointer;
+  height: 170px;
+  transition: all 0.2s;
+}
+
+.projectCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 20px 2px rgba(245, 245, 245, 0.25);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: "Jost", sans-serif;
+}
+
+.intro {
+  font-size: 12px;
+}
+
+.techAndDate {
+  margin-top: 25px;
   display: flex;
-  flex-direction: column;
-  border: 5px solid grey;
-  border-radius: 10px;
-  padding: 2%;
-  width: 200px;
+  font-size: 10px;
+  justify-content: space-between;
+}
+
+.date {
+  font-weight: 700;
 }
