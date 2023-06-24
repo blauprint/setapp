@@ -1,4 +1,5 @@
 import styles from "@/styles/HomeNavigationBar.module.css";
+import { SignInButton } from "@clerk/nextjs";
 
 export default function HomeNavigationBar() {
   return (
@@ -6,7 +7,9 @@ export default function HomeNavigationBar() {
       <div className={styles.container}>
         <div className={styles.logo}>SetApp</div>
         <div className={styles.navOptions}>
-          <button className={styles.loginBtn}>Login</button>
+          <SignInButton mode="modal">
+            <button className={styles.loginBtn}>Login</button>
+          </SignInButton>
         </div>
       </div>
     </>
