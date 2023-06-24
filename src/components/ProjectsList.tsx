@@ -1,5 +1,5 @@
 import { Project } from "@/types/Project";
-import { projectsMock } from "./moks-projects";
+import { projectsMock } from "../mocks/moks-projects";
 import ProjectCard from "./ProjectCard";
 
 import styles from '@/styles/ProjectsList.module.css';
