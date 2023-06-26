@@ -1,15 +1,9 @@
 import styles from "@/styles/HomeNavigationBar.module.css";
-import { SignInButton, SignedIn, SignedOut, UserButton, useAuth, useUser } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 export default function HomeNavigationBar() {
 
-  const { userId, sessionId } = useAuth();
   const { user } = useUser();
-
-
-  function handleLogin() {
-    return `/projects`
-  }
 
   return (
     <>
@@ -17,8 +11,8 @@ export default function HomeNavigationBar() {
         <div className={styles.logo}>SetApp</div>
         <div className={styles.navOptions}>
           <SignedOut>
-            <SignInButton mode="modal" afterSignInUrl={handleLogin()}>
-              <button className={styles.loginBtn} >Login</button>
+            <SignInButton mode="modal" afterSignInUrl={"/projects"}>
+              <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
