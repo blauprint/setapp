@@ -1,3 +1,4 @@
+import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
 import { projectsMock } from "@/mocks/moks-projects";
 import styles from '@/styles/ProjectsPage.module.css';
