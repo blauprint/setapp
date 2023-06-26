@@ -1,6 +1,6 @@
 import ProjectsList from "@/components/ProjectsList";
 import styles from "@/styles/ProjectsPage.module.css";
-import { SiStartrek } from "react-icons/si";
+import { MdAddCircle } from "react-icons/md";
 export default function ProjectsPage() {
   return (
     <>
@@ -8,11 +8,9 @@ export default function ProjectsPage() {
       <div className={styles.projectsContainer}>
         <ProjectsList></ProjectsList>
         <div className={styles.addProjectButton}>
-          <div>
-            <p>
-              <SiStartrek />
-            </p>
-            <p>Add New Project</p>
+          <div className={styles.btnContents}>
+            <MdAddCircle className={styles.addCircle} size={30} />
+            <p>New Project</p>
           </div>
         </div>
       </div>

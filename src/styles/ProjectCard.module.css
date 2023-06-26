@@ -26,13 +26,13 @@
   font-size: 12px;
 }
 
-.techAndDate {
+.details {
   margin-top: 25px;
   display: flex;
   font-size: 10px;
   justify-content: space-between;
 }
 
-.date {
+.created_at {
   font-weight: 700;
 }

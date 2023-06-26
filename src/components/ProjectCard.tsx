@@ -16,9 +16,10 @@ export default function ProjectCard({ project }: { project: Project }) {
         })}
       </div>
 
-      <div className={styles.techAndDate}>
+      <div className={styles.details}>
         <p className={styles.tech}>{project.techStacks.join(" / ")}</p>
-        <p className={styles.created_at}> 24 June</p>
+        {/* TODO the data is not dyamic at the moment  must intergrate date-fns for this*/}
+        <p className={styles.created_at}>24 June</p>
       </div>
     </div>
   );
