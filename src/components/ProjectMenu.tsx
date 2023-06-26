@@ -2,7 +2,16 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '@/styles/ProjectMenu.module.css'
 
-export default function ProjectMenu() {
+type MenuProps = {
+  onButtonClick: (componentName: string) => void
+}
+
+export default function ProjectMenu({ onButtonClick }: MenuProps) {
+
+  function handleClick(componentName: string) {
+    onButtonClick(componentName)
+  }
+
   return (
     <>
       <div className={styles.menu}>
@@ -28,7 +37,7 @@ export default function ProjectMenu() {
           </AccordionSummary>
           <AccordionDetails>
             <button className={styles.menuButton}>file structure</button>
-            <button className={styles.menuButton}>color schema</button>
+            <button className={styles.menuButton} onClick={() => handleClick('colorsPage')}>color schema</button>
           </AccordionDetails>
         </Accordion>
       </div>

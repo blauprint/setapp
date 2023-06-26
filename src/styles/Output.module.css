@@ -1,0 +1,4 @@
+.outputPage {
+  display: flex;
+  flex-direction: row;
+}
