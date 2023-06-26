@@ -8,7 +8,7 @@ export default function HomeNavigationBar() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.logo}>SetApp</div>
+        <div className={styles.logo}><Link href={'/projects'}>SetApp</Link></div>
         <div className={styles.navOptions}>
           <SignedOut>
             <SignInButton mode="modal" afterSignInUrl={"/projects"}>
