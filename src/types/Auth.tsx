@@ -1,7 +1,7 @@
 export type Auth = {
   userId: string | undefined,
   sessionId: string | undefined,
-  getToken: Function,
+  sessionToken: Function, 
   isLoaded: boolean,
   isSignedIn: boolean | undefined,
   signOut: Function,
