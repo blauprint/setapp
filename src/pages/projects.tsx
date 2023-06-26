@@ -1,5 +1,5 @@
 import ProjectsList from "@/components/ProjectsList";
-import { projectsMock } from "@/mocks/moks-projects";
+//import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from "@/types/Auth";
@@ -13,19 +13,21 @@ export default function ProjectsPage() {
 
   const { userId,
     sessionId,
-    getToken,
     isLoaded,
+    getToken,
     isSignedIn,
     signOut,
     orgId,
     orgRole,
-    orgSlug, } = useAuth();
+    orgSlug,
+  } = useAuth();
 
+  const token = getToken;
 
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
-    getToken: getToken,
+    sessionToken: token,
     isLoaded: isLoaded,
     isSignedIn: isSignedIn,
     signOut: signOut,
@@ -39,6 +41,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     if (user) {
       getProjects(auth).then((res) => {
+        console.log(res)
         projects = res;
       });
     }
