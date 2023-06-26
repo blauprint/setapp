@@ -11,7 +11,6 @@ import { useEffect } from "react";
 export default function ProjectsPage() {
 
   const { user } = useUser()
-
   const { userId,
     sessionId,
     getToken,
@@ -20,9 +19,10 @@ export default function ProjectsPage() {
     signOut,
     orgId,
     orgRole,
-    orgSlug, } = useAuth();
+    orgSlug,
+  } = useAuth();
 
-
+  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -40,6 +40,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     if (user) {
       getProjects(auth).then((res) => {
+        console.log(sessionToken);
         projects = res;
       });
     }
