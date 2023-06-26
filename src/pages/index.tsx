@@ -12,7 +12,6 @@ export default function Home() {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <p> This will be the homepage for project website</p>
-      <IdeaInputForm />
     </>
   );
 }

@@ -35,25 +35,24 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString()
   }
 
-  let projects: Project[] = [];
+  // let projects: Project[] = [];
 
-  useEffect(() => {
-    if (user) {
-      getProjects(auth).then((res) => {
-        console.log(sessionToken);
-        projects = res;
-      });
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     getProjects(auth).then((res) => {
+  //       console.log(sessionToken);
+  //       projects = res;
+  //     });
+  //   }
+  // }, [user])
 
-  // const projects = projectsMock;
+  const projects = projectsMock;
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
           <ProjectsList projects={projects}></ProjectsList>
-          <button className={styles.addProjectButton}>Add Project</button>
         </div>
       </SignedIn>
       <SignedOut><RedirectToSignIn></RedirectToSignIn></SignedOut>
