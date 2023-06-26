@@ -1,3 +1,4 @@
+import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
 import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
