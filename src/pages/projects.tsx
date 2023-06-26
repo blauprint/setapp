@@ -1,3 +1,4 @@
+import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
 //import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
@@ -10,7 +11,6 @@ import { useEffect } from "react";
 export default function ProjectsPage() {
 
   const { user } = useUser()
-
   const { userId,
     sessionId,
     isLoaded,
@@ -24,6 +24,7 @@ export default function ProjectsPage() {
 
   const token = getToken;
 
+  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -41,7 +42,6 @@ export default function ProjectsPage() {
   useEffect(() => {
     if (user) {
       getProjects(auth).then((res) => {
-        console.log(res)
         projects = res;
       });
     }
