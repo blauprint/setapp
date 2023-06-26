@@ -1,5 +1,6 @@
-import { useState, useRef, ChangeEvent } from "react";
+import { useRef, ChangeEvent } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
+import { BiSend } from 'react-icons/bi'
 
 export default function IdeaInputForm() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -13,8 +14,8 @@ export default function IdeaInputForm() {
   };
 
   return (
-    <form>
-      <div className={styles.inputGroup}>
+    <div className={styles.inputContainer}>
+      <form className={styles.form}>
         <textarea
           className={styles.ideaTextArea}
           ref={textAreaRef}
@@ -28,7 +29,8 @@ export default function IdeaInputForm() {
         <label className={styles.ideaLabel} htmlFor="name">
           <span className={styles.ideaSpan}>Type in your app idea....</span>
         </label>
-      </div>
-    </form>
+        <button type="submit" className={styles.sendBtn}><BiSend /></button>
+      </form>
+    </div>
   );
 }
