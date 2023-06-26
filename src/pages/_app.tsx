@@ -8,12 +8,17 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      {...pageProps}
-      appearance={{
-        baseTheme: dark,
-      }}
+      {...pageProps} appearance={
+        {
+          baseTheme: dark,
+          variables: {
+            colorPrimary: "#ffa41b",
+            colorText: "white"
+          }
+        }
+      }
     >
-      <HomeNavigationBar/>
+      <HomeNavigationBar />
       <Component {...pageProps} />
     </ClerkProvider>
   );

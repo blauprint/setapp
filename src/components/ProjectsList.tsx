@@ -1,14 +1,9 @@
 import { Project } from "@/types/Project";
-import { projectsMock } from "../mocks/moks-projects";
 import ProjectCard from "./ProjectCard";
 
 import styles from '@/styles/ProjectsList.module.css';
 
-export default function ProjectsList() {
-
-  // const projects: Project[] = [];
-
-  const projects = projectsMock;
+export default function ProjectsList({ projects }: { projects: Project[] }) {
 
   return (
     <>
