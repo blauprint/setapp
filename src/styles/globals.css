@@ -11,15 +11,18 @@
 
   /* dividors borders background elements */
   --neutral-color-dark: #4f4f4f;
-  --background-color-dark: grey;
+  --background-color-dark: #2d2d2d;
   --surface-color-dark: #212327;
   --error-color-dark: red;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Ubuntu+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Ubuntu:wght@400;500;700&display=swap");
 
-/* font-family: 'Montserrat', sans-serif;
-font-family: 'Ubuntu Mono', monospace; */
+/* 
+font-family: 'Jost', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Ubuntu', sans-serif;
+*/
 
 /* CSS RESET */
 *,
@@ -71,6 +74,6 @@ h6 {
 /* GLOBALS */
 
 body {
-  font-family: "Ubuntu Mono", monospace;
+  font-family: "Jost", sans-serif;
   background-color: var(--background-color-dark);
 }
