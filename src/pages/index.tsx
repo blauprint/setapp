@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from '@/styles/HomePage.module.css'
+import { SignUp } from "@clerk/nextjs";
 
 export default function Home() {
   return (

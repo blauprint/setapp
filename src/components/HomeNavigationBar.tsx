@@ -6,10 +6,10 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import Link from "next/link";
-export default function HomeNavigationBar() {
-  const { user } = useUser();
 
+import Link from "next/link";
+
+export default function HomeNavigationBar() {
   return (
     <>
       
@@ -22,7 +22,7 @@ export default function HomeNavigationBar() {
         <div className={styles.navOptions}>
           
           <SignedOut>
-            <SignInButton mode="modal" afterSignInUrl={"/projects"}>
+            <SignInButton mode="modal" afterSignInUrl={"/projects"} afterSignUpUrl="/projects">
               <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
@@ -30,7 +30,6 @@ export default function HomeNavigationBar() {
           <SignedIn>
             <Link href="/profile" className="user-name">
               <UserButton afterSignOutUrl="/" />
-              <span>{user?.username}</span>
             </Link>
           </SignedIn>
           
