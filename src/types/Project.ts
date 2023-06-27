@@ -1,8 +1,8 @@
 export type Project = {
   id: number;
-  authorId: string;
+  author: string;
   title: string;
-  createdAt: Date;
+  created_at: number;
   intro: string;
   techStacks: string[];
 };
