@@ -1,7 +1,7 @@
 :root {
   /* ================ Dark Mode ======================= */
   /* button, icons, highlights */
-  --primary-color-dark: #ffa41b;
+  --primary-color-dark: #4a07cf;
   /* headers, section background, accents */
   --secondary-color-dark: green;
   /* text */
@@ -11,7 +11,8 @@
 
   /* dividors borders background elements */
   --neutral-color-dark: #4f4f4f;
-  --background-color-dark: #2d2d2d;
+  /* --background-color-dark: #2d2d2d; */
+  --background-color-dark: black;
   --surface-color-dark: #212327;
   --error-color-dark: red;
 }
@@ -35,9 +36,15 @@ font-family: 'Ubuntu', sans-serif;
   margin: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
+  color: var(--text-color-dark);
 }
 
 img,
@@ -76,4 +83,14 @@ h6 {
 body {
   font-family: "Jost", sans-serif;
   background-color: var(--background-color-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover,
+button:hover {
+  cursor: pointer;
 }

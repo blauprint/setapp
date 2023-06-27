@@ -13,8 +13,8 @@ export default function ProjectsPage() {
   const { user } = useUser()
   const { userId,
     sessionId,
-    getToken,
     isLoaded,
+    getToken,
     isSignedIn,
     signOut,
     orgId,
@@ -22,11 +22,13 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
+  const token = getToken;
+
   const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
-    getToken: getToken,
+    sessionToken: token,
     isLoaded: isLoaded,
     isSignedIn: isSignedIn,
     signOut: signOut,
@@ -35,25 +37,25 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString()
   }
 
-  let projects: Project[] = [];
+  // // let projects: Project[] = [];
 
-  useEffect(() => {
-    if (user) {
-      getProjects(auth).then((res) => {
-        console.log(sessionToken);
-        projects = res;
-      });
-    }
-  }, [user])
 
-  // const projects = projectsMock;
+  // // useEffect(() => {
+  // //   if (user) {
+  // //     getProjects(auth).then((res) => {
+  // //       console.log(sessionToken);
+  // //       projects = res;
+  // //     });
+  // //   }
+  // // }, [user])
+
+  const projects = projectsMock;
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
           <ProjectsList projects={projects}></ProjectsList>
-          <button className={styles.addProjectButton}>Add Project</button>
         </div>
       </SignedIn>
       <SignedOut><RedirectToSignIn></RedirectToSignIn></SignedOut>
