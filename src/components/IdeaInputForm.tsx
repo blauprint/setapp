@@ -37,9 +37,11 @@ export default function IdeaInputForm() {
     setIdea(e.target.value);
   };
 
-
   const projectName = 'seismica'
   let router = useRouter();
+  
+  // const projectName = 'seismica'
+
   const onSubmit: SubmitHandler<FieldValues> = (e) => {
     e.preventDefault();
 

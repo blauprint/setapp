@@ -2,16 +2,22 @@ import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
 import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
-import styles from '@/styles/ProjectsPage.module.css';
+import styles from "@/styles/ProjectsPage.module.css";
 import { Auth } from "@/types/Auth";
 import { Project } from "@/types/Project";
-import { RedirectToSignIn, SignedIn, SignedOut, useAuth, useUser } from "@clerk/nextjs";
+import {
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+  useAuth,
+  useUser,
+} from "@clerk/nextjs";
 import { useEffect } from "react";
 
 export default function ProjectsPage() {
-
-  const { user } = useUser()
-  const { userId,
+  const { user } = useUser();
+  const {
+    userId,
     sessionId,
     isLoaded,
     getToken,
@@ -34,31 +40,21 @@ export default function ProjectsPage() {
     signOut: signOut,
     orgId: orgId?.toString(),
     orgRole: orgRole?.toString(),
-    orgSlug: orgSlug?.toString()
-  }
-
-  // // let projects: Project[] = [];
+    orgSlug: orgSlug?.toString(),
+  };
 
 
-  // // useEffect(() => {
-  // //   if (user) {
-  // //     getProjects(auth).then((res) => {
-  // //       console.log(sessionToken);
-  // //       projects = res;
-  // //     });
-  // //   }
-  // // }, [user])
-
-  const projects = projectsMock;
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
-          <ProjectsList projects={projects}></ProjectsList>
+          {/* <ProjectsList projects={projects}></ProjectsList> */}
         </div>
       </SignedIn>
-      <SignedOut><RedirectToSignIn></RedirectToSignIn></SignedOut>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
     </>
-  )
+  );
 }
