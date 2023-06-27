@@ -38,7 +38,7 @@ export default function IdeaInputForm() {
   };
 
   let router = useRouter();
-  // const projectName = 'seismica'
+  const projectName = 'seismica'
 
   const onSubmit: SubmitHandler<FieldValues> = (e) => {
     e.preventDefault();
@@ -46,7 +46,6 @@ export default function IdeaInputForm() {
     //TODO send data to AI, redirect to project page
     const newIdea: string = idea;
     console.log(newIdea)
-    // const projectData = sendIdea(newIdea);
 
     const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/output`
     router.push(url)
