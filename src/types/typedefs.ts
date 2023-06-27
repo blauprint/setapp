@@ -1,22 +1,22 @@
-export interface Technology {
+export type Technology = {
   name: string;
   whyGoodOption: string;
   description: string;
   link: string;
 }
 
-export interface Color {
+export type Color = {
   name: string;
   hex: string;
   rgb: string;
 }
 
-export interface ColorScheme {
+export type ColorScheme = {
   whyGoodOption: string;
   colorPalette: Color[];
 }
 
-export interface ProjectData {
+export type ProjectData = {
   idea: string;
   toDoList: string[];
   frontend: {
