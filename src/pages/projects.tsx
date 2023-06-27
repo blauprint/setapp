@@ -22,9 +22,10 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-  const token = getToken;
-
-  const sessionToken = getToken();
+  let token: string | null = ''
+  const sessionToken = getToken().then((res) =>
+    token = res
+  )
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -37,19 +38,19 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString()
   }
 
-  // // let projects: Project[] = [];
+  let projects: Project[] = [];
 
 
-  // // useEffect(() => {
-  // //   if (user) {
-  // //     getProjects(auth).then((res) => {
-  // //       console.log(sessionToken);
-  // //       projects = res;
-  // //     });
-  // //   }
-  // // }, [user])
+  useEffect(() => {
+    if (user) {
+      getProjects(auth).then((res) => {
+        console.log(sessionToken);
+        projects = res;
+      });
+    }
+  }, [user])
 
-  const projects = projectsMock;
+  // const projects = projectsMock;
 
   return (
     <>
