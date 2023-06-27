@@ -1,15 +1,14 @@
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import styles from '@/styles/ProjectMenu.module.css'
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import styles from "@/styles/ProjectMenu.module.css";
 
 type MenuProps = {
-  onButtonClick: (componentName: string) => void
-}
+  onButtonClick: (componentName: string) => void;
+};
 
 export default function ProjectMenu({ onButtonClick }: MenuProps) {
-
   function handleClick(componentName: string) {
-    onButtonClick(componentName)
+    onButtonClick(componentName);
   }
 
   return (
@@ -17,30 +16,69 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
       <div className={styles.menu}>
         <Accordion className={styles.accordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              color: "white",
+              bgcolor: "var(--surface-color-dark)",
+              border: "none !important",
+              boxShadow: "none !important",
+            }}
+            expandIcon={
+              <ExpandMoreIcon
+                sx={{
+                  fill: "white",
+                }}
+              />
+            }
             aria-controls="backend"
-            id="backend-panel">
+            id="backend-panel"
+          >
             <div className={styles.accordionTitle}>Backend</div>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{
+              bgcolor: "var(--surface-color-dark)",
+            }}
+          >
             <button className={styles.menuButton}>file structure</button>
             <button className={styles.menuButton}>model</button>
           </AccordionDetails>
         </Accordion>
 
-        <Accordion>
+        <Accordion className={styles.accordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              color: "white",
+              bgcolor: "var(--surface-color-dark)",
+              border: "none !important",
+              boxShadow: "none !important",
+            }}
+            expandIcon={
+              <ExpandMoreIcon
+                sx={{
+                  fill: "white",
+                }}
+              />
+            }
             aria-controls="frontend"
-            id="frontend-panel">
+            id="frontend-panel"
+          >
             <div className={styles.accordionTitle}>Frontend</div>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{
+              bgcolor: "var(--surface-color-dark)",
+            }}
+          >
             <button className={styles.menuButton}>file structure</button>
-            <button className={styles.menuButton} onClick={() => handleClick('colorsPage')}>color schema</button>
+            <button
+              className={styles.menuButton}
+              onClick={() => handleClick("colorsPage")}
+            >
+              color schema
+            </button>
           </AccordionDetails>
         </Accordion>
       </div>
     </>
-  )
+  );
 }
