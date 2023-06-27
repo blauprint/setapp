@@ -12,12 +12,15 @@ export default function HomeNavigationBar() {
 
   return (
     <>
+      
       <div className={styles.container}>
+        
         <div className={styles.logo}>
           <Link href={"/projects"}>SetApp</Link>
         </div>
 
         <div className={styles.navOptions}>
+          
           <SignedOut>
             <SignInButton mode="modal" afterSignInUrl={"/projects"}>
               <button className={styles.loginBtn}>Login</button>
@@ -29,12 +32,12 @@ export default function HomeNavigationBar() {
               <UserButton afterSignOutUrl="/" />
               <span>{user?.username}</span>
             </Link>
-
-            {/* For AI testing purposes: */}
-            <Link href="/ai_page">Test AI</Link>
           </SignedIn>
+          
         </div>
+        
       </div>
+      
     </>
   );
 }
