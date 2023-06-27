@@ -1,6 +1,6 @@
 import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-import { projectsMock } from "@/mocks/moks-projects";
+// import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from "@/types/Auth";
@@ -39,7 +39,6 @@ export default function ProjectsPage() {
   }
 
   let projects: Project[] = [];
-
 
   useEffect(() => {
     if (user) {
