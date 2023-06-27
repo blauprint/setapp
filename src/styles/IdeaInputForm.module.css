@@ -1,6 +1,20 @@
+.inputContainer {
+  display: flex;
+  margin: 2%;
+  margin-top: 15%;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
 .ideaTextArea {
   display: block;
-  width: 60%;
+  width: 100%;
   font-size: 25px;
   border: none;
   color: white;
@@ -12,7 +26,7 @@
   resize: none;
 }
 
-textarea.ideaTextArea + label.ideaLabel {
+textarea.ideaTextArea+label.ideaLabel {
   display: block;
   position: relative;
   white-space: nowrap;
@@ -26,8 +40,8 @@ textarea.ideaTextArea + label.ideaLabel {
   letter-spacing: 1px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel,
-textarea.ideaTextArea:focus + label.ideaLabel {
+textarea.ideaTextArea:focus+label.ideaLabel,
+textarea.ideaTextArea:focus+label.ideaLabel {
   width: 60%;
 }
 
@@ -36,8 +50,8 @@ textarea.ideaTextArea:focus {
   margin-top: 35px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
-textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
+textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
+textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
   top: 10px;
   font-size: 22px;
   color: white;
@@ -57,4 +71,16 @@ span.ideaSpan {
   top: -66px;
   z-index: -1;
   transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+}
+
+.sendBtn {
+  flex-grow: 1;
+  align-self: end;
+  margin-right: 0;
+  font-size: 48px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  scale: 0.8;
+  transition: all 0.2s ease-in-out;
 }

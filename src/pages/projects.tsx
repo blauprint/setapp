@@ -1,6 +1,6 @@
 import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-//import { projectsMock } from "@/mocks/moks-projects";
+import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from "@/types/Auth";
@@ -37,24 +37,25 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString()
   }
 
-  let projects: Project[] = [];
+  // // let projects: Project[] = [];
 
-  useEffect(() => {
-    if (user) {
-      getProjects(auth).then((res) => {
-        projects = res;
-      });
-    }
-  }, [user])
 
-  // const projects = projectsMock;
+  // // useEffect(() => {
+  // //   if (user) {
+  // //     getProjects(auth).then((res) => {
+  // //       console.log(sessionToken);
+  // //       projects = res;
+  // //     });
+  // //   }
+  // // }, [user])
+
+  const projects = projectsMock;
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
           <ProjectsList projects={projects}></ProjectsList>
-          <button className={styles.addProjectButton}>Add Project</button>
         </div>
       </SignedIn>
       <SignedOut><RedirectToSignIn></RedirectToSignIn></SignedOut>
