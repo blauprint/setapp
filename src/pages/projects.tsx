@@ -50,7 +50,6 @@ export default function ProjectsPage() {
   // // }, [user])
 
   const projects = projectsMock;
-  const projects = projectsMock;
 
   return (
     <>
