@@ -6,6 +6,7 @@
   padding: 15px 20px;
   margin-bottom: 50px;
 }
+
 .logo {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -21,4 +22,5 @@
   padding: 10px 20px;
   border-radius: 25px;
   font-weight: 700;
+  color: var(--text-color-dark);
 }

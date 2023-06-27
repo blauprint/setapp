@@ -33,7 +33,7 @@ textarea.ideaTextArea+label.ideaLabel {
   padding: 0;
   margin: 0;
   width: 10%;
-  border-top: 1px solid orange;
+  border-top: 2px solid var(--primary-color-dark);
   transition: width 0.4s ease;
   height: 0px;
   color: white;
