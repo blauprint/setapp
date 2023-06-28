@@ -24,17 +24,18 @@ export type Database = Technology & {
 export type ProjectData = {
   idea: string;
   projectName: string;
-  toDoList: string[];
+  summary: string;
   frontend: {
+    toDoList: string[];
     framework: Technology;
     colorScheme: ColorScheme;
   };
 
   backend: {
+    toDoList: string[];
     framework: Technology;
     database: String;
   };
-  notes: string;
   createdAt: number;
 };
 

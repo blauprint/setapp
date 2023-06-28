@@ -14,7 +14,6 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
   return (
     <>
       <div className={styles.menu}>
-
         <Accordion className={styles.accordion}>
           <AccordionSummary
             sx={{
@@ -40,9 +39,9 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
               bgcolor: "var(--surface-color-dark)",
             }}
           >
-            <button className={styles.menuButton}>To-do</button>
-            <button className={styles.menuButton}>Framework</button>
-            <button className={styles.menuButton}>Model</button>
+            <button className={styles.menuButton} onClick={() => handleClick("todosBE")}>To-do</button>
+            <button className={styles.menuButton} onClick={() => handleClick("frameworkBE")}>Framework</button>
+            <button className={styles.menuButton} onClick={() => handleClick("model")}>Model</button>
           </AccordionDetails>
         </Accordion>
 
@@ -71,14 +70,9 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
               bgcolor: "var(--surface-color-dark)",
             }}
           >
-            <button className={styles.menuButton}>To-do</button>
-            <button className={styles.menuButton}>Framework</button>
-            <button
-              className={styles.menuButton}
-              onClick={() => handleClick("colorsPage")}
-            >
-              Color Schema
-            </button>
+            <button className={styles.menuButton} onClick={() => handleClick("todosFE")}>To-do</button>
+            <button className={styles.menuButton} onClick={() => handleClick("frameworkFE")}>Framework</button>
+            <button className={styles.menuButton} onClick={() => handleClick("colors")}>Color Schema</button>
           </AccordionDetails>
         </Accordion>
       </div>

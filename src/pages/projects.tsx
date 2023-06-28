@@ -66,7 +66,7 @@ export default function ProjectsPage() {
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
-          {/* <ProjectsList projects={projects}></ProjectsList> */}
+          <ProjectsList projects={projects}></ProjectsList>
         </div>
       </SignedIn>
       <SignedOut>

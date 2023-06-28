@@ -1,5 +1,5 @@
-import { Color } from "@/types/Color";
 import styles from '@/styles/ColorCard.module.css'
+import { Color } from '@/types/typedefs'
 
 export default function ColorCard({ color }: { color: Color }) {
 
