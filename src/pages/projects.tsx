@@ -30,10 +30,9 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-  let token: string | null = ''
-  const sessionToken = getToken().then((res) =>
-    token = res
-  )
+  const token = getToken;
+
+  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -43,8 +42,8 @@ export default function ProjectsPage() {
     signOut: signOut,
     orgId: orgId?.toString(),
     orgRole: orgRole?.toString(),
-    orgSlug: orgSlug?.toString()
-  }
+    orgSlug: orgSlug?.toString(),
+  };
 
   // let projects: Project[] = [];
 
@@ -62,11 +61,12 @@ export default function ProjectsPage() {
   let dispatch = useAppDispatch()
   dispatch(addProjects(projects))
 
+
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
-          <ProjectsList projects={projects}></ProjectsList>
+          {/* <ProjectsList projects={projects}></ProjectsList> */}
         </div>
       </SignedIn>
       <SignedOut>
