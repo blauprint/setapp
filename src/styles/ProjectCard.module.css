@@ -30,6 +30,7 @@
 .details {
   margin-top: 25px;
   display: flex;
+  flex-direction: column;
   font-size: 10px;
   justify-content: space-between;
 }
