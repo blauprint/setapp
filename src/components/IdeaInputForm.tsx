@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "@/redux/hooks";
+import { addCurrentProject } from "@/redux/currentProjectSlice";
 
 const formSchema = Yup.object().shape({
   idea: Yup.string()
@@ -39,7 +41,7 @@ export default function IdeaInputForm() {
 
   const projectName = 'seismica'
   let router = useRouter();
-  
+  let dispatch = useAppDispatch();
   // const projectName = 'seismica'
 
   const onSubmit: SubmitHandler<FieldValues> = (e) => {
@@ -49,6 +51,8 @@ export default function IdeaInputForm() {
     const newIdea: string = idea;
     console.log(newIdea)
     // const projectData = sendIdea(newIdea);
+
+    // dispatch(addCurrentProject(projectData));
 
     const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/output`
     router.push(url)
