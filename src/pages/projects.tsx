@@ -62,15 +62,13 @@ export default function ProjectsPage() {
   dispatch(addProjects(projects));
 
   return (
-    <>
+    <div className={styles.projectsPageWrapper}>
       <SignedIn>
-        <div className={styles.projectsContainer}>
-          <ProjectsList projects={projects}></ProjectsList>
-        </div>
+        <ProjectsList projects={projects}></ProjectsList>
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-    </>
+    </div>
   );
 }
