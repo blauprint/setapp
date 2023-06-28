@@ -36,7 +36,8 @@ export default function HomeNavigationBar() {
           </div>
         }
         {(currentRoute === '/' ||
-          currentRoute === '/[userName]/[projectName]/output') &&
+          currentRoute === '/[userName]/[projectName]/output' ||
+          currentRoute === '/idea') &&
           <div>
             <Link href={'/projects'}>Projects</Link>
           </div>
