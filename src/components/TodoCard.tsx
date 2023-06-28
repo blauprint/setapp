@@ -5,6 +5,7 @@ interface TodoCardProps {
 }
 
 const TodoCard: React.FC<TodoCardProps> = ({todo}) => {
+  
   return (
     <div className={styles.projectCard}>
       {todo}
