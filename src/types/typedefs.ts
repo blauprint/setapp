@@ -1,7 +1,7 @@
 export type Technology = {
   name: string;
-  whyGoodOption: string;
-  description: string;
+  whyGoodOption: string; //one short sentence
+  description: string; // one short sentence
   link: string;
 };
 
@@ -12,7 +12,7 @@ export type Color = {
 };
 
 export type ColorScheme = {
-  whyGoodOption: string;
+  whyGoodOption: string; //one short sentence
   colorPalette: Color[];
 };
 
@@ -24,19 +24,22 @@ export type Database = Technology & {
 export type ProjectData = {
   idea: string;
   projectName: string;
-  toDoList: string[];
   frontend: {
+    toDoList: string[];
     framework: Technology;
     colorScheme: ColorScheme;
   };
 
   backend: {
+    toDoList: string[];
     framework: Technology;
     database: Database;
   };
-
-  notes: string;
 };
+
+
+// Below is the copy of the above types, but with all the properties as string.
+// This is used to build the AI prompt, so we can get a valid JSON string.
 
 // export type Technology = {
 //   "name": string;

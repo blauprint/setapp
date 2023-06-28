@@ -18,19 +18,6 @@ import { add } from "@/redux/projectsSlice";
 
 export default function Ai() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
-  // const [frontendFrameworks, setFrontendFrameworks] = useState<Technology[]>(
-  //   [],
-  // );
-  // const [frontendLibraries, setFrontendLibraries] = useState<Technology[]>([]);
-  // const [frontendColorScheme, setFrontendColorScheme] = useState<ColorScheme>(
-  //   {} as ColorScheme,
-  // );
-  // const [frontendColorPalette, setFrontendColorPalette] = useState<Color[]>([]);
-  // const [backendFrameworks, setBackendFrameworks] = useState<Technology[]>([]);
-  // const [backendLibraries, setBackendLibraries] = useState<Technology[]>([]);
-  // const [database, setDatabase] = useState<Technology>({} as Technology);
-  // const [toDoList, setToDoList] = useState<string[]>([]);
-  // const [notes, setNotes] = useState<string[]>([]);
 
   const project = store.getState().projects[0];
   const dispatch = useAppDispatch();
@@ -46,15 +33,12 @@ export default function Ai() {
     api: "/api/chat/openai_api",
     onError: handleError,
     onResponse: handleResponse,
-    onFinish(prompt, completion) {
-      console.log("Finished completion!");
-      console.log("Completion:", completion);
-      console.log("Prompt:", prompt);
-      const projectJson: ProjectData = JSON.parse(`{ ${completion}`);
-      dispatch(add(projectJson));
-      setCardData(projectJson);
-    },
+    onFinish: handleFinish,
   });
+
+
+
+  // Handler functions
 
   function handleError(error: Error) {
     console.error(error);
@@ -64,103 +48,44 @@ export default function Ai() {
     console.log("Getting response...");
   }
 
-  // useEffect(() => {
-  //   let i;
-  //   //Step 1: Get the frontend object from the completion
-  //   i = completion.indexOf(`"frontend": {`);
-  //   if (i) {
-  //     console.log(i);
-  //   }
-  // }, [completion]);
+  function handleFinish(prompt: string, completion: string) {
+    console.log("Finished completion!");
+    console.log("Completion:", completion);
+    console.log("Prompt:", prompt);
+    const projectJson: ProjectData = JSON.parse(`{ ${completion} }`);
+    dispatch(add(projectJson));
+    setCardData(projectJson);
+  }
+
+
+  // Regex functions
+  
+  function regexDataExtractor(data: string) {
+    //WORK IN PROGRESS
+    let projectNameRegex = /"projectName":\s*"([^"]*)"/;
+    let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
+    let summaryRegex = /"summary":\s*"([^"]*)"/;
+    let frontendRegex = /"frontend":\s*{([^}]*)}/;
+    let backendRegex = /"backend":\s*{([^}]*)}/;
+
+    //TODO: memoize regexes
+    let regexes: RegExp[] = [
+      projectNameRegex,
+      toDoListRegex,
+      summaryRegex,
+      frontendRegex,
+      backendRegex,
+    ];
+
+    if (projectNameRegex.test(data)) {
+      let projectName = data.match(projectNameRegex);
+      console.log(projectName);
+    }
+  }
 
   useEffect(() => {
-    console.log(project);
-  }, [project]);
-
-  useEffect(() => {
-    let newCardData = JSON.parse(`{
-      "toDoList": [
-        "Research the best technologies to use for the project",
-        "Create a color scheme for the project",
-        "Design the frontend of the project",
-        "Develop the backend of the project",
-        "Test the project"
-      ],
-      "frontend": {
-        "framework": {
-          "name": "React",
-          "whyGoodOption": "React is a popular JavaScript library for building user interfaces that is easy to learn and use.",
-          "description": "React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies. React can be used as a base in the development of single-page or mobile applications.",
-          "link": "https://reactjs.org/"
-        },
-        "libraries": [{
-            "name": "React Router",
-            "whyGoodOption": "React Router is a popular library for routing in React applications.",
-            "description": "React Router is a popular library for routing in React applications. It provides a way to declaratively map routes to components, and allows for programmatic navigation and component composition.",
-            "link": "https://reactrouter.com/"
-          },
-          {
-            "name": "Redux",
-            "whyGoodOption": "Redux is a popular library for managing state in React applications.",
-            "description": "Redux is a popular library for managing state in React applications. It provides a predictable, single-state tree which makes it easy to debug, test, and maintain applications.",
-            "link": "https://redux.js.org/"
-          }
-        ],
-        "colorScheme": {
-          "whyGoodOption": "This color scheme is a good option for the given app idea because it is bright and vibrant, which will help to draw attention to the app and make it more engaging.",
-          "colorPalette": [{
-              "name": "Primary Color",
-              "role": "primary-color",
-              "hex": "#FF0000",
-              "rgb": "rgb(255, 0, 0)"
-            },
-            {
-              "name": "Accent Color",
-              "role": "accent-color",
-              "hex": "#00FF00",
-              "rgb": "rgb(0, 255, 0)"
-            },
-            {
-              "name": "Background Color",
-              "role": "background-color",
-              "hex": "#0000FF",
-              "rgb": "rgb(0, 0, 255)"
-            }
-          ]
-        }
-      },
-      "backend": {
-        "framework": {
-          "name": "Node.js",
-          "whyGoodOption": "Node.js is a popular JavaScript runtime for building server-side applications.",
-          "description": "Node.js is a popular JavaScript runtime for building server-side applications. It is fast, lightweight, and efficient, and is used by many large companies such as Netflix, Uber, and PayPal.",
-          "link": "https://nodejs.org/"
-        },
-        "libraries": [{
-            "name": "Express",
-            "whyGoodOption": "Express is a popular web framework for Node.js.",
-            "description": "Express is a popular web framework for Node.js. It is fast, flexible, and provides a simple way to create web applications and APIs.",
-            "link": "https://expressjs.com/"
-          },
-          {
-            "name": "Mongoose",
-            "whyGoodOption": "Mongoose is a popular library for working with MongoDB.",
-            "description": "Mongoose is a popular library for working with MongoDB. It provides a simple way to model and query data, and is used by many large companies such as Uber and Airbnb.",
-            "link": "https://mongoosejs.com/"
-          }
-        ],
-        "database": {
-          "name": "MongoDB",
-          "whyGoodOption": "MongoDB is a popular NoSQL database.",
-          "description": "MongoDB is a popular NoSQL database. It is fast, scalable, and provides a simple way to store and query data.",
-          "link": "https://www.mongodb.com/"
-        }
-      },
-      "notes": "This project will use React for the frontend, Node.js for the backend, and MongoDB for the database."
-    }`);
-    dispatch(add(newCardData));
-    setCardData(store.getState().projects[0]);
-  }, []);
+    // regexDataExtractor(completion);
+  }, [completion]);
 
   return (
     <>
