@@ -17,7 +17,6 @@
   width: 100%;
   font-size: 25px;
   border: none;
-  color: white;
   background-color: transparent;
   overflow: hidden;
   outline: none;
@@ -33,10 +32,9 @@ textarea.ideaTextArea+label.ideaLabel {
   padding: 0;
   margin: 0;
   width: 10%;
-  border-top: 2px solid var(--primary-color-dark);
+  border-top: 2px solid var(--primary-color);
   transition: width 0.4s ease;
   height: 0px;
-  color: white;
   letter-spacing: 1px;
 }
 
@@ -54,15 +52,7 @@ textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
 textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
   top: 10px;
   font-size: 22px;
-  color: white;
 }
-
-/* textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
-textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
-  top: -150px;
-  font-size: 22px;
-  color: white;
-} */
 
 span.ideaSpan {
   font-weight: 600;
@@ -80,7 +70,6 @@ span.ideaSpan {
   font-size: 48px;
   background-color: transparent;
   border: none;
-  color: white;
   scale: 0.8;
   transition: all 0.2s ease-in-out;
 }

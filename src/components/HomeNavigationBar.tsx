@@ -10,6 +10,7 @@ import {
   useUser,
 } from "@clerk/nextjs";
 
+
 import { Quicksand } from "next/font/google";
 const trainOne = Quicksand({
   weight: ["400", "600", "700"],
@@ -19,6 +20,7 @@ const trainOne = Quicksand({
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import ThemeSwitch from "./ThemeSwitch";
 
 export default function HomeNavigationBar() {
   const router = useRouter();
@@ -34,7 +36,7 @@ export default function HomeNavigationBar() {
           className={trainOne.className}
           style={{
             fontSize: "28px",
-            color: "#fff",
+            color: "var(--text-color)",
             letterSpacing: "9px",
             fontWeight: 600,
           }}
@@ -42,22 +44,26 @@ export default function HomeNavigationBar() {
           <Link href={"/"}>setapp</Link>
         </div>
 
+
         {projectName && currentRoute === "/[userName]/[projectName]/output" && (
           <div className={styles.projectName}>{projectName}</div>
         )}
+
 
         <div className={styles.navOptions}>
           <SignedIn>
             {(currentRoute === "/" ||
               currentRoute === "/[userName]/[projectName]/output" ||
-              currentRoute === "/idea") && (
-              <div>
-                <Link className={styles.projectlink} href={"/projects"}>
-                  Projects
-                </Link>
-              </div>
-            )}
+              currentRoute === '/idea') && (
+                <div>
+                  <Link className={styles.projectlink} href={"/projects"}>
+                    Projects
+                  </Link>
+                </div>
+              )}
+
           </SignedIn>
+          <ThemeSwitch />
           <SignedOut>
             <SignInButton
               mode="modal"
@@ -67,7 +73,6 @@ export default function HomeNavigationBar() {
               <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
-
           <SignedIn>
             <Link href="/profile" className="user-name">
               <UserButton afterSignOutUrl="/" />
