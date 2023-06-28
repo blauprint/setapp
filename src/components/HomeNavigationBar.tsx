@@ -46,7 +46,6 @@ export default function HomeNavigationBar() {
             {projectName}
           </div>
         }
-        <ThemeSwitch />
         <div className={styles.navOptions}>
           <SignedIn>
             {(currentRoute === "/" ||
@@ -58,8 +57,8 @@ export default function HomeNavigationBar() {
                   </Link>
                 </div>
               )}
-
           </SignedIn>
+          <ThemeSwitch />
           <SignedOut>
             <SignInButton
               mode="modal"

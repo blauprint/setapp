@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { MdDarkMode, MdOutlineWbSunny } from 'react-icons/md';
+import styles from '@/styles/ThemeSwitch.module.css';
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -15,11 +17,11 @@ export default function ThemeSwitch() {
 
   return (
     <>
-      <button
+      <button className={styles.switchBtn}
         onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
       >
-        <span>Toggle Theme</span>
-      </button>
+        {resolvedTheme === 'dark' ? (<MdOutlineWbSunny />) : (<MdDarkMode />)}
+      </button >
     </>
   );
 }
