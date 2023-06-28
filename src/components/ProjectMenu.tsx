@@ -7,6 +7,7 @@ type MenuProps = {
 };
 
 export default function ProjectMenu({ onButtonClick }: MenuProps) {
+
   function handleClick(componentName: string) {
     onButtonClick(componentName);
   }
@@ -14,6 +15,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
   return (
     <>
       <div className={styles.menu}>
+        <button className={styles.menuButton} onClick={() => handleClick("")}>Start</button>
         <Accordion className={styles.accordion}>
           <AccordionSummary
             sx={{

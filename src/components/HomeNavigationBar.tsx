@@ -6,6 +6,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from "@clerk/nextjs";
 
 import Link from "next/link";
@@ -17,8 +18,8 @@ export default function HomeNavigationBar() {
   const router = useRouter();
   const currentRoute = router.pathname;
 
-  let currentProjectName: string = store.getState().currentProject.projectName;
-
+  let projectName: string = store.getState().currentProject.projectName;
+  let userName = useUser().user?.username;
 
   return (
     <>
@@ -29,9 +30,9 @@ export default function HomeNavigationBar() {
           <Link href={"/"}>SetApp</Link>
         </div>
 
-        {(currentProjectName && currentRoute === '/[userName]/[projectName]/output') &&
+        {(projectName && currentRoute === '/[userName]/[projectName]/output') &&
           <div className={styles.projectName}>
-            <Link href={'/[userName]/[projectName]/output'}>{currentProjectName}</Link>
+            {projectName}
           </div>
         }
         {(currentRoute === '/' ||
