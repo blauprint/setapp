@@ -1,12 +1,3 @@
-.projectsList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 3%;
-  justify-content: flex-start;
-  padding: 1%;
-}
-
 .addProjectButton {
   background-color: var(--surface-color);
   font-family: "Montserrat", sans-serif;
@@ -22,7 +13,7 @@
   justify-content: center;
   align-items: flex-end;
   text-align: center;
-  margin: 1%
+  margin: 1%;
 }
 
 .addProjectButton:hover {
