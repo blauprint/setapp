@@ -16,8 +16,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   function handleClickOnProjectCard(project: ProjectData) {
     const url = `/${user?.username ? user.username : user?.firstName}/${project.projectName}/output`
     dispatch(addCurrentProject(project));
-    console.log(store.getState().currentProject, 'current project')
-    router.push(url)
+    router.push(url);
   }
 
   return (
