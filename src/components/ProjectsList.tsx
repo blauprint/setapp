@@ -9,7 +9,7 @@ export default function ProjectsList({ projects }: { projects: ProjectData[] }) 
     <>
       <div className={styles.projectsList}>
         {projects.map((project) => (
-          <ProjectCard project={project}></ProjectCard>
+          <ProjectCard project={project} key={project.id}></ProjectCard>
         ))}
         <div className={styles.addProjectButton}>
           <Link href="/idea">Add Project</Link>
