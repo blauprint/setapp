@@ -1,7 +1,9 @@
+import { useAppDispatch } from '@/redux/hooks';
+import { addProjects } from '@/redux/projectsSlice';
 import { Auth } from '@/types/Auth';
-import { Project } from '@/types/Project';
+import { ProjectData } from '@/types/typedefs';
 
-export async function getProjects(auth: Auth): Promise<Project[]> {
+export async function getProjects(auth: Auth): Promise<ProjectData[]> {
   // auth.sessionToken = await auth.sessionToken;
   const options = {
     method: 'GET',
@@ -12,7 +14,10 @@ export async function getProjects(auth: Auth): Promise<Project[]> {
   }
 
   const projectsPromise = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects`, options);
-  const projects: Project[] = await projectsPromise.json();
+  const projects: ProjectData[] = await projectsPromise.json();
+
+  const dispatch = useAppDispatch();
+  dispatch(addProjects(projects));
 
   return projects;
 } 

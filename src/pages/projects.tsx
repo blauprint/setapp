@@ -1,10 +1,12 @@
 import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-//import { projectsMock } from "@/mocks/moks-projects";
+import { projectsMock } from "@/mocks/moks-projects";
+import { useAppDispatch } from "@/redux/hooks";
+import { addProjects } from "@/redux/projectsSlice";
 import { getProjects } from "@/services/projectsService";
 import styles from "@/styles/ProjectsPage.module.css";
 import { Auth } from "@/types/Auth";
-import { Project } from "@/types/Project";
+import { ProjectData } from "@/types/typedefs";
 import {
   RedirectToSignIn,
   SignedIn,
@@ -43,6 +45,21 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString(),
   };
 
+  // let projects: Project[] = [];
+
+  // useEffect(() => {
+  //   if (user) {
+  //     getProjects(auth).then((res) => {
+  //       console.log(sessionToken);
+  //       projects = res;
+  //     });
+  //   }
+  // dispatch(addProjects(projects))
+  // }, [user])
+
+  let projects: ProjectData[] = projectsMock;
+  let dispatch = useAppDispatch()
+  dispatch(addProjects(projects))
 
 
   return (

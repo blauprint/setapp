@@ -32,10 +32,10 @@ export type ProjectData = {
 
   backend: {
     framework: Technology;
-    database: Database;
+    database: String;
   };
-
   notes: string;
+  createdAt: number;
 };
 
 // export type Technology = {

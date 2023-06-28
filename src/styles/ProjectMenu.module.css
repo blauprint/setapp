@@ -1,17 +1,30 @@
 .menu {
-  width: 200px;
+  width: 250px;
   height: 90vh;
   min-height: 100%;
-  background-color: white;
+  background-color: var(--surface-color-dark);
+  padding: 20px;
 }
 
 .accordion {
   box-shadow: none !important;
   border-bottom: none !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
 }
 
 .menuButton {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 5px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+  transition: transform 0.2s;
+  background-color: #5be4d438;
+  color: #5be4d4;
+}
+
+.menuButton:hover {
+  transform: translateY(-3px);
 }
