@@ -16,35 +16,6 @@ export default function HomeNavigationBar() {
 
   const router = useRouter();
   const currentRoute = router.pathname;
-  // let currentProject: ProjectData = {
-  //   idea: '',
-  //   projectName: '',
-  //   toDoList: [],
-  //   frontend: {
-  //     framework: {
-  //       name: '',
-  //       whyGoodOption: '',
-  //       description: '',
-  //       link: ''
-  //     },
-  //     colorScheme: {
-  //       whyGoodOption: '',
-  //       colorPalette: []
-  //     },
-  //   },
-
-  //   backend: {
-  //     framework: {
-  //       name: '',
-  //       whyGoodOption: '',
-  //       description: '',
-  //       link: ''
-  //     },
-  //     database: "",
-  //   },
-  //   notes: '',
-  //   createdAt: 0
-  // };
 
   let currentProjectName: string = store.getState().currentProject.projectName;
 
