@@ -8,12 +8,12 @@ export default function ProjectsList({ projects }: { projects: ProjectData[] }) 
   return (
     <>
       <div className={styles.projectsList}>
-        {projects.map((project) => (
-          <ProjectCard project={project} key={project.id}></ProjectCard>
-        ))}
         <div className={styles.addProjectButton}>
           <Link href="/idea">Add Project</Link>
         </div>
+        {projects.map((project) => (
+          <ProjectCard project={project} key={project.id}></ProjectCard>
+        ))}
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { store } from "@/redux/store";
 import styles from "@/styles/HomeNavigationBar.module.css";
 import { ProjectData } from "@/types/typedefs";
+
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import { Quicksand } from "next/font/google";
@@ -8,6 +9,7 @@ const trainOne = Quicksand({
   weight: ["400", "600", "700"],
   subsets: ["latin"],
 });
+
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,7 +19,10 @@ export default function HomeNavigationBar() {
   const router = useRouter();
   const currentRoute = router.pathname;
 
-  let currentProjectName: string = store.getState().currentProject.projectName;
+
+  let projectName: string = store.getState().currentProject.projectName;
+  let userName = useUser().user?.username;
+
 
   return (
     <>
@@ -34,14 +39,19 @@ export default function HomeNavigationBar() {
           <Link href={"/"}>setapp</Link>
         </div>
 
-        {currentProjectName &&
-          currentRoute === "/[userName]/[projectName]/output" && (
-            <div className={styles.projectName}>
-              <Link href={"/[userName]/[projectName]/output"}>
-                {currentProjectName}
-              </Link>
-            </div>
-          )}
+
+        {(projectName && currentRoute === '/[userName]/[projectName]/output') &&
+          <div className={styles.projectName}>
+            {projectName}
+          </div>
+        }
+        {(currentRoute === '/' ||
+          currentRoute === '/[userName]/[projectName]/output' ||
+          currentRoute === '/idea') &&
+          <div>
+            <Link href={'/projects'}>Projects</Link>
+          </div>
+        }
 
         <div className={styles.navOptions}>
           <SignedIn>

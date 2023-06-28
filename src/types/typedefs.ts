@@ -23,6 +23,7 @@ export type Database = Technology & {
 export type ProjectData = {
   idea: string;
   projectName: string;
+  summary: string;
   frontend: {
     toDoList: string[];
     framework: Technology;
