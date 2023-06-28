@@ -1,21 +1,39 @@
 :root {
-  /* ================ Dark Mode ======================= */
   /* button, icons, highlights */
-  --primary-color-dark: #5be4d4;
+  --primary-color: #5be4d438;
   /* headers, section background, accents */
-  --secondary-color-dark: #5be4d438;
+  --secondary-color: #5be4d4;
   /* text */
-  --text-color-dark: white;
+  --text-color: black;
   /* accents for hover on buttons, badges, and notifications */
-  --accent-color-dark: #5be4d44c;
+  --accent-color: #5be4d44c;
 
   /* dividors borders background elements */
-  --neutral-color-dark: #4f4f4f;
+  --neutral-color: #4f4f4f;
 
-  --background-color-dark: #0a1a30f5;
-  --surface-color-dark: #0a1a30;
-  --error-color-dark: red;
+  --background-color: white;
+  --surface-color: #f4ebe2;
+  --error-color: red;
 }
+
+[data-theme="dark"] {
+  /* button, icons, highlights */
+  --primary-color: #5be4d4;
+  /* headers, section background, accents */
+  --secondary-color: #5be4d438;
+  /* text */
+  --text-color: white;
+  /* accents for hover on buttons, badges, and notifications */
+  --accent-color: #5be4d44c;
+
+  /* dividors borders background elements */
+  --neutral-color: #4f4f4f;
+
+  --background-color: #0a1a30f5;
+  --surface-color: #0a1a30;
+  --error-color: rgb(110, 25, 25);
+}
+
 
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;800&family=Inter:wght@400;500;700;800&family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=Ubuntu:wght@400;500;700&family=Zen+Dots&display=swap");
 
@@ -50,7 +68,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  color: var(--text-color-dark);
+  color: var(--text-color);
 }
 
 img,
@@ -88,7 +106,7 @@ h6 {
 
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: var(--background-color-dark);
+  background-color: var(--background-color);
 }
 
 a {

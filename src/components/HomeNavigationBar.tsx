@@ -2,7 +2,7 @@ import { store } from "@/redux/store";
 import styles from "@/styles/HomeNavigationBar.module.css";
 import { ProjectData } from "@/types/typedefs";
 
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 import { Quicksand } from "next/font/google";
 const trainOne = Quicksand({
@@ -14,6 +14,7 @@ const trainOne = Quicksand({
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import ThemeSwitch from "./ThemeSwitch";
 
 export default function HomeNavigationBar() {
   const router = useRouter();
@@ -31,7 +32,7 @@ export default function HomeNavigationBar() {
           className={trainOne.className}
           style={{
             fontSize: "28px",
-            color: "#fff",
+            color: "var(--text-color)",
             letterSpacing: "9px",
             fontWeight: 600,
           }}
@@ -45,24 +46,19 @@ export default function HomeNavigationBar() {
             {projectName}
           </div>
         }
-        {(currentRoute === '/' ||
-          currentRoute === '/[userName]/[projectName]/output' ||
-          currentRoute === '/idea') &&
-          <div>
-            <Link href={'/projects'}>Projects</Link>
-          </div>
-        }
-
+        <ThemeSwitch />
         <div className={styles.navOptions}>
           <SignedIn>
             {(currentRoute === "/" ||
-              currentRoute === "/[userName]/[projectName]/output") && (
-              <div>
-                <Link className={styles.projectlink} href={"/projects"}>
-                  Projects
-                </Link>
-              </div>
-            )}
+              currentRoute === "/[userName]/[projectName]/output" ||
+              currentRoute === '/idea') && (
+                <div>
+                  <Link className={styles.projectlink} href={"/projects"}>
+                    Projects
+                  </Link>
+                </div>
+              )}
+
           </SignedIn>
           <SignedOut>
             <SignInButton
@@ -73,7 +69,6 @@ export default function HomeNavigationBar() {
               <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
-
           <SignedIn>
             <Link href="/profile" className="user-name">
               <UserButton afterSignOutUrl="/" />

@@ -19,15 +19,15 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
         <Accordion className={styles.accordion}>
           <AccordionSummary
             sx={{
-              color: "white",
-              bgcolor: "var(--surface-color-dark)",
+              color: "var(--text-color)",
+              bgcolor: "var(--surface-color)",
               border: "none !important",
               boxShadow: "none !important",
             }}
             expandIcon={
               <ExpandMoreIcon
                 sx={{
-                  fill: "white",
+                  fill: "var(--text-color)",
                 }}
               />
             }
@@ -38,7 +38,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           </AccordionSummary>
           <AccordionDetails
             sx={{
-              bgcolor: "var(--surface-color-dark)",
+              bgcolor: "var(--surface-color)",
             }}
           >
             <button className={styles.menuButton} onClick={() => handleClick("todosBE")}>To-do</button>
@@ -50,15 +50,15 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
         <Accordion className={styles.accordion}>
           <AccordionSummary
             sx={{
-              color: "white",
-              bgcolor: "var(--surface-color-dark)",
+              color: "var(--text-color)",
+              bgcolor: "var(--surface-color)",
               border: "none !important",
               boxShadow: "none !important",
             }}
             expandIcon={
               <ExpandMoreIcon
                 sx={{
-                  fill: "white",
+                  fill: "var(--text-color)",
                 }}
               />
             }
@@ -69,7 +69,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           </AccordionSummary>
           <AccordionDetails
             sx={{
-              bgcolor: "var(--surface-color-dark)",
+              bgcolor: "var(--surface-color)",
             }}
           >
             <button className={styles.menuButton} onClick={() => handleClick("todosFE")}>To-do</button>
