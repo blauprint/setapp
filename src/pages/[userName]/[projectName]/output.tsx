@@ -15,6 +15,11 @@ export default function OutputPage() {
 
   if (selectedComponent === "colorsPage") {
     content = <ColorsPage />;
+  } else {
+    content = (<>
+      <div>idea</div>
+      <div>notes</div>
+    </>)
   }
 
   return (
