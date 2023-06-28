@@ -1,6 +1,6 @@
 import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-// import { projectsMock } from "@/mocks/moks-projects";
+//import { projectsMock } from "@/mocks/moks-projects";
 import { getProjects } from "@/services/projectsService";
 import styles from "@/styles/ProjectsPage.module.css";
 import { Auth } from "@/types/Auth";
@@ -28,10 +28,9 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-  let token: string | null = ''
-  const sessionToken = getToken().then((res) =>
-    token = res
-  )
+  const token = getToken;
+
+  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -41,25 +40,16 @@ export default function ProjectsPage() {
     signOut: signOut,
     orgId: orgId?.toString(),
     orgRole: orgRole?.toString(),
-    orgSlug: orgSlug?.toString()
-  }
+    orgSlug: orgSlug?.toString(),
+  };
 
-  let projects: Project[] = [];
 
-  useEffect(() => {
-    if (user) {
-      getProjects(auth).then((res) => {
-        console.log(sessionToken);
-        projects = res;
-      });
-    }
-  }, [user])
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
-          <ProjectsList projects={projects}></ProjectsList>
+          {/* <ProjectsList projects={projects}></ProjectsList> */}
         </div>
       </SignedIn>
       <SignedOut>
