@@ -20,7 +20,6 @@ export type Database = Technology & {
   schema: string; // as code snippet
 };
 
-
 export type ProjectData = {
   idea: string;
   projectName: string;
@@ -35,8 +34,8 @@ export type ProjectData = {
     framework: Technology;
     database: Database;
   };
+  createdAt: number;
 };
-
 
 // Below is the copy of the above types, but with all the properties as string.
 // This is used to build the AI prompt, so we can get a valid JSON string.
@@ -59,20 +58,24 @@ export type ProjectData = {
 //   "colorPalette": Color[];
 // }
 
+// export type Database = Technology & {
+//   "schema": string; // as code snippet
+// };
+
 // export type ProjectData = {
 //   "idea": string;
-//   "wholeFileStructure": string[];
-//   "toDoList": string[];
+//   "projectName": string;
 //   "frontend": {
+//   "toDoList": string[];
 //     "framework": Technology;
 //     "libraries": Technology[];
 //     "colorScheme": ColorScheme;
 //   };
 
 //   "backend": {
+//   "toDoList": string[];
 //     "framework": Technology;
 //     "libraries": Technology[];
-//     "database": Technology;
+//     "database": Database;
 //   };
-//   "notes": string;
 // }

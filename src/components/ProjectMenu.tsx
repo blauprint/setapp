@@ -14,6 +14,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
   return (
     <>
       <div className={styles.menu}>
+
         <Accordion className={styles.accordion}>
           <AccordionSummary
             sx={{
@@ -39,8 +40,9 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
               bgcolor: "var(--surface-color-dark)",
             }}
           >
-            <button className={styles.menuButton}>file structure</button>
-            <button className={styles.menuButton}>model</button>
+            <button className={styles.menuButton}>To-do</button>
+            <button className={styles.menuButton}>Framework</button>
+            <button className={styles.menuButton}>Model</button>
           </AccordionDetails>
         </Accordion>
 
@@ -69,12 +71,13 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
               bgcolor: "var(--surface-color-dark)",
             }}
           >
-            <button className={styles.menuButton}>file structure</button>
+            <button className={styles.menuButton}>To-do</button>
+            <button className={styles.menuButton}>Framework</button>
             <button
               className={styles.menuButton}
               onClick={() => handleClick("colorsPage")}
             >
-              color schema
+              Color Schema
             </button>
           </AccordionDetails>
         </Accordion>
