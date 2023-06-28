@@ -58,9 +58,8 @@ export default function ProjectsPage() {
   // }, [user])
 
   let projects: ProjectData[] = projectsMock;
-  let dispatch = useAppDispatch()
-  dispatch(addProjects(projects))
-
+  let dispatch = useAppDispatch();
+  dispatch(addProjects(projects));
 
   return (
     <>
