@@ -58,15 +58,14 @@ export default function ProjectsPage() {
   // }, [user])
 
   let projects: ProjectData[] = projectsMock;
-  let dispatch = useAppDispatch()
-  dispatch(addProjects(projects))
-
+  let dispatch = useAppDispatch();
+  dispatch(addProjects(projects));
 
   return (
     <>
       <SignedIn>
         <div className={styles.projectsContainer}>
-          {/* <ProjectsList projects={projects}></ProjectsList> */}
+          <ProjectsList projects={projects}></ProjectsList>
         </div>
       </SignedIn>
       <SignedOut>
