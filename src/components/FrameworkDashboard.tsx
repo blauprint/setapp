@@ -1,13 +1,21 @@
-import { Technology } from "@/types/typedefs";
+import { Technology } from '@/types/typedefs';
+import styles from '@/styles/FrameworkDashboard.module.css'
+import { MdChevronRight } from 'react-icons/md';
 
 export default function ModelDashboard({ framework }: { framework: Technology }) {
 
   return (
-    <>
-      <div>{framework.name}</div>
-      <div>{framework.description}</div>
-      <div>{framework.whyGoodOption}</div>
-      <div>{framework.link}</div>
-    </>
+    <div className={styles.frameworkContainer}>
+      <div className={styles.frameworkName}>{framework.name}</div>
+      <div className={styles.frameworkElement}>
+        <p><span className={styles.comment}>why? </span>{framework.description}</p>
+      </div>
+      <div className={styles.frameworkElement}>
+        <p><span className={styles.comment}>to sum up: </span>{framework.whyGoodOption}</p>
+      </div>
+      <div className={styles.frameworkElementLink}>
+        <span className={styles.comment}><MdChevronRight /></span><a className={styles.link} href={framework.link}>{framework.link}</a>
+      </div >
+    </div>
   )
 }

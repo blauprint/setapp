@@ -1,0 +1,29 @@
+.frameworkContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.frameworkName {
+  font-size: 600%;
+}
+
+.frameworkElement {
+  padding: 2%;
+  font-size: larger;
+  display: flex;
+}
+
+.comment {
+  margin: 10px;
+  color: var(--secondary-color)
+}
+
+.frameworkElementLink {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}

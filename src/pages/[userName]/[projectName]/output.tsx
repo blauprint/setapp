@@ -47,7 +47,7 @@ export default function OutputPage() {
       <SignedIn>
         <div className={styles.outputPage}>
           <ProjectMenu onButtonClick={handleButtonClick} />
-          <div>{content}</div>
+          <div className={styles.outputContent}>{content}</div>
         </div>
       </SignedIn>
       <SignedOut>
