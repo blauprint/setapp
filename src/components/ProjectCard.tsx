@@ -35,7 +35,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
         <div
           className={styles.tech}
         >{`${project.backend.framework.name} / ${project.frontend.framework.name}`}</div>
-        <div className={styles.created_at}>{formattedDate}</div>
+        <div className={styles.createdAt}>{formattedDate}</div>
       </div>
     </div>
   );
