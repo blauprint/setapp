@@ -20,7 +20,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           <AccordionSummary
             sx={{
               color: "var(--text-color)",
-              bgcolor: "var(--surface-color)",
+              bgcolor: "var(--block-color)",
               border: "none !important",
               boxShadow: "none !important",
             }}
@@ -38,7 +38,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           </AccordionSummary>
           <AccordionDetails
             sx={{
-              bgcolor: "var(--surface-color)",
+              bgcolor: "var(--block-color)",
             }}
           >
             <button className={styles.menuButton} onClick={() => handleClick("todosBE")}>To-do</button>
@@ -51,7 +51,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           <AccordionSummary
             sx={{
               color: "var(--text-color)",
-              bgcolor: "var(--surface-color)",
+              bgcolor: "var(--block-color)",
               border: "none !important",
               boxShadow: "none !important",
             }}
@@ -69,7 +69,7 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
           </AccordionSummary>
           <AccordionDetails
             sx={{
-              bgcolor: "var(--surface-color)",
+              bgcolor: "var(--block-color)",
             }}
           >
             <button className={styles.menuButton} onClick={() => handleClick("todosFE")}>To-do</button>

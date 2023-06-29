@@ -11,8 +11,9 @@
   /* dividors borders background elements */
   --neutral-color: #4f4f4f;
 
-  --background-color: white;
-  --surface-color: #f4ebe2;
+  --background-color: #F9FAF7;
+  --surface-color: white;
+  --block-color: #BDB8B1;
   --error-color: red;
 }
 
@@ -31,6 +32,7 @@
 
   --background-color: #0a1a30f5;
   --surface-color: #0a1a30;
+  --block-color: black;
   --error-color: rgb(110, 25, 25);
 }
 

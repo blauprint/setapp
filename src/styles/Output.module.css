@@ -1,4 +1,10 @@
 .outputPage {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  position: relative;
+}
+
+.outputContent {
+  width: 100%;
 }
