@@ -1,29 +1,14 @@
 "use client";
-import {
-  useRef,
-  ChangeEvent,
-  useState,
-  useEffect,
-  use,
-  RefObject,
-} from "react";
+import { useRef, useState, useEffect } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
 import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/router";
-import { useAppDispatch } from "@/redux/hooks";
-import { addCurrentProject } from "@/redux/currentProjectSlice";
 import { ProjectData } from "@/types/typedefs";
+import dynamic from "next/dynamic";
 
-import {
-  useChat,
-  UseChatHelpers,
-  useCompletion,
-  UseCompletionHelpers,
-} from "ai/react";
+import { UseChatHelpers, useCompletion, UseCompletionHelpers } from "ai/react";
+import { useAppDispatch } from "@/redux/hooks";
+import { addProjects } from "@/redux/projectsSlice";
 
 const formSchema = Yup.object().shape({
   idea: Yup.string().required("Tell me your idea for an app."),
@@ -31,9 +16,9 @@ const formSchema = Yup.object().shape({
 
 export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
-  const [idea, setIdea] = useState("");
+  let dispatch = useAppDispatch();
+
   const formRef = useRef<HTMLFormElement>(null);
-  const { user } = useUser();
 
   const {
     completion,
@@ -49,6 +34,14 @@ export default function IdeaInputForm() {
     onFinish: handleFinish,
   });
 
+  // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
+  const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
+  // const DynamicFrameworkCard = dynamic(
+  //   () => import("@/components/FrameworkCard")
+  // );
+  // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
+  // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
+
   // Handler functions
 
   function handleError(error: Error) {
@@ -57,25 +50,28 @@ export default function IdeaInputForm() {
 
   function handleResponse(response: Response) {
     if (formRef.current) {
-      formRef.current.style.scale = "0.001";
+      formRef.current.style.translate = "0 -100vh";
+      formRef.current.style.filter = "blur(10px)";
       setTimeout(() => {
-        if (formRef.current) formRef.current.style.display = "none";
-      }, 100);
+        if (formRef.current) {
+          formRef.current.style.display = "none";
+        }
+      }, 1000);
     }
   }
 
-  function handleFinish(prompt: string, completion: string) {
+  async function handleFinish(prompt: string, completion: string) {
     console.log("Finished completion!");
     console.log("Completion:", completion);
     console.log("Prompt:", prompt);
-    const projectJson: ProjectData = JSON.parse(`{ ${completion} }`);
-    // dispatch(add(projectJson));
+    const projectJson: ProjectData = await JSON.parse(`{${completion}`);
+    dispatch(addProjects(projectJson));
     setCardData(projectJson);
   }
 
   // Regex functions
 
-  function regexDataExtractor(data: string) {
+  async function regexDataExtractor(data: string) {
     //WORK IN PROGRESS
     let projectNameRegex = /"projectName":\s*"([^"]*)"/;
     let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
@@ -85,12 +81,22 @@ export default function IdeaInputForm() {
 
     //TODO: memoize regexes
     let regexes: RegExp[] = [
+      summaryRegex,
       projectNameRegex,
       toDoListRegex,
-      summaryRegex,
       frontendRegex,
       backendRegex,
     ];
+
+    while (regexes.length > 0 && isLoading) {
+      let regex = regexes.pop();
+      if (regex) {
+        let match = data.match(regex);
+        if (match) {
+          console.log(match);
+        }
+      }
+    }
 
     if (projectNameRegex.test(data)) {
       let projectName = data.match(projectNameRegex);
@@ -103,7 +109,6 @@ export default function IdeaInputForm() {
   }, [completion]);
 
   // const textAreaRef = useRef<RefObject<HTMLTextAreaElement>>(null);
-
   //This is the logic that makes the textarea auto expand and save idea to state
   // const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
   //   if (textAreaRef.current) {
@@ -117,19 +122,25 @@ export default function IdeaInputForm() {
 
   return (
     <div className={styles.inputContainer}>
-      {completion}
-
       <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
         <textarea
           className={styles.ideaTextArea}
           // ref={textAreaRef}
+          autoFocus={true}
           onChange={handleInputChange}
+          value={input}
           name="idea"
           rows={1}
           id="idea"
           required={true}
           autoComplete="off"
         ></textarea>
+        {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
+        <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} />
+        {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
+        {/* <DynamicModelCard model={cardData?.backend.database} /> */}
+        {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
+        {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
         <label className={styles.ideaLabel} htmlFor="name">
           <span className={styles.ideaSpan}>Type in your app idea....</span>
         </label>
@@ -137,6 +148,8 @@ export default function IdeaInputForm() {
           <BiSend />
         </button>
       </form>
+
+      <p>{completion}</p>
     </div>
   );
 }

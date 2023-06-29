@@ -6,14 +6,14 @@ import { ProjectData } from "@/types/typedefs";
 const initialState: ProjectData[] = [];
 
 export const projectsSlice: Slice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
     // add: (state: ProjectData[], action: PayloadAction<ProjectData[]>) => {
     addProjects: (state: ProjectData[], action: AnyAction) => {
       // state = [...state, action.payload];
       // return state;
-      state.push(...action.payload);
+      state.push(action.payload);
     },
   },
 });
