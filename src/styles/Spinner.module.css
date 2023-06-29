@@ -1,17 +1,18 @@
 .loader {
+  z-index: -1;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   display: inline-block;
   position: relative;
   border: 3px solid;
-  border-color: #FFF #FFF transparent transparent;
+  border-color: #fff #fff transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
 .loader::after,
 .loader::before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -20,7 +21,8 @@
   bottom: 0;
   margin: auto;
   border: 3px solid;
-  border-color: transparent transparent #FF3D00 #FF3D00;
+  border-color: transparent transparent var(--primary-color)
+    var(--primary-color);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -31,7 +33,8 @@
 .loader::before {
   width: 32px;
   height: 32px;
-  border-color: #FFF #FFF transparent transparent;
+  border-color: var(--accent-color) var(--secondary-color)
+    var(--secondary-color) transparent transparent;
   animation: rotation 1.5s linear infinite;
 }
 
@@ -51,4 +54,3 @@
     transform: rotate(-360deg);
   }
 }
-    

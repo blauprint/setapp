@@ -9,6 +9,9 @@ import dynamic from "next/dynamic";
 import { UseChatHelpers, useCompletion, UseCompletionHelpers } from "ai/react";
 import { useAppDispatch } from "@/redux/hooks";
 import { addProjects } from "@/redux/projectsSlice";
+import Spinner from "./Spinner";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 const formSchema = Yup.object().shape({
   idea: Yup.string().required("Tell me your idea for an app."),
@@ -17,6 +20,8 @@ const formSchema = Yup.object().shape({
 export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
+  const { user } = useUser();
+  const router = useRouter();
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -66,7 +71,12 @@ export default function IdeaInputForm() {
     console.log("Prompt:", prompt);
     const projectJson: ProjectData = await JSON.parse(`{${completion}`);
     dispatch(addProjects(projectJson));
+
     setCardData(projectJson);
+    const url = `/${
+      user?.username ? user.username : user?.firstName
+    }/${projectName}/output`;
+    router.push(url);
   }
 
   // Regex functions
@@ -108,15 +118,6 @@ export default function IdeaInputForm() {
     regexDataExtractor(completion);
   }, [completion]);
 
-  // const textAreaRef = useRef<RefObject<HTMLTextAreaElement>>(null);
-  //This is the logic that makes the textarea auto expand and save idea to state
-  // const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-  //   if (textAreaRef.current) {
-  //     textAreaRef.current.style.height = "auto";
-  //     textAreaRef.current.style.height = `${e.target.scrollHeight - 5}px`;
-  //   }
-  //   setIdea(e.target.value);
-  // };
 
   const projectName = "seismica";
 
@@ -136,7 +137,7 @@ export default function IdeaInputForm() {
           autoComplete="off"
         ></textarea>
         {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
-        <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} />
+        {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
         {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
         {/* <DynamicModelCard model={cardData?.backend.database} /> */}
         {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
@@ -149,7 +150,7 @@ export default function IdeaInputForm() {
         </button>
       </form>
 
-      <p>{completion}</p>
+      {isLoading && <Spinner />}
     </div>
   );
 }
