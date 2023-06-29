@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 25px 35px;
+  height: 12vh;
 }
 
 .navOptions {
@@ -23,7 +24,7 @@
 }
 
 .projectlink {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 14px;

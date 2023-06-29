@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import { MdDarkMode, MdOutlineWbSunny } from 'react-icons/md';
 import styles from '@/styles/ThemeSwitch.module.css';
 
@@ -17,11 +17,16 @@ export default function ThemeSwitch() {
 
   return (
     <>
-      <button className={styles.switchBtn}
-        onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+      <button
+        className={styles.switchBtn}
+        onClick={() => setTheme(resolvedTheme === 'light' ? 'dark' : 'light')}
       >
-        {resolvedTheme === 'dark' ? (<MdOutlineWbSunny />) : (<MdDarkMode />)}
-      </button >
+        {resolvedTheme === 'dark' ? (
+          <MdOutlineWbSunny size={30} />
+        ) : (
+          <MdDarkMode size={30} />
+        )}
+      </button>
     </>
   );
 }
