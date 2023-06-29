@@ -13,10 +13,11 @@
 
   --background-color: white;
   --surface-color: #f4ebe2;
+  --block-color: green;
   --error-color: red;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* button, icons, highlights */
   --primary-color: #5be4d4;
   /* headers, section background, accents */
@@ -30,14 +31,14 @@
   --neutral-color: #4f4f4f;
 
   --background-color: #0a1a30f5;
-  --surface-color: #0a1a30;
+  --surface-color: #112240;
+  --block-color: green;
   --error-color: rgb(110, 25, 25);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;800&family=Inter:wght@400;500;700;800&family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=Ubuntu:wght@400;500;700&family=Zen+Dots&display=swap');
 
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;800&family=Inter:wght@400;500;700;800&family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=Ubuntu:wght@400;500;700&family=Zen+Dots&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Train+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Train+One&display=swap');
 
 /* 
 font-family: 'Barlow', sans-serif;
@@ -105,7 +106,7 @@ h6 {
 /* GLOBALS */
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: var(--background-color);
 }
 
