@@ -4,12 +4,12 @@ import { Auth } from '@/types/Auth';
 import { ProjectData } from '@/types/typedefs';
 
 export async function getProjects(auth: Auth): Promise<ProjectData[]> {
-  // auth.sessionToken = await auth.sessionToken;
+  auth.sessionToken = await auth.sessionToken();
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'auth': JSON.stringify(auth),
+      'authorization': JSON.stringify(auth),
     },
   }
 

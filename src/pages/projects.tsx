@@ -1,6 +1,6 @@
 import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-import { projectsMock } from "@/mocks/moks-projects";
+//import { projectsMock } from "@/mocks/projects";
 import { useAppDispatch } from "@/redux/hooks";
 import { addProjects } from "@/redux/projectsSlice";
 import { getProjects } from "@/services/projectsService";
@@ -30,13 +30,11 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-  const token = getToken;
 
-  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
-    sessionToken: token,
+    sessionToken: getToken,
     isLoaded: isLoaded,
     isSignedIn: isSignedIn,
     signOut: signOut,
@@ -47,19 +45,18 @@ export default function ProjectsPage() {
 
   // let projects: Project[] = [];
 
-  // useEffect(() => {
-  //   if (user) {
-  //     getProjects(auth).then((res) => {
-  //       console.log(sessionToken);
-  //       projects = res;
-  //     });
-  //   }
+  useEffect(() => {
+    if (user) {
+      getProjects(auth).then((res) => {
+   //     projects = res;
+      });
+    }
   // dispatch(addProjects(projects))
-  // }, [user])
+  }, [user])
 
-  let projects: ProjectData[] = projectsMock;
+/*   let projects: ProjectData[] = projectsMock;
   let dispatch = useAppDispatch()
-  dispatch(addProjects(projects))
+  dispatch(addProjects(projects)) */
 
 
   return (
