@@ -33,6 +33,7 @@ export default function HomeNavigationBar() {
       <div className={styles.container}>
         <div
           className={quicksand.className}
+          
           style={{
             fontSize: '28px',
             color: 'var(--text-color)',
