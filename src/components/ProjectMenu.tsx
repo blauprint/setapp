@@ -17,34 +17,15 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
       <div className={styles.menu}>
         <button className={styles.menuButton} onClick={() => handleClick("")}>Start</button>
         <div>
-          <Accordion disableGutters={true} className={styles.accordion}>
+          <Accordion className={styles.accordion}>
             <AccordionSummary
-              sx={{
-                '&:before': {
-                  display: 'none'
-                },
-                // color: "var(--text-color)",
-                // bgcolor: "var(--block-color)",
-                border: "none !important",
-                // boxShadow: "none !important",
-              }}
-              expandIcon={
-                <ExpandMoreIcon
-                  sx={{
-                    // fill: "var(--text-color)",
-                  }}
-                />
-              }
+              expandIcon={<ExpandMoreIcon/>}
               aria-controls="backend"
               id="backend-panel"
             >
-              <div className={styles.accordionTitle}>Backend</div>
+            <div className={styles.accordionTitle}>Backend</div>
             </AccordionSummary>
-            <AccordionDetails
-              sx={{
-                // bgcolor: "var(--block-color)",
-              }}
-            >
+            <AccordionDetails>
               <button className={styles.menuButton} onClick={() => handleClick("todosBE")}>To-do</button>
               <button className={styles.menuButton} onClick={() => handleClick("frameworkBE")}>Framework</button>
               <button className={styles.menuButton} onClick={() => handleClick("model")}>Model</button>
@@ -53,31 +34,15 @@ export default function ProjectMenu({ onButtonClick }: MenuProps) {
         </div>
 
         <div>
-          <Accordion disableGutters={true} className={styles.accordion}>
+          <Accordion className={styles.accordion}>
             <AccordionSummary
-              sx={{
-                // color: "var(--text-color)",
-                // bgcolor: "var(--block-color)",
-                border: "none !important",
-                // boxShadow: "none !important",
-              }}
-              expandIcon={
-                <ExpandMoreIcon
-                  sx={{
-                    // fill: "var(--text-color)",
-                  }}
-                />
-              }
+              expandIcon={<ExpandMoreIcon/>}
               aria-controls="frontend"
               id="frontend-panel"
             >
-              <div className={styles.accordionTitle}>Frontend</div>
+            <div className={styles.accordionTitle}>Frontend</div>
             </AccordionSummary>
-            <AccordionDetails
-              sx={{
-                // bgcolor: "var(--block-color)",
-              }}
-            >
+            <AccordionDetails>
               <button className={styles.menuButton} onClick={() => handleClick("todosFE")}>To-do</button>
               <button className={styles.menuButton} onClick={() => handleClick("frameworkFE")}>Framework</button>
               <button className={styles.menuButton} onClick={() => handleClick("colors")}>Color Schema</button>
