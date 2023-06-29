@@ -1,7 +1,7 @@
 .inputContainer {
   display: flex;
-  margin: 2%;
-  margin-top: 15%;
+  width: 100vw;
+  height: 83vh;
   justify-content: center;
   align-items: center;
 }
@@ -9,7 +9,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 50%;
 }
 
 .ideaTextArea {
@@ -25,11 +25,11 @@
   resize: none;
 }
 
-textarea.ideaTextArea+label.ideaLabel {
+textarea.ideaTextArea + label.ideaLabel {
   display: block;
   position: relative;
   white-space: nowrap;
-  padding: 0;
+
   margin: 0;
   width: 10%;
   border-top: 2px solid var(--primary-color);
@@ -38,8 +38,8 @@ textarea.ideaTextArea+label.ideaLabel {
   letter-spacing: 1px;
 }
 
-textarea.ideaTextArea:focus+label.ideaLabel,
-textarea.ideaTextArea:focus+label.ideaLabel {
+textarea.ideaTextArea:focus + label.ideaLabel,
+textarea.ideaTextArea:focus + label.ideaLabel {
   width: 60%;
 }
 
@@ -48,8 +48,8 @@ textarea.ideaTextArea:focus {
   margin-top: 35px;
 }
 
-textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
-textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
+textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
+textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
   top: 10px;
   font-size: 22px;
 }
@@ -57,9 +57,10 @@ textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
 span.ideaSpan {
   font-weight: 600;
   position: absolute;
-  font-size: 48px;
+  font-size: 40px;
   top: -66px;
   z-index: -1;
+  letter-spacing: 3px;
   transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
 }
 
@@ -67,9 +68,14 @@ span.ideaSpan {
   flex-grow: 1;
   align-self: end;
   margin-right: 0;
-  font-size: 48px;
+  font-size: 30px;
   background-color: transparent;
+  color: var(--primary-color);
   border: none;
-  scale: 0.8;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
+}
+
+.sendBtn:hover {
+  color: var(--primary-color);
+  transform: translateX(10px) rotate(-45deg);
 }
