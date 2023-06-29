@@ -4,15 +4,13 @@
   min-height: 100%;
   background-color: var(--block-color);
   padding: 20px;
-  /* display: flex; */
   flex-direction: column;
   position: relative;
   left: 0;
 
 }
 
-.accordion,
-.accordion+* {
+.accordion {
   all: unset;
   text-transform: uppercase;
   letter-spacing: 2px;
