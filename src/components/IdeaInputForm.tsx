@@ -1,83 +1,181 @@
-import { useRef, ChangeEvent, useState } from 'react';
-import styles from '@/styles/IdeaInputForm.module.css';
-import { BiSend } from 'react-icons/bi';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useUser } from '@clerk/nextjs';
-import { useRouter } from 'next/router';
-import { useAppDispatch } from '@/redux/hooks';
-import { addCurrentProject } from '@/redux/currentProjectSlice';
+"use client";
+import { useRef, useState, useEffect } from "react";
+import styles from "@/styles/IdeaInputForm.module.css";
+import { BiSend } from "react-icons/bi";
+import { ProjectData } from "@/types/typedefs";
 
-const formSchema = Yup.object().shape({
-  idea: Yup.string().required('Tell me your idea for an app.'),
-});
+import { useCompletion } from "ai/react";
+import { useAppDispatch } from "@/redux/hooks";
+import { addNewProject, addProjects } from "@/redux/projectsSlice";
+import Spinner from "./Spinner";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/router";
+import { addCurrentProject } from "@/redux/currentProjectSlice";
+// import * as Yup from "yup";
+// import dynamic from "next/dynamic";
+
+// const formSchema = Yup.object().shape({
+//   idea: Yup.string().required("Tell me your idea for an app."),
+// });
 
 export default function IdeaInputForm() {
-  const [idea, setIdea] = useState('');
+  const [cardData, setCardData] = useState<ProjectData | null>(null);
+  let dispatch = useAppDispatch();
   const { user } = useUser();
+  const router = useRouter();
+  let projectName: string = "";
+
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const {
-    register,
+    completion,
+    input,
+    isLoading,
+    handleInputChange,
     handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
-    mode: 'onTouched',
-    resolver: yupResolver(formSchema),
+  } = useCompletion({
+    api: "/api/chat/openai_api",
+    onError: handleError,
+    onResponse: handleResponse,
+    onFinish: handleFinish,
   });
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  //This is the logic that makes the textarea auto expand and save idea to state
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto';
-      textAreaRef.current.style.height = `${e.target.scrollHeight - 5}px`;
+  // ***********
+  // WORK IN PROGRESS!
+  // The idea is to dynamically import components based on the completion.
+  // The components would be cards that display the project data as it is being generated.
+  // ***********
+  // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
+  // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
+  // const DynamicFrameworkCard = dynamic(
+  //   () => import("@/components/FrameworkCard")
+  // );
+  // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
+  // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
+
+  // ***********
+
+  // Handler functions
+
+  function handleError(error: Error) {
+    console.error(error);
+  }
+
+  function handleResponse(response: Response) {
+    if (formRef.current) {
+      formRef.current.style.translate = "0 -100vh";
+      formRef.current.style.filter = "blur(10px)";
+      setTimeout(() => {
+        if (formRef.current) {
+          formRef.current.style.display = "none";
+        }
+      }, 1000);
     }
-    setIdea(e.target.value);
-  };
+  }
 
-  const projectName = 'seismica';
-  let router = useRouter();
-  let dispatch = useAppDispatch();
-  // const projectName = 'seismica'
+  async function handleFinish(prompt: string, completion: string) {
+    console.log("Finished completion!");
+    console.log("Completion:", completion);
+    console.log("Prompt:", prompt);
+    try {
+      const projectJson: ProjectData = await JSON.parse(`{${completion}`);
+      dispatch(addNewProject(projectJson));
+      dispatch(addCurrentProject(projectJson));
 
-  const onSubmit: SubmitHandler<FieldValues> = (e) => {
-    e.preventDefault();
+      setCardData(projectJson);
+      projectName = projectJson.projectName;
 
-    //TODO send data to AI, redirect to project page
-    const newIdea: string = idea;
-    console.log(newIdea);
-    // const projectData = sendIdea(newIdea);
+      const url = `/${
+        user?.username ? user.username : user?.firstName
+      }/${projectName}/output`;
+      router.push(url);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-    // dispatch(addCurrentProject(projectData));
+  // ***********
+  // Regex functions
 
-    const url = `/${
-      user?.username ? user.username : user?.firstName
-    }/${projectName}/output`;
-    router.push(url);
-  };
+  async function regexDataExtractor(data: string) {
+    //WORK IN PROGRESS
+    let projectNameRegex = /"projectName":\s*"([^"]*)"/;
+    let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
+    let summaryRegex = /"summary":\s*"([^"]*)"/;
+    let frontendRegex = /"frontend":\s*{([^}]*)}/;
+    let backendRegex = /"backend":\s*{([^}]*)}/;
+
+    //TODO: memoize regexes
+    let regexes: RegExp[] = [
+      summaryRegex,
+      projectNameRegex,
+      toDoListRegex,
+      frontendRegex,
+      backendRegex,
+    ];
+
+    while (regexes.length > 0 && isLoading) {
+      let regex = regexes.pop();
+      if (regex) {
+        let match = data.match(regex);
+        if (match) {
+          console.log(match);
+        }
+      }
+    }
+
+    if (projectNameRegex.test(data)) {
+      let projectName = data.match(projectNameRegex);
+      console.log(projectName);
+    }
+  }
+
+  // ***********
+
+  useEffect(() => {
+    // regexDataExtractor(completion);
+    console.log(completion);
+  }, [completion]);
+
+  // const projectName = "seismica";
 
   return (
-    <div className={styles.inputContainer}>
-      <form className={styles.form} onSubmit={onSubmit}>
-        <textarea
-          className={styles.ideaTextArea}
-          ref={textAreaRef}
-          onChange={handleChange}
-          name="idea"
-          rows={1}
-          id="idea"
-          required={true}
-          autoComplete="off"
-        ></textarea>
-        <label className={styles.ideaLabel} htmlFor="idea">
-          <span className={styles.ideaSpan}>Type in your app idea....</span>
-        </label>
-        <button type="submit" className={styles.sendBtn}>
-          <BiSend />
-        </button>
-      </form>
-    </div>
+    <>
+      <div className={styles.inputContainer}>
+        {!isLoading && (
+          <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
+            <textarea
+              className={styles.ideaTextArea}
+              // ref={textAreaRef}
+              autoFocus={true}
+              onChange={handleInputChange}
+              value={input}
+              name="idea"
+              rows={1}
+              id="idea"
+              required={true}
+              autoComplete="off"
+            ></textarea>
+            {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
+            {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
+            {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
+            {/* <DynamicModelCard model={cardData?.backend.database} /> */}
+            {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
+            {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
+            <label className={styles.ideaLabel} htmlFor="name">
+              <span className={styles.ideaSpan}>Type in your app idea....</span>
+            </label>
+            <button type="submit" className={styles.sendBtn}>
+              <BiSend />
+            </button>
+          </form>
+        )}
+        {isLoading && (
+          <div className={styles.spinnerContainer}>
+            <Spinner />
+          </div>
+        )}
+      </div>
+    </>
   );
 }

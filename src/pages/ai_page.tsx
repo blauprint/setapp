@@ -14,7 +14,7 @@ import {
   UseCompletionHelpers,
 } from "ai/react";
 import { ProjectData, Technology, ColorScheme, Color } from "@/types/typedefs";
-import { add } from "@/redux/projectsSlice";
+// import { add } from "@/redux/projectsSlice";
 
 export default function Ai() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
@@ -53,13 +53,13 @@ export default function Ai() {
     console.log("Completion:", completion);
     console.log("Prompt:", prompt);
     const projectJson: ProjectData = JSON.parse(`{ ${completion} }`);
-    dispatch(add(projectJson));
+    // dispatch(add(projectJson));
     setCardData(projectJson);
   }
 
 
   // Regex functions
-  
+
   function regexDataExtractor(data: string) {
     //WORK IN PROGRESS
     let projectNameRegex = /"projectName":\s*"([^"]*)"/;
@@ -117,9 +117,9 @@ export default function Ai() {
           <h3>{cardData.backend.database.description}</h3>
           <h3>{cardData.backend.database.link}</h3>
           <h2>To Do List</h2>
-          <p>{cardData.toDoList}</p>
+          {/* <p>{cardData.toDoList}</p> */}
           <h2>Notes</h2>
-          <h3>{cardData.notes}</h3>
+          {/* <h3>{cardData.notes}</h3> */}
         </div>
       ) : (
         isLoading && <div>Loading...</div>

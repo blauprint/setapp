@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   width: 50%;
+  transition: all 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 
 .ideaTextArea {
@@ -61,7 +62,7 @@ span.ideaSpan {
   top: -66px;
   z-index: -1;
   letter-spacing: 3px;
-  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  transition: top 0.5s ease, font-size 0.2s ease, color 0.2s ease;
 }
 
 .sendBtn {

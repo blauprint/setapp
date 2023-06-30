@@ -6,11 +6,11 @@ export default function ColorCard({ color }: { color: Color }) {
 
   return (
 
-    <div className={styles.colorCard} style={{ backgroundColor: color.hex }}>
-      <p>{color.name}</p>
-      <p>{color.hex}</p>
-      <p>{color.rgb}</p>
-    </div>
+    <ul className={styles.colorCard} style={{ backgroundColor: color.hex }}>
+      <li>{color.name}</li>
+      <li>{color.hex}</li>
+      <li>{color.rgb}</li>
+    </ul>
 
   )
 }
