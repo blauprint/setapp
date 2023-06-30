@@ -21,6 +21,7 @@ export type Database = Technology & {
 };
 
 export type ProjectData = {
+  id: string;
   idea: string;
   projectName: string;
   summary: string;

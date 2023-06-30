@@ -13,7 +13,7 @@ export const projectsSlice: Slice = createSlice({
     addProjects: (state: ProjectData[], action: AnyAction) => {
       // state = [...state, action.payload];
       // return state;
-      state.push(...action.payload);
+      state.push(action.payload);
     },
   },
 });

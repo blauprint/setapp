@@ -1,6 +1,4 @@
-import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-import { projectsMock } from "@/mocks/moks-projects";
 import { useAppDispatch } from "@/redux/hooks";
 import { addProjects } from "@/redux/projectsSlice";
 import { getProjects } from "@/services/projectsService";
@@ -14,7 +12,7 @@ import {
   useAuth,
   useUser,
 } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProjectsPage() {
   const { user } = useUser();
@@ -30,13 +28,11 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-  const token = getToken;
 
-  const sessionToken = getToken();
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
-    sessionToken: token,
+    sessionToken: getToken,
     isLoaded: isLoaded,
     isSignedIn: isSignedIn,
     signOut: signOut,
@@ -45,21 +41,18 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString(),
   };
 
-  // let projects: Project[] = [];
 
-  // useEffect(() => {
-  //   if (user) {
-  //     getProjects(auth).then((res) => {
-  //       console.log(sessionToken);
-  //       projects = res;
-  //     });
-  //   }
-  // dispatch(addProjects(projects))
-  // }, [user])
-
-  let projects: ProjectData[] = projectsMock;
   let dispatch = useAppDispatch();
-  dispatch(addProjects(projects));
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      getProjects(auth).then((res) => {
+        setProjects(res);
+        dispatch(addProjects(res))
+      });
+    }
+  }, [user]);
 
   return (
     <div className={styles.projectsPageWrapper}>
