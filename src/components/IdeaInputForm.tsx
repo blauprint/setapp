@@ -3,14 +3,15 @@ import { useRef, useState, useEffect } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
 import { ProjectData } from "@/types/typedefs";
-
+import { Auth } from "@/types/Auth";
 import { useCompletion } from "ai/react";
 import { useAppDispatch } from "@/redux/hooks";
 import { addNewProject, addProjects } from "@/redux/projectsSlice";
 import Spinner from "./Spinner";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import { addCurrentProject } from "@/redux/currentProjectSlice";
+import { postProjects } from "@/services/projectsService";
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -21,7 +22,34 @@ import { addCurrentProject } from "@/redux/currentProjectSlice";
 export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
+  // CLERK AUTH
   const { user } = useUser();
+  const {
+    userId,
+    sessionId,
+    isLoaded,
+    getToken,
+    isSignedIn,
+    signOut,
+    orgId,
+    orgRole,
+    orgSlug,
+  } = useAuth();
+
+
+  const auth: Auth = {
+    userId: userId?.toString(),
+    sessionId: sessionId?.toString(),
+    sessionToken: getToken,
+    isLoaded: isLoaded,
+    isSignedIn: isSignedIn,
+    signOut: signOut,
+    orgId: orgId?.toString(),
+    orgRole: orgRole?.toString(),
+    orgSlug: orgSlug?.toString(),
+  };
+
+
   const router = useRouter();
   let projectName: string = "";
 
@@ -83,6 +111,7 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(projectJson));
 
       setCardData(projectJson);
+      await postProjects(auth, projectJson);
       projectName = projectJson.projectName;
 
       const url = `/${
