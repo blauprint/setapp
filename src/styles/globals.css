@@ -1,18 +1,19 @@
 :root {
   /* button, icons, highlights */
-  --primary-color: #D4E2DF;
+  --primary-color: #5be4d4;
+  /* --primary-color: #d4e2df; */
   /* headers, section background, accents */
-  --secondary-color: #D4E2DF;
+  --secondary-color: #d4e2df;
   /* text */
   --text-color: black;
   /* accents for hover on buttons, badges, and notifications */
-  --accent-color: #5be4d44c;
+  --accent-color: #5be4d4c3;
 
   /* dividors borders background elements */
   --neutral-color: #4f4f4f;
-  --background-color: #F9FAF7;
+  --background-color: #f9faf7;
   --surface-color: white;
-  --block-color: #BDB8B1;
+  --block-color: #bdb8b1;
   --error-color: red;
   --color-card-1: #e1ebf3;
   --color-card-2: #d4e2df;
@@ -25,18 +26,18 @@
   /* button, icons, highlights */
   --primary-color: #5be4d4;
   /* headers, section background, accents */
-  --secondary-color: #5be4d438;
+  --secondary-color: #5be4d45e;
   /* text */
   --text-color: white;
   /* accents for hover on buttons, badges, and notifications */
-  --accent-color: #5be4d44c;
+  --accent-color: #5be4d4d7;
 
   /* dividors borders background elements */
   --neutral-color: #4f4f4f;
 
   --background-color: #0a1a30f5;
   --surface-color: #112240;
-  --block-color: green;
+  --block-color: #1e3c6c80;
 
   --error-color: rgb(110, 25, 25);
 

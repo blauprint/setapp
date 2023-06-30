@@ -71,7 +71,7 @@ export default function IdeaInputForm() {
           required={true}
           autoComplete="off"
         ></textarea>
-        <label className={styles.ideaLabel} htmlFor="name">
+        <label className={styles.ideaLabel} htmlFor="idea">
           <span className={styles.ideaSpan}>Type in your app idea....</span>
         </label>
         <button type="submit" className={styles.sendBtn}>

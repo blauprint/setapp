@@ -13,12 +13,13 @@ export default function ProjectMenu() {
       <div className={styles.menu}>
         <button className={styles.menuButton} onClick={() => dispatch(addSelected(""))}>Start</button>
         <div>
-          <Accordion className={styles.accordion}>
+          <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={styles.expandIcon} />}
               aria-controls="backend"
               id="backend-panel"
             >
+              <div className={styles.accordionTitle}>Backend</div>
               <div className={styles.accordionTitle}>Backend</div>
             </AccordionSummary>
             <AccordionDetails>
@@ -30,12 +31,13 @@ export default function ProjectMenu() {
         </div>
 
         <div>
-          <Accordion className={styles.accordion}>
+          <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className={styles.expandIcon} />}
               aria-controls="frontend"
               id="frontend-panel"
             >
+              <div className={styles.accordionTitle}>Frontend</div>
               <div className={styles.accordionTitle}>Frontend</div>
             </AccordionSummary>
             <AccordionDetails>

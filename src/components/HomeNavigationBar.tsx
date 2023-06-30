@@ -42,7 +42,7 @@ export default function HomeNavigationBar() {
         </div>
 
         {projectName && currentRoute === '/[userName]/[projectName]/output' && (
-          <div className={styles.projectName}>{projectName}</div>
+          <div className={styles.projectName}>{'./' + projectName}</div>
         )}
 
         <div className={styles.navOptions}>
