@@ -13,11 +13,16 @@ export const projectsSlice: Slice = createSlice({
     addProjects: (state: ProjectData[], action: AnyAction) => {
       // state = [...state, action.payload];
       // return state;
+      state.push(...action.payload);
+    },
+    addNewProject: (state: ProjectData[], action: AnyAction) => {
+      // state = [...state, action.payload];
+      // return state;
       state.push(action.payload);
     },
   },
 });
 
-export const { addProjects } = projectsSlice.actions;
+export const { addProjects, addNewProject } = projectsSlice.actions;
 export const selectProject = (state: RootState) => state.projects;
 export default projectsSlice.reducer;

@@ -1,13 +1,12 @@
 .menu {
   width: 300px;
   height: 100%;
-  min-height: 100%;
+  min-height: 88vh;
   background-color: var(--block-color);
-  padding: 20px;
+  padding: 30px;
   flex-direction: column;
   position: relative;
   left: 0;
-
 }
 
 .accordion {
@@ -15,6 +14,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
+  color: var(--text-color);
 }
 
 .MuiAccordion-root {
@@ -22,17 +22,31 @@
   box-shadow: none;
 }
 
+.expandIcon {
+  color: var(--text-color);
+}
+
 .menuButton {
   width: 100%;
   padding: 15px 20px;
   margin-bottom: 25px;
   transition: transform 0.2s;
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: var(--secondary-color);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 5px;
+
   border: none;
   outline: none;
 }
 
+.accordionTitle {
+  color: var(--text-color);
+}
+
 .menuButton:hover {
+  background-color: var(--accent-color);
   transform: translateY(-3px);
 }

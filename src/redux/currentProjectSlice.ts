@@ -4,10 +4,12 @@ import { RootState } from "./store";
 import { ProjectData } from "@/types/typedefs";
 
 const initialState: ProjectData = {
+  id: '',
+  summary: '',
   idea: '',
   projectName: '',
-  toDoList: [],
   frontend: {
+    toDoList: [],
     framework: {
       name: '',
       whyGoodOption: '',
@@ -21,15 +23,21 @@ const initialState: ProjectData = {
   },
 
   backend: {
+    toDoList: [],
     framework: {
       name: '',
       whyGoodOption: '',
       description: '',
       link: ''
     },
-    database: "",
+    database: {
+      name: '',
+      whyGoodOption: '',
+      description: '',
+      link: '',
+      schema: ''
+    },
   },
-  notes: '',
   createdAt: 0
 }
 

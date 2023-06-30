@@ -1,58 +1,50 @@
-import ProjectMenu from "@/components/ProjectMenu";
-import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
-import styles from "@/styles/Output.module.css";
-import { useReducer, useState } from "react";
-import { store } from "@/redux/store";
-import TodoList from "@/components/TodoList";
-import ColorsDashboard from "@/components/ColorsDashboard";
+import { type ReactElement } from "react";
+import { RootState } from "@/redux/store";
 import { ProjectData } from "@/types/typedefs";
-import ModelDashboard from "@/components/ModelDashboard";
+import { NextPageWithLayout } from "@/pages/_app";
+import NestedLayout from "@/components/NestedLayout";
 import FrameworkDashboard from "@/components/FrameworkDashboard";
-import { useRouter } from "next/router";
+import Layout from "@/components/Layout";
+import TodoList from "@/components/TodoList";
+import { useSelector } from "react-redux";
+import ModelDashboard from "@/components/ModelDashboard";
+import ColorsDashboard from "@/components/ColorsDashboard";
+import { useAppSelector } from "@/redux/hooks";
 
-export default function OutputPage() {
-  const [selectedComponent, setSelectedComponent] = useState<string>("");
 
-  const handleButtonClick = (componentName: string) => {
-    setSelectedComponent(componentName);
-  };
+const Page: NextPageWithLayout = () => {
 
-  const project: ProjectData = store.getState().currentProject;
-  let content = null;
-  let router = useRouter();
+  let project: ProjectData = useAppSelector((state: RootState) => state.currentProject);
+  let select: string = useSelector((state: RootState) => state.selected);
 
-  if (selectedComponent === "todosBE") {
-    content = <TodoList todos={project.backend.toDoList} />
-  } else if (selectedComponent === "frameworkBE") {
-    content = <FrameworkDashboard framework={project.backend.framework} />;
-  } else if (selectedComponent === "model") {
-    content = <ModelDashboard model={project.backend.database} />;
-  } else if (selectedComponent === "todosFE") {
-    content = <TodoList todos={project.frontend.toDoList} />
-  } else if (selectedComponent === "frameworkFE") {
-    content = <FrameworkDashboard framework={project.frontend.framework} />
-  } else if (selectedComponent === "colors") {
-    content = <ColorsDashboard colorScheme={project.frontend.colorScheme} />;
+  if (project && select === "todosBE") {
+    return <TodoList todos={project.backend.toDoList} />;
+  } else if (select === "frameworkBE") {
+    return <FrameworkDashboard framework={project.backend.framework} />;
+  } else if (select === "model") {
+    return <ModelDashboard model={project.backend.database} />;
+  } else if (select === "todosFE") {
+    return <TodoList todos={project.frontend.toDoList} />;
+  } else if (select === "frameworkFE") {
+    return <FrameworkDashboard framework={project.frontend.framework} />;
+  } else if (select === "colors") {
+    return <ColorsDashboard colorScheme={project.frontend.colorScheme} />;
   } else {
-    content = (
+    return (
       <>
         <div>{project.idea}</div>
         <div>{project.summary}</div>
       </>
-    )
+    );
   }
+};
 
+Page.getLayout = function getLayout(page: ReactElement) {
   return (
-    <>
-      <SignedIn>
-        <div className={styles.outputPage}>
-          <ProjectMenu onButtonClick={handleButtonClick} />
-          <div className={styles.outputContent}>{content}</div>
-        </div>
-      </SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
-    </>
+    <Layout>
+      <NestedLayout>{page}</NestedLayout>
+    </Layout>
   );
-}
+};
+
+export default Page;

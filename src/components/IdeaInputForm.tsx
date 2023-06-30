@@ -1,27 +1,29 @@
 "use client";
-import { useRef, useState, useEffect, ReactElement } from "react";
+import { useRef, useState, useEffect } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
-import * as Yup from "yup";
 import { ProjectData } from "@/types/typedefs";
-import dynamic from "next/dynamic";
 
-import { UseChatHelpers, useCompletion, UseCompletionHelpers } from "ai/react";
+import { useCompletion } from "ai/react";
 import { useAppDispatch } from "@/redux/hooks";
-import { addProjects } from "@/redux/projectsSlice";
+import { addNewProject, addProjects } from "@/redux/projectsSlice";
 import Spinner from "./Spinner";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import { addCurrentProject } from "@/redux/currentProjectSlice";
+// import * as Yup from "yup";
+// import dynamic from "next/dynamic";
 
-const formSchema = Yup.object().shape({
-  idea: Yup.string().required("Tell me your idea for an app."),
-});
+// const formSchema = Yup.object().shape({
+//   idea: Yup.string().required("Tell me your idea for an app."),
+// });
 
 export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
   const { user } = useUser();
   const router = useRouter();
+  let projectName: string = "";
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -30,7 +32,6 @@ export default function IdeaInputForm() {
     input,
     isLoading,
     handleInputChange,
-    stop,
     handleSubmit,
   } = useCompletion({
     api: "/api/chat/openai_api",
@@ -38,7 +39,6 @@ export default function IdeaInputForm() {
     onResponse: handleResponse,
     onFinish: handleFinish,
   });
-
 
   // ***********
   // WORK IN PROGRESS!
@@ -52,8 +52,6 @@ export default function IdeaInputForm() {
   // );
   // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
   // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
-
-
 
   // ***********
 
@@ -81,9 +79,12 @@ export default function IdeaInputForm() {
     console.log("Prompt:", prompt);
     try {
       const projectJson: ProjectData = await JSON.parse(`{${completion}`);
-      dispatch(addProjects(projectJson));
+      dispatch(addNewProject(projectJson));
+      dispatch(addCurrentProject(projectJson));
 
       setCardData(projectJson);
+      projectName = projectJson.projectName;
+
       const url = `/${
         user?.username ? user.username : user?.firstName
       }/${projectName}/output`;
@@ -94,8 +95,6 @@ export default function IdeaInputForm() {
   }
 
   // ***********
-
-
   // Regex functions
 
   async function regexDataExtractor(data: string) {
@@ -133,11 +132,12 @@ export default function IdeaInputForm() {
 
   // ***********
 
-  // useEffect(() => {
-    //   regexDataExtractor(completion);
-    // }, [completion]);
+  useEffect(() => {
+    // regexDataExtractor(completion);
+    console.log(completion);
+  }, [completion]);
 
-  const projectName = "seismica";
+  // const projectName = "seismica";
 
   return (
     <>

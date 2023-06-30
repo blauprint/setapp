@@ -19,11 +19,11 @@
 
 .comment {
   margin: 10px;
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .frameworkElementLink {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }

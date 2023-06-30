@@ -9,13 +9,11 @@ interface TodoListProps {
 function TodoList({ todos }: TodoListProps) {
   const ids = generateUUID(todos.length);
   return (
-    <>
-      <div className={styles.todosList}>
-        {todos.map((todo, index) => (
-          <TodoCard key={ids[index]} todo={todo} />
-        ))}
-      </div>
-    </>
+    <div className={styles.todosList}>
+      {todos.map((todo, index) => (
+        <TodoCard key={ids[index]} todo={todo} />
+      ))}
+    </div>
   );
 }
 

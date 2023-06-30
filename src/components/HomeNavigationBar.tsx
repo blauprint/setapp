@@ -1,6 +1,5 @@
 import { store } from '@/redux/store';
 import styles from '@/styles/HomeNavigationBar.module.css';
-import { ProjectData } from '@/types/typedefs';
 
 import {
   SignInButton,
@@ -18,7 +17,6 @@ const quicksand = Quicksand({
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import ThemeSwitch from './ThemeSwitch';
 
 export default function HomeNavigationBar() {
@@ -45,7 +43,7 @@ export default function HomeNavigationBar() {
         </div>
 
         {projectName && currentRoute === '/[userName]/[projectName]/output' && (
-          <div className={styles.projectName}>{projectName}</div>
+          <div className={styles.projectName}>{'./' + projectName}</div>
         )}
 
         <div className={styles.navOptions}>
@@ -53,12 +51,12 @@ export default function HomeNavigationBar() {
             {(currentRoute === '/' ||
               currentRoute === '/[userName]/[projectName]/output' ||
               currentRoute === '/idea') && (
-              <div>
-                <Link className={styles.projectlink} href={'/projects'}>
-                  Projects
-                </Link>
-              </div>
-            )}
+                <div>
+                  <Link className={styles.projectlink} href={'/projects'}>
+                    Projects
+                  </Link>
+                </div>
+              )}
           </SignedIn>
           <ThemeSwitch />
           <SignedOut>
