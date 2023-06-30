@@ -1,6 +1,6 @@
-import styles from "@/styles/ProjectCard.module.css";
+import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import generateUUID from "@/utils/uuidGenerator";
+import generateUUID from '@/utils/uuidGenerator';
 
 interface TodoListProps {
   todos: string[];
@@ -9,13 +9,11 @@ interface TodoListProps {
 function TodoList({ todos }: TodoListProps) {
   const ids = generateUUID(todos.length);
   return (
-    <>
-      <div className={styles.projectsList}>
-        {todos.map((todo, index) => (
-          <TodoCard key={ids[index]} todo={todo} />
-        ))}
-      </div>
-    </>
+    <div className={styles.todosList}>
+      {todos.map((todo, index) => (
+        <TodoCard key={ids[index]} todo={todo} />
+      ))}
+    </div>
   );
 }
 

@@ -1,30 +1,51 @@
 .menu {
-  width: 250px;
+  width: 300px;
   height: 90vh;
-  min-height: 100%;
-  background-color: var(--surface-color-dark);
-  padding: 20px;
+  background-color: var(--block-color);
+  padding: 30px;
+  flex-direction: column;
+  position: relative;
+  left: 0;
 }
 
 .accordion {
-  box-shadow: none !important;
-  border-bottom: none !important;
+  all: unset;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
+  color: var(--text-color);
+}
+
+.MuiAccordion-root {
+  border: none;
+  box-shadow: none;
+}
+
+.expandIcon {
+  color: var(--text-color);
 }
 
 .menuButton {
   width: 100%;
   padding: 15px 20px;
   margin-bottom: 25px;
-  outline: none;
-  border: none;
   transition: transform 0.2s;
-  background-color: #5be4d438;
-  color: #5be4d4;
+  background-color: var(--secondary-color);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 5px;
+
+  border: none;
+  outline: none;
+}
+
+.accordionTitle {
+  color: var(--text-color);
 }
 
 .menuButton:hover {
+  background-color: var(--accent-color);
   transform: translateY(-3px);
 }

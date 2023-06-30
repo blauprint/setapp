@@ -21,9 +21,11 @@
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
     "ai": "^2.1.8",
+    "date-fns": "^2.30.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "next": "13.4.7",
+    "next-themes": "^0.2.1",
     "openai-edge": "^1.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -36,7 +38,6 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0"
   },

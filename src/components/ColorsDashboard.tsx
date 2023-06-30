@@ -1,27 +1,21 @@
-import ColorCard from "./ColorCard";
-import styles from '@/styles/ColorsDashboard.module.css'
-import { colorsMock } from "@/mocks/moks-colors";
-import { useAppSelector } from "@/redux/hooks";
-import { Color } from "@/types/typedefs";
-import { useEffect } from "react";
-import { store } from "@/redux/store";
+import ColorCard from './ColorCard';
+import styles from '@/styles/ColorsDashboard.module.css';
+import { ColorScheme } from '@/types/typedefs';
 
-export default function ColorsDashboard() {
-
-  let colors: Color[] = store.getState().currentProject.frontend.colorScheme.colorPalette;
-
-  // useEffect(() => {
-  //   console.log(store.getState().currentProject, 'current project')
-  //   colors = store.getState().currentProject.frontend.colorScheme.colorPalette;
-  // })
-
+export default function ColorsDashboard({
+  colorScheme,
+}: {
+  colorScheme: ColorScheme;
+}) {
   return (
     <>
-      <div className={styles.colorsList}>
-        {colors.map((color) => (
-          <ColorCard color={color}></ColorCard>
+      <ul className={styles.colorsList}>
+        {colorScheme.colorPalette.map((color) => (
+          <li key={crypto.randomUUID()}>
+            <ColorCard color={color} />
+          </li>
         ))}
-      </div>
+      </ul>
     </>
-  )
+  );
 }

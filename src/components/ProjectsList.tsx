@@ -1,20 +1,28 @@
-import ProjectCard from "./ProjectCard";
-import Link from "next/link";
-import styles from "@/styles/ProjectsList.module.css";
-import { ProjectData } from "@/types/typedefs";
+import ProjectCard from './ProjectCard';
+import Link from 'next/link';
+import styles from '@/styles/ProjectsList.module.css';
+import { ProjectData } from '@/types/typedefs';
+import { MdAddCircleOutline } from 'react-icons/md';
 
-export default function ProjectsList({ projects }: { projects: ProjectData[] }) {
-
+export default function ProjectsList({
+  projects,
+}: {
+  projects: ProjectData[];
+}) {
   return (
     <>
-      <div className={styles.projectsList}>
-        {projects.map((project) => (
-          <ProjectCard project={project}></ProjectCard>
-        ))}
-        <div className={styles.addProjectButton}>
-          <Link href="/idea">Add Project</Link>
+      <Link className={styles.addProjectButton} href="/idea">
+        <div className={styles.content}>
+          <p>
+            <MdAddCircleOutline size={35} />
+          </p>
+          <p>Add Project</p>
         </div>
-      </div>
+      </Link>
+
+      {projects.map((project) => (
+        <ProjectCard project={project} key={crypto.randomUUID()}></ProjectCard>
+      ))}
     </>
   );
 }

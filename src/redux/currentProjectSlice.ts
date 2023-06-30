@@ -39,10 +39,6 @@ export const currentProjectSlice: Slice = createSlice({
   initialState,
   reducers: {
     addCurrentProject: (state: ProjectData, action: PayloadAction<ProjectData>) => {
-      // addCurrentProject: (state: ProjectData, action: AnyAction) => {
-      // state = [...state, action.payload];
-      // return state;
-      // state.push(action.payload);
       return action.payload
     },
   },

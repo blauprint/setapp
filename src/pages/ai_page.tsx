@@ -3,7 +3,10 @@
 // This is a test page for the AI. It is not currently linked to the rest of the app.
 
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import { useAppDispatch } from "@/redux/hooks";
+import { store } from "@/redux/store";
+
 import {
   useChat,
   UseChatHelpers,
@@ -11,22 +14,13 @@ import {
   UseCompletionHelpers,
 } from "ai/react";
 import { ProjectData, Technology, ColorScheme, Color } from "@/types/typedefs";
+import { add } from "@/redux/projectsSlice";
 
 export default function Ai() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
-  const [frontendFrameworks, setFrontendFrameworks] = useState<Technology[]>(
-    [],
-  );
-  const [frontendLibraries, setFrontendLibraries] = useState<Technology[]>([]);
-  const [frontendColorScheme, setFrontendColorScheme] = useState<ColorScheme>(
-    {} as ColorScheme,
-  );
-  const [frontendColorPalette, setFrontendColorPalette] = useState<Color[]>([]);
-  const [backendFrameworks, setBackendFrameworks] = useState<Technology[]>([]);
-  const [backendLibraries, setBackendLibraries] = useState<Technology[]>([]);
-  const [database, setDatabase] = useState<Technology>({} as Technology);
-  const [toDoList, setToDoList] = useState<string[]>([]);
-  const [notes, setNotes] = useState<string[]>([]);
+
+  const project = store.getState().projects[0];
+  const dispatch = useAppDispatch();
 
   const {
     completion,
@@ -39,12 +33,12 @@ export default function Ai() {
     api: "/api/chat/openai_api",
     onError: handleError,
     onResponse: handleResponse,
-    onFinish(prompt, completion) {
-      console.log("Finished completion!");
-      console.log("Completion:", completion);
-      console.log("Prompt:", prompt);
-    },
+    onFinish: handleFinish,
   });
+
+
+
+  // Handler functions
 
   function handleError(error: Error) {
     console.error(error);
@@ -53,6 +47,45 @@ export default function Ai() {
   function handleResponse(response: Response) {
     console.log("Getting response...");
   }
+
+  function handleFinish(prompt: string, completion: string) {
+    console.log("Finished completion!");
+    console.log("Completion:", completion);
+    console.log("Prompt:", prompt);
+    const projectJson: ProjectData = JSON.parse(`{ ${completion} }`);
+    dispatch(add(projectJson));
+    setCardData(projectJson);
+  }
+
+
+  // Regex functions
+  
+  function regexDataExtractor(data: string) {
+    //WORK IN PROGRESS
+    let projectNameRegex = /"projectName":\s*"([^"]*)"/;
+    let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
+    let summaryRegex = /"summary":\s*"([^"]*)"/;
+    let frontendRegex = /"frontend":\s*{([^}]*)}/;
+    let backendRegex = /"backend":\s*{([^}]*)}/;
+
+    //TODO: memoize regexes
+    let regexes: RegExp[] = [
+      projectNameRegex,
+      toDoListRegex,
+      summaryRegex,
+      frontendRegex,
+      backendRegex,
+    ];
+
+    if (projectNameRegex.test(data)) {
+      let projectName = data.match(projectNameRegex);
+      console.log(projectName);
+    }
+  }
+
+  useEffect(() => {
+    // regexDataExtractor(completion);
+  }, [completion]);
 
   return (
     <>

@@ -1,10 +1,8 @@
-import ProjectMenu from "@/components/ProjectMenu";
 import ProjectsList from "@/components/ProjectsList";
-//import { projectsMock } from "@/mocks/projects";
 import { useAppDispatch } from "@/redux/hooks";
 import { addProjects } from "@/redux/projectsSlice";
 import { getProjects } from "@/services/projectsService";
-import styles from "@/styles/ProjectCard.module.css";
+import styles from "@/styles/ProjectsPage.module.css";
 import { Auth } from "@/types/Auth";
 import { ProjectData } from "@/types/typedefs";
 import {
@@ -57,21 +55,13 @@ export default function ProjectsPage() {
   }, [user]);
 
   return (
-    <>
+    <div className={styles.projectsPageWrapper}>
       <SignedIn>
-        <div>
-          {/* <ProjectsList projects={projects}></ProjectsList> */}
-           {projects.map((project) => (
-            <div className={styles.projectCard} key={project.id}>
-              <div>Idea: {project.idea}</div>
-              <div>Created At: {project.createdAt}</div>
-            </div>
-          ))}
-        </div>
+        <ProjectsList projects={projects}></ProjectsList>
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-    </>
+    </div>
   );
 }

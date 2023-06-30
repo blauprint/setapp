@@ -1,0 +1,8 @@
+.projectsPageWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 80px;
+  width: 100%;
+  /* TODO: this might cause issue when making things responsive */
+  gap: 60px;
+}

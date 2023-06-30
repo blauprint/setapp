@@ -1,28 +1,65 @@
 :root {
-  /* ================ Dark Mode ======================= */
   /* button, icons, highlights */
-  --primary-color-dark: #4a07cf;
+  --primary-color: #5be4d4;
+  /* --primary-color: #d4e2df; */
   /* headers, section background, accents */
-  --secondary-color-dark: green;
+  --secondary-color: #d4e2df;
   /* text */
-  --text-color-dark: white;
+  --text-color: black;
   /* accents for hover on buttons, badges, and notifications */
-  --accent-color-dark: pink;
+  --accent-color: #5be4d4c3;
 
   /* dividors borders background elements */
-  --neutral-color-dark: #4f4f4f;
-  /* --background-color-dark: #2d2d2d; */
-  --background-color-dark: black;
-  --surface-color-dark: #212327;
-  --error-color-dark: red;
+  --neutral-color: #4f4f4f;
+  --background-color: #f9faf7;
+  --surface-color: white;
+  --block-color: #bdb8b1;
+  --error-color: red;
+  --color-card-1: #e1ebf3;
+  --color-card-2: #d4e2df;
+  --color-card-3: #c6cfd5;
+  --color-card-4: #e9dcce;
+  --color-card-5: #e0d4d5;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Ubuntu:wght@400;500;700&display=swap");
+[data-theme='dark'] {
+  /* button, icons, highlights */
+  --primary-color: #5be4d4;
+  /* headers, section background, accents */
+  --secondary-color: #5be4d45e;
+  /* text */
+  --text-color: white;
+  /* accents for hover on buttons, badges, and notifications */
+  --accent-color: #5be4d4d7;
+
+  /* dividors borders background elements */
+  --neutral-color: #4f4f4f;
+
+  --background-color: #0a1a30f5;
+  --surface-color: #112240;
+  --block-color: #1e3c6c80;
+
+  --error-color: rgb(110, 25, 25);
+
+  --color-card-1: #d66c6e;
+  --color-card-2: #d4972c;
+  --color-card-3: #bf69c5;
+  --color-card-4: #8b67ce;
+  --color-card-5: #668cc0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500;700;800&family=Inter:wght@400;500;700;800&family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=Ubuntu:wght@400;500;700&family=Zen+Dots&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Train+One&display=swap');
 
 /* 
+font-family: 'Barlow', sans-serif;
+font-family: 'Inter', sans-serif;
 font-family: 'Jost', sans-serif;
 font-family: 'Montserrat', sans-serif;
+font-family: 'Quicksand', sans-serif;
 font-family: 'Ubuntu', sans-serif;
+font-family: 'Zen Dots', cursive;
 */
 
 /* CSS RESET */
@@ -44,7 +81,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  color: var(--text-color-dark);
+  color: var(--text-color);
 }
 
 img,
@@ -81,8 +118,8 @@ h6 {
 /* GLOBALS */
 
 body {
-  font-family: "Jost", sans-serif;
-  background-color: var(--background-color-dark);
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--background-color);
 }
 
 a {
