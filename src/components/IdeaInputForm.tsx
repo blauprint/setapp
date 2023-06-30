@@ -39,6 +39,12 @@ export default function IdeaInputForm() {
     onFinish: handleFinish,
   });
 
+
+  // ***********
+  // WORK IN PROGRESS!
+  // The idea is to dynamically import components based on the completion.
+  // The components would be cards that display the project data as it is being generated.
+  // ***********
   // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
   // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
   // const DynamicFrameworkCard = dynamic(
@@ -46,6 +52,10 @@ export default function IdeaInputForm() {
   // );
   // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
   // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
+
+
+
+  // ***********
 
   // Handler functions
 
@@ -78,6 +88,9 @@ export default function IdeaInputForm() {
     }/${projectName}/output`;
     router.push(url);
   }
+
+  // ***********
+
 
   // Regex functions
 
@@ -114,9 +127,11 @@ export default function IdeaInputForm() {
     }
   }
 
+  // ***********
+
   // useEffect(() => {
-  //   regexDataExtractor(completion);
-  // }, [completion]);
+    //   regexDataExtractor(completion);
+    // }, [completion]);
 
   const projectName = "seismica";
 
