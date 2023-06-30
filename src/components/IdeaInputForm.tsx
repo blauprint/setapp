@@ -79,14 +79,18 @@ export default function IdeaInputForm() {
     console.log("Finished completion!");
     console.log("Completion:", completion);
     console.log("Prompt:", prompt);
-    const projectJson: ProjectData = await JSON.parse(`{${completion}`);
-    dispatch(addProjects(projectJson));
+    try {
+      const projectJson: ProjectData = await JSON.parse(`{${completion}`);
+      dispatch(addProjects(projectJson));
 
-    setCardData(projectJson);
-    const url = `/${
-      user?.username ? user.username : user?.firstName
-    }/${projectName}/output`;
-    router.push(url);
+      setCardData(projectJson);
+      const url = `/${
+        user?.username ? user.username : user?.firstName
+      }/${projectName}/output`;
+      router.push(url);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // ***********
