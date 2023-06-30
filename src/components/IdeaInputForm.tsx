@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, ReactElement } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
 import * as Yup from "yup";
@@ -23,7 +23,7 @@ export default function IdeaInputForm() {
   const { user } = useUser();
   const router = useRouter();
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const {
     completion,
@@ -40,7 +40,7 @@ export default function IdeaInputForm() {
   });
 
   // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
-  const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
+  // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
   // const DynamicFrameworkCard = dynamic(
   //   () => import("@/components/FrameworkCard")
   // );
@@ -114,43 +114,49 @@ export default function IdeaInputForm() {
     }
   }
 
-  useEffect(() => {
-    regexDataExtractor(completion);
-  }, [completion]);
-
+  // useEffect(() => {
+  //   regexDataExtractor(completion);
+  // }, [completion]);
 
   const projectName = "seismica";
 
   return (
-    <div className={styles.inputContainer}>
-      <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
-        <textarea
-          className={styles.ideaTextArea}
-          // ref={textAreaRef}
-          autoFocus={true}
-          onChange={handleInputChange}
-          value={input}
-          name="idea"
-          rows={1}
-          id="idea"
-          required={true}
-          autoComplete="off"
-        ></textarea>
-        {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
-        {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
-        {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
-        {/* <DynamicModelCard model={cardData?.backend.database} /> */}
-        {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
-        {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
-        <label className={styles.ideaLabel} htmlFor="name">
-          <span className={styles.ideaSpan}>Type in your app idea....</span>
-        </label>
-        <button type="submit" className={styles.sendBtn}>
-          <BiSend />
-        </button>
-      </form>
-
-      {isLoading && <Spinner />}
-    </div>
+    <>
+      <div className={styles.inputContainer}>
+        {!isLoading && (
+          <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
+            <textarea
+              className={styles.ideaTextArea}
+              // ref={textAreaRef}
+              autoFocus={true}
+              onChange={handleInputChange}
+              value={input}
+              name="idea"
+              rows={1}
+              id="idea"
+              required={true}
+              autoComplete="off"
+            ></textarea>
+            {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
+            {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
+            {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
+            {/* <DynamicModelCard model={cardData?.backend.database} /> */}
+            {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
+            {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
+            <label className={styles.ideaLabel} htmlFor="name">
+              <span className={styles.ideaSpan}>Type in your app idea....</span>
+            </label>
+            <button type="submit" className={styles.sendBtn}>
+              <BiSend />
+            </button>
+          </form>
+        )}
+        {isLoading && (
+          <div className={styles.spinnerContainer}>
+            <Spinner />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
