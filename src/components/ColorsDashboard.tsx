@@ -1,16 +1,21 @@
-import ColorCard from "./ColorCard";
-import styles from '@/styles/ColorsDashboard.module.css'
-import { ColorScheme } from "@/types/typedefs";
+import ColorCard from './ColorCard';
+import styles from '@/styles/ColorsDashboard.module.css';
+import { ColorScheme } from '@/types/typedefs';
 
-export default function ColorsDashboard({ colorScheme }: { colorScheme: ColorScheme }) {
-
+export default function ColorsDashboard({
+  colorScheme,
+}: {
+  colorScheme: ColorScheme;
+}) {
   return (
     <>
-      <div className={styles.colorsList}>
+      <ul className={styles.colorsList}>
         {colorScheme.colorPalette.map((color) => (
-          <ColorCard color={color}></ColorCard>
+          <li key={crypto.randomUUID()}>
+            <ColorCard color={color} />
+          </li>
         ))}
-      </div>
+      </ul>
     </>
-  )
+  );
 }

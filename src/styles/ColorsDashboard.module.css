@@ -1,3 +1,4 @@
 .colorsList {
   display: flex;
+  list-style: none;
 }

@@ -9,15 +9,22 @@ export async function getProjects(auth: Auth): Promise<ProjectData[]> {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'auth': JSON.stringify(auth),
+      auth: JSON.stringify(auth),
     },
+  };
+
+  try {
+    const projectsPromise = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/projects`,
+      options
+    );
+    const projects: ProjectData[] = await projectsPromise.json();
+
+    const dispatch = useAppDispatch();
+    dispatch(addProjects(projects));
+
+    return projects;
+  } catch (error) {
+    console.log(error);
   }
-
-  const projectsPromise = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects`, options);
-  const projects: ProjectData[] = await projectsPromise.json();
-
-  const dispatch = useAppDispatch();
-  dispatch(addProjects(projects));
-
-  return projects;
-} 
+}
