@@ -9,6 +9,7 @@ import TodoList from '@/components/TodoList';
 import { useSelector } from 'react-redux';
 import ModelDashboard from '@/components/ModelDashboard';
 import ColorsDashboard from '@/components/ColorsDashboard';
+import ProjectMenu from '@/components/ProjectMenu';
 
 let project: ProjectData = store.getState().currentProject;
 
@@ -42,7 +43,9 @@ Page.getLayout = function getLayout(page: ReactElement) {
 
   return (
     <Layout>
-      <NestedLayout >{page}</NestedLayout>
+      <NestedLayout >
+        {page}
+      </NestedLayout>
     </Layout>
   )
 }

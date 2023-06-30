@@ -6,7 +6,7 @@ export default function NestedLayout({ children }: { children: ReactElement }) {
   return (
     <div className={styles.outputPage}>
       <ProjectMenu />
-      <main>{children}</main>
+      {children}
     </div>
   )
 }

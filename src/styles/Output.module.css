@@ -1,4 +1,6 @@
 .outputPage {
+  margin-top: 12vh;
+  height: 88vh;
   width: 100%;
   display: flex;
   flex-direction: row;

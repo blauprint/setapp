@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Provider store={store}>
-        <main>{children}</main>
+        {children}
       </Provider>
     </>
   )
