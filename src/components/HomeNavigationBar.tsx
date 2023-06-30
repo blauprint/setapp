@@ -1,6 +1,5 @@
 import { store } from '@/redux/store';
 import styles from '@/styles/HomeNavigationBar.module.css';
-import { ProjectData } from '@/types/typedefs';
 
 import {
   SignInButton,
@@ -18,7 +17,6 @@ const quicksand = Quicksand({
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import ThemeSwitch from './ThemeSwitch';
 
 export default function HomeNavigationBar() {
@@ -29,51 +27,53 @@ export default function HomeNavigationBar() {
   let userName = useUser().user?.username;
 
   return (
-    <div className={styles.container}>
-      <div
-        className={quicksand.className}
-        style={{
-          fontSize: '28px',
-          color: 'var(--text-color)',
-          letterSpacing: '9px',
-          fontWeight: 600,
-        }}
-      >
-        <Link href={'/'}>setapp</Link>
-      </div>
-      
+    <>
+      <div className={styles.container}>
+        <div
+          className={quicksand.className}
+          style={{
+            fontSize: '28px',
+            color: 'var(--text-color)',
+            letterSpacing: '9px',
+            fontWeight: 600,
+          }}
+        >
+          <Link href={'/'}>setapp</Link>
+        </div>
+
         {projectName && currentRoute === '/[userName]/[projectName]/output' && (
           <div className={styles.projectName}>{'./' + projectName}</div>
         )}
 
-      <div className={styles.navOptions}>
-        <SignedIn>
-          {(currentRoute === '/' ||
-            currentRoute === '/[userName]/[projectName]/output' ||
-            currentRoute === '/idea') && (
-            <div>
-              <Link className={styles.projectlink} href={'/projects'}>
-                Projects
-              </Link>
-            </div>
-          )}
-        </SignedIn>
-        <ThemeSwitch />
-        <SignedOut>
-          <SignInButton
-            mode="modal"
-            afterSignInUrl={'/projects'}
-            afterSignUpUrl="/projects"
-          >
-            <button className={styles.loginBtn}>Login</button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <Link href="/profile" className="user-name">
-            <UserButton afterSignOutUrl="/" />
-          </Link>
-        </SignedIn>
+        <div className={styles.navOptions}>
+          <SignedIn>
+            {(currentRoute === '/' ||
+              currentRoute === '/[userName]/[projectName]/output' ||
+              currentRoute === '/idea') && (
+                <div>
+                  <Link className={styles.projectlink} href={'/projects'}>
+                    Projects
+                  </Link>
+                </div>
+              )}
+          </SignedIn>
+          <ThemeSwitch />
+          <SignedOut>
+            <SignInButton
+              mode="modal"
+              afterSignInUrl={'/projects'}
+              afterSignUpUrl="/projects"
+            >
+              <button className={styles.loginBtn}>Login</button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <Link href="/profile" className="user-name">
+              <UserButton afterSignOutUrl="/" />
+            </Link>
+          </SignedIn>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

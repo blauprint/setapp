@@ -2,7 +2,7 @@ import { Technology } from '@/types/typedefs';
 import styles from '@/styles/FrameworkDashboard.module.css'
 import { MdChevronRight } from 'react-icons/md';
 
-export default function ModelDashboard({ framework }: { framework: Technology }) {
+export default function FrameworkDashboard({ framework }: { framework: Technology }) {
 
   return (
     <div className={styles.frameworkContainer}>
