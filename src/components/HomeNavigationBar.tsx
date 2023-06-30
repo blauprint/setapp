@@ -41,10 +41,10 @@ export default function HomeNavigationBar() {
       >
         <Link href={'/'}>setapp</Link>
       </div>
-
-      {projectName && currentRoute === '/[userName]/[projectName]/output' && (
-        <div className={styles.projectName}>{projectName}</div>
-      )}
+      
+        {projectName && currentRoute === '/[userName]/[projectName]/output' && (
+          <div className={styles.projectName}>{'./' + projectName}</div>
+        )}
 
       <div className={styles.navOptions}>
         <SignedIn>
