@@ -4,7 +4,7 @@ import ProjectsList from "@/components/ProjectsList";
 import { useAppDispatch } from "@/redux/hooks";
 import { addProjects } from "@/redux/projectsSlice";
 import { getProjects } from "@/services/projectsService";
-import styles from "@/styles/ProjectsPage.module.css";
+import styles from "@/styles/ProjectCard.module.css";
 import { Auth } from "@/types/Auth";
 import { ProjectData } from "@/types/typedefs";
 import {
@@ -14,7 +14,7 @@ import {
   useAuth,
   useUser,
 } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProjectsPage() {
   const { user } = useUser();
@@ -43,27 +43,30 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString(),
   };
 
-  // let projects: Project[] = [];
+
+  let dispatch = useAppDispatch();
+  const [projects, setProjects] = useState<ProjectData[]>([]);
 
   useEffect(() => {
     if (user) {
       getProjects(auth).then((res) => {
-   //     projects = res;
+        setProjects(res);
+        dispatch(addProjects(res))
       });
     }
-  // dispatch(addProjects(projects))
-  }, [user])
-
-/*   let projects: ProjectData[] = projectsMock;
-  let dispatch = useAppDispatch()
-  dispatch(addProjects(projects)) */
-
+  }, [user]);
 
   return (
     <>
       <SignedIn>
-        <div className={styles.projectsContainer}>
+        <div>
           {/* <ProjectsList projects={projects}></ProjectsList> */}
+           {projects.map((project) => (
+            <div className={styles.projectCard} key={project.id}>
+              <div>Idea: {project.idea}</div>
+              <div>Created At: {project.createdAt}</div>
+            </div>
+          ))}
         </div>
       </SignedIn>
       <SignedOut>
