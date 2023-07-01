@@ -5,7 +5,6 @@ import { useUser } from '@clerk/nextjs';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 
-import { format, parse } from 'date-fns';
 export default function ProjectCard({ project }: { project: ProjectData }) {
   let router = useRouter();
   const { user } = useUser();

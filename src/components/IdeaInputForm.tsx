@@ -113,9 +113,9 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(projectJson));
 
       setCardData(projectJson);
-      await postProjects(auth, projectJson);
+      let response = await postProjects(auth, projectJson);
       projectName = projectJson.title;
-      projectId = projectJson.id;
+      projectId = response.id;
 
       const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/${projectId}/output`;
       router.push(url);
