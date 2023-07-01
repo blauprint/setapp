@@ -12,14 +12,13 @@ import ColorsDashboard from "@/components/ColorsDashboard";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { Auth } from "@/types/Auth";
-import { useRouter } from "next/router";
 import { getProjectById } from "@/services/projectsService";
 import { addCurrentProject } from "@/redux/currentProjectSlice";
 
 
 const Page: NextPageWithLayout = () => {
 
-  let [project, setProject] = useState<any>({
+  let [project, setProject] = useState<ProjectData>({
     id: '',
     userId: '',
     summary: '',
@@ -67,7 +66,6 @@ const Page: NextPageWithLayout = () => {
     createdAt: 0
   });
   let select: string = useSelector((state: RootState) => state.selected);
-  let router = useRouter()
   let url = '';
   let id = '';
   const { user } = useUser();
@@ -99,17 +97,14 @@ const Page: NextPageWithLayout = () => {
   useEffect(() => {
     url = window.location.href;
     id = (url.match(/\/\w+\/(\w+)\/output/) || [])[1] || '';
-    console.log(url);
-    console.log(id);
+    // console.log(url);
+    // console.log(id);
 
     if (user && project.idea === "") {
       getProject(auth, id.toString()).then((res) => {
-        console.log(res, 'res');
-        let pro: ProjectData = res;
-        setProject(pro);
-        console.log(pro, 'project')
-        dispatch(addCurrentProject(project));
-        return project
+        // console.log(res, 'res');
+        setProject(res);
+        dispatch(addCurrentProject(res));
       })
     }
   }, [user])

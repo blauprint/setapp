@@ -11,7 +11,7 @@ import Spinner from "./Spinner";
 import { useUser, useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import { addCurrentProject } from "@/redux/currentProjectSlice";
-import { postProjects } from "@/services/projectsService";
+import { postProject } from "@/services/projectsService";
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -109,11 +109,13 @@ export default function IdeaInputForm() {
     try {
       const projectJson: ProjectData = await JSON.parse(`{${completion}`);
       projectJson.idea = prompt;
-      dispatch(addNewProject(projectJson));
-      dispatch(addCurrentProject(projectJson));
+      let response = await postProject(auth, projectJson);
+
+
+      dispatch(addNewProject(response));
+      dispatch(addCurrentProject(response));
 
       setCardData(projectJson);
-      let response = await postProjects(auth, projectJson);
       projectName = projectJson.title;
       projectId = response.id;
 

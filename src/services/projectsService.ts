@@ -17,7 +17,7 @@ export async function getProjects(auth: Auth): Promise<ProjectData[]> {
 }
 
 
-export async function postProjects(auth: Auth, projectBody: ProjectData): Promise<{ id: string }> {
+export async function postProject(auth: Auth, projectBody: ProjectData): Promise<{ id: string }> {
   auth.sessionToken = await auth.sessionToken();
   const options = {
     method: 'POST',
