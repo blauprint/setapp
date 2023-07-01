@@ -15,7 +15,9 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   const formattedDate = '25 Jun';
 
   function handleClickOnProjectCard(project: ProjectData) {
-    const url = `/${user?.username ? user.username : user?.firstName}/${project.projectName}/${project.id}/output`;
+
+    const url = `/${user?.username ? user.username : user?.firstName}/${project.title}/${project.id}/output`;
+
     dispatch(addCurrentProject(project));
 
     router.push(url);
@@ -26,7 +28,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
       className={styles.projectCard}
       onClick={() => handleClickOnProjectCard(project)}
     >
-      <div className={styles.title}>{project.projectName}</div>
+      <div className={styles.title}>{project.title}</div>
       <div className={styles.idea}>{project.idea + '...'}</div>
 
       <div className={styles.details}>

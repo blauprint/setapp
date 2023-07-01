@@ -1,6 +1,6 @@
 import ColorCard from './ColorCard';
 import styles from '@/styles/ColorsDashboard.module.css';
-import { ColorScheme } from '@/types/typedefs';
+import { ColorScheme, Color } from '@/types/typedefs';
 
 export default function ColorsDashboard({
   colorScheme,
@@ -10,9 +10,9 @@ export default function ColorsDashboard({
   return (
     <>
       <ul className={styles.colorsList}>
-        {colorScheme.colorPalette.map((color) => (
+        {colorScheme.colorPalette.color.map((c: Color) => (
           <li key={crypto.randomUUID()}>
-            <ColorCard color={color} />
+            <ColorCard color={c} />
           </li>
         ))}
       </ul>

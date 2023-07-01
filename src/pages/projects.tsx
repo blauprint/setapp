@@ -48,6 +48,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     if (user) {
       getProjects(auth).then((res) => {
+        console.log(res);
         setProjects(res);
         dispatch(addProjects(res))
       });
