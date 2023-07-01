@@ -33,6 +33,7 @@ export async function postProjects(auth: Auth, projectBody: ProjectData): Promis
 }
 
 export async function getProjectById(auth: Auth, id: string): Promise<ProjectData> {
+  // console.log(auth, 'in services')
   auth.sessionToken = await auth.sessionToken();
   const options = {
     method: 'GET',

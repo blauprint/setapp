@@ -5,17 +5,22 @@ import { ProjectData } from "@/types/typedefs";
 
 const initialState: ProjectData = {
   id: '',
+  userId: '',
   summary: '',
   idea: '',
   title: '',
+  forontendId: '',
   frontend: {
+    id: '',
     todoList: [],
+    frameworkId: '',
     framework: {
       name: '',
       whyGoodOption: '',
       description: '',
       link: ''
     },
+    colorSchemeId: '',
     colorScheme: {
       whyGoodOption: '',
       colorPalette: {
@@ -23,15 +28,18 @@ const initialState: ProjectData = {
       }
     },
   },
-
+  backendId: '',
   backend: {
+    id: '',
     todoList: [],
+    frameworkId: '',
     framework: {
       name: '',
       whyGoodOption: '',
       description: '',
       link: ''
     },
+    databaseId: '',
     database: {
       name: '',
       whyGoodOption: '',

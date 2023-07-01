@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, type ReactElement, useState } from "react";
 import { RootState } from "@/redux/store";
 import { ProjectData } from "@/types/typedefs";
@@ -11,69 +10,68 @@ import { useSelector } from "react-redux";
 import ModelDashboard from "@/components/ModelDashboard";
 import ColorsDashboard from "@/components/ColorsDashboard";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { Auth } from "@/types/Auth";
 import { useRouter } from "next/router";
 import { getProjectById } from "@/services/projectsService";
-import { useAuth } from "@clerk/nextjs";
-import { Auth } from "@/types/Auth";
 import { addCurrentProject } from "@/redux/currentProjectSlice";
 
 
 const Page: NextPageWithLayout = () => {
 
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
-  let project: ProjectData = useAppSelector((state: RootState) => state.currentProject);
-
+  let [project, setProject] = useState<any>({
+    id: '',
+    userId: '',
+    summary: '',
+    idea: '',
+    title: '',
+    forontendId: '',
+    frontend: {
+      id: '',
+      todoList: [],
+      frameworkId: '',
+      framework: {
+        name: '',
+        whyGoodOption: '',
+        description: '',
+        link: ''
+      },
+      colorSchemeId: '',
+      colorScheme: {
+        whyGoodOption: '',
+        colorPalette: {
+          color: []
+        }
+      },
+    },
+    backendId: '',
+    backend: {
+      id: '',
+      todoList: [],
+      frameworkId: '',
+      framework: {
+        name: '',
+        whyGoodOption: '',
+        description: '',
+        link: ''
+      },
+      databaseId: '',
+      database: {
+        name: '',
+        whyGoodOption: '',
+        description: '',
+        link: '',
+        schema: ''
+      },
+    },
+    createdAt: 0
+  });
   let select: string = useSelector((state: RootState) => state.selected);
-  // let [url, setUrl] = useState('');
-
-  // let [id, setId] = useState('');
-  // let [project, setProject] = useState({
-  //   id: '', 
-  //   summary: '',
-  //   idea: '',
-  //   title: '',
-  //   frontend: {
-  //     todoList: [],
-  //     framework: {
-  //       name: '',
-  //       whyGoodOption: '',
-  //       description: '',
-  //       link: ''
-  //     },
-  //     colorScheme: {
-  //       whyGoodOption: '',
-  //       colorPalette: {
-  //         color: []
-  //       }
-  //     },
-  //   },
-
-  //   backend: {
-  //     todoList: [],
-  //     framework: {
-  //       name: '',
-  //       whyGoodOption: '',
-  //       description: '',
-  //       link: ''
-  //     },
-  //     database: {
-  //       name: '',
-  //       whyGoodOption: '',
-  //       description: '',
-  //       link: '',
-  //       schema: ''
-  //     },
-  //   },
-  //   createdAt: 0
-  // });
-
-
-  let id: string = '' //(router.asPath.match(/\/\w+\/(\w+)\/output/) || [])[1] || '';
-  // console.log(router.asPath)
-  // console.log(id, 'id==============================');
-
+  let router = useRouter()
+  let url = '';
+  let id = '';
+  const { user } = useUser();
+  let dispatch = useAppDispatch();
   const {
     userId,
     sessionId,
@@ -98,32 +96,29 @@ const Page: NextPageWithLayout = () => {
     orgSlug: orgSlug?.toString(),
   };
 
-  // setUrl(router.asPath)
-
-  // useEffect(() => {
-  // setId((router.asPath.match(/\/\w+\/(\w+)\/output/) || [])[1] || '');
-  // setProject(useAppSelector((state: RootState) => state.currentProject));
-  id = (router.asPath.match(/\/\w+\/(\w+)\/output/) || [])[1] || '';
-  console.log(window.location.href)
-  console.log(id, 'id==============================');
-  // }, []);
-
-
-
   useEffect(() => {
-    console.log(id, 'ooooooooooooooooooooooo')
-    if (!project.idea || project.idea === '') {
-      console.log('calling backend');
-      getProjectById(auth, id).then(res => {
-        console.log(res, 'res+++++++++++++++++++++');
-        // setProject(res[0]);
-        project = res;
-        dispatch(addCurrentProject(res));
-        // project = useAppSelector((state: RootState) => state.currentProject);
-      });
-    }
-  }, [])
+    url = window.location.href;
+    id = (url.match(/\/\w+\/(\w+)\/output/) || [])[1] || '';
+    console.log(url);
+    console.log(id);
 
+    if (user && project.idea === "") {
+      getProject(auth, id.toString()).then((res) => {
+        console.log(res, 'res');
+        let pro: ProjectData = res;
+        setProject(pro);
+        console.log(pro, 'project')
+        dispatch(addCurrentProject(project));
+        return project
+      })
+    }
+  }, [user])
+
+  useState(useAppSelector((state: RootState) => state.currentProject));
+
+  async function getProject(auth: Auth, id: string) {
+    return await getProjectById(auth, id);
+  }
 
 
   if (project && select === "todosBE") {

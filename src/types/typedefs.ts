@@ -22,21 +22,48 @@ export type Database = Technology & {
   schema: string; // as code snippet
 };
 
+// export type ProjectData = {
+//   id: string;
+//   idea: string;
+//   title: string;
+//   summary: string;
+//   frontend: {
+//     todoList: string[];
+//     framework: Technology;
+//     colorScheme: ColorScheme;
+//   };
+
+//   backend: {
+//     todoList: string[];
+//     framework: Technology;
+//     database: Database;
+//   };
+//   createdAt: number;
+// };
+
 export type ProjectData = {
   id: string;
+  userId: string;
   idea: string;
   title: string;
   summary: string;
+  forontendId: string;
   frontend: {
+    id: string;
     todoList: string[];
     framework: Technology;
+    frameworkId: string;
     colorScheme: ColorScheme;
+    colorSchemeId: string;
   };
-
+  backendId: string;
   backend: {
+    id: string;
     todoList: string[];
     framework: Technology;
+    frameworkId: string;
     database: Database;
+    databaseId: string;
   };
   createdAt: number;
 };
