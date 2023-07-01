@@ -6,7 +6,6 @@ import NestedLayout from "@/components/NestedLayout";
 import FrameworkDashboard from "@/components/FrameworkDashboard";
 import Layout from "@/components/Layout";
 import TodoList from "@/components/TodoList";
-import { useSelector } from "react-redux";
 import ModelDashboard from "@/components/ModelDashboard";
 import ColorsDashboard from "@/components/ColorsDashboard";
 import { useAppSelector } from "@/redux/hooks";
@@ -15,7 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 const Page: NextPageWithLayout = () => {
 
   let project: ProjectData = useAppSelector((state: RootState) => state.currentProject);
-  let select: string = useSelector((state: RootState) => state.selected);
+  let select: string = useAppSelector((state: RootState) => state.selected);
 
   if (project && select === "todosBE") {
     return <TodoList todos={project.backend.toDoList} />;
