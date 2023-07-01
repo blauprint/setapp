@@ -38,6 +38,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0"
   },

@@ -16,7 +16,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   function handleClickOnProjectCard(project: ProjectData) {
     const url = `/${user?.username ? user.username : user?.firstName}/${
-      project.projectName
+      project.title
     }/output`;
     dispatch(addCurrentProject(project));
 
@@ -28,7 +28,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
       className={styles.projectCard}
       onClick={() => handleClickOnProjectCard(project)}
     >
-      <div className={styles.title}>{project.projectName}</div>
+      <div className={styles.title}>{project.title}</div>
       <div className={styles.idea}>{project.idea + '...'}</div>
 
       <div className={styles.details}>

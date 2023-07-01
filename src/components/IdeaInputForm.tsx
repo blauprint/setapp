@@ -107,12 +107,13 @@ export default function IdeaInputForm() {
     console.log("Prompt:", prompt);
     try {
       const projectJson: ProjectData = await JSON.parse(`{${completion}`);
+      projectJson.idea = prompt;
       dispatch(addNewProject(projectJson));
       dispatch(addCurrentProject(projectJson));
 
       setCardData(projectJson);
       await postProjects(auth, projectJson);
-      projectName = projectJson.projectName;
+      projectName = projectJson.title;
 
       const url = `/${
         user?.username ? user.username : user?.firstName

@@ -7,7 +7,6 @@ interface TodoListProps {
 }
 
 function TodoList({ todos }: TodoListProps) {
-  console.log(todos);
   const ids = generateUUID(todos.length);
   return (
     <div className={styles.todosList}>

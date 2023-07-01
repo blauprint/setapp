@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 const generateUUID = (arraySize = 1) => {
+  if (arraySize < 1) return [];
   const ids: string[] = [];
 
   for (let i = 0; i < arraySize; i = i + 1) {
