@@ -10,12 +10,49 @@ import { useSelector } from "react-redux";
 import ModelDashboard from "@/components/ModelDashboard";
 import ColorsDashboard from "@/components/ColorsDashboard";
 import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/router";
+import { getProjectById } from "@/services/projectsService";
+import { useAuth } from "@clerk/nextjs";
+import { Auth } from "@/types/Auth";
 
 
 const Page: NextPageWithLayout = () => {
 
+  const router = useRouter();
+
   let project: ProjectData = useAppSelector((state: RootState) => state.currentProject);
   let select: string = useSelector((state: RootState) => state.selected);
+
+  const id: string = (router.pathname.match(/[0-9]*/) || [])[0] || '';
+  console.log(id);
+
+  const {
+    userId,
+    sessionId,
+    isLoaded,
+    getToken,
+    isSignedIn,
+    signOut,
+    orgId,
+    orgRole,
+    orgSlug,
+  } = useAuth();
+
+  const auth: Auth = {
+    userId: userId?.toString(),
+    sessionId: sessionId?.toString(),
+    sessionToken: getToken,
+    isLoaded: isLoaded,
+    isSignedIn: isSignedIn,
+    signOut: signOut,
+    orgId: orgId?.toString(),
+    orgRole: orgRole?.toString(),
+    orgSlug: orgSlug?.toString(),
+  };
+
+  if (project.idea === '') {
+    getProjectById(auth, id).then(res => { project = res });
+  }
 
   if (project && select === "todosBE") {
     return <TodoList todos={project.backend.toDoList} />;

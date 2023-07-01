@@ -23,7 +23,8 @@ export default function IdeaInputForm() {
   let dispatch = useAppDispatch();
   const { user } = useUser();
   const router = useRouter();
-  let projectName: string = "";
+  let projectName: string = '';
+  let projectId: string = '';
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -84,10 +85,9 @@ export default function IdeaInputForm() {
 
       setCardData(projectJson);
       projectName = projectJson.projectName;
+      projectId = projectJson.id;
 
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/${projectName}/output`;
+      const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/${projectId}/output`;
       router.push(url);
     } catch (error) {
       console.error(error);

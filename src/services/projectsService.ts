@@ -17,3 +17,17 @@ export async function getProjects(auth: Auth): Promise<ProjectData[]> {
 }
 
 
+export async function getProjectById(auth: Auth, id: string): Promise<ProjectData> {
+  auth.sessionToken = await auth.sessionToken();
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+  };
+
+  const projectPromise = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/project`, options);
+  const response = await projectPromise.json();
+  return response;
+}
