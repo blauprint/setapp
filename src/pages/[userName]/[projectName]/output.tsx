@@ -18,13 +18,13 @@ const Page: NextPageWithLayout = () => {
   let select: string = useSelector((state: RootState) => state.selected);
 
   if (project && select === "todosBE") {
-    return <TodoList todos={project.backend.toDoList} />;
+    return <TodoList todos={project.backend.todoList} />;
   } else if (select === "frameworkBE") {
     return <FrameworkDashboard framework={project.backend.framework} />;
   } else if (select === "model") {
     return <ModelDashboard model={project.backend.database} />;
   } else if (select === "todosFE") {
-    return <TodoList todos={project.frontend.toDoList} />;
+    return <TodoList todos={project.frontend.todoList} />;
   } else if (select === "frameworkFE") {
     return <FrameworkDashboard framework={project.frontend.framework} />;
   } else if (select === "colors") {

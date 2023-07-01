@@ -7,9 +7,9 @@ const initialState: ProjectData = {
   id: '',
   summary: '',
   idea: '',
-  projectName: '',
+  title: '',
   frontend: {
-    toDoList: [],
+    todoList: [],
     framework: {
       name: '',
       whyGoodOption: '',
@@ -18,12 +18,14 @@ const initialState: ProjectData = {
     },
     colorScheme: {
       whyGoodOption: '',
-      colorPalette: []
+      colorPalette: {
+        color: []
+      }
     },
   },
 
   backend: {
-    toDoList: [],
+    todoList: [],
     framework: {
       name: '',
       whyGoodOption: '',

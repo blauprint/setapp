@@ -13,7 +13,9 @@ export type Color = {
 
 export type ColorScheme = {
   whyGoodOption: string; //one short sentence
-  colorPalette: Color[];
+  colorPalette: {
+    color: Color[]
+  };
 };
 
 export type Database = Technology & {
@@ -23,16 +25,16 @@ export type Database = Technology & {
 export type ProjectData = {
   id: string;
   idea: string;
-  projectName: string;
+  title: string;
   summary: string;
   frontend: {
-    toDoList: string[];
+    todoList: string[];
     framework: Technology;
     colorScheme: ColorScheme;
   };
 
   backend: {
-    toDoList: string[];
+    todoList: string[];
     framework: Technology;
     database: Database;
   };
