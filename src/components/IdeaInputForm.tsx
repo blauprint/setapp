@@ -4,7 +4,7 @@ import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
 import { ProjectData } from "@/types/typedefs";
 import { Auth } from "@/types/Auth";
-import { useCompletion } from "ai/react";
+import { Message, useChat, useCompletion } from "ai/react";
 import { useAppDispatch } from "@/redux/hooks";
 import { addNewProject, addProjects } from "@/redux/projectsSlice";
 import Spinner from "./Spinner";
@@ -22,6 +22,8 @@ import { postProjects } from "@/services/projectsService";
 export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
+
+
   // CLERK AUTH
   const { user } = useUser();
   const {
@@ -51,28 +53,25 @@ export default function IdeaInputForm() {
 
 
   const router = useRouter();
-  let projectName: string = "";
 
   const formRef = useRef<HTMLFormElement | null>(null);
+  const spinnerRef = useRef<HTMLDivElement | null>(null);
 
-  const {
-    completion,
-    input,
-    isLoading,
-    handleInputChange,
-    handleSubmit,
-  } = useCompletion({
-    api: "/api/chat/openai_api",
-    onError: handleError,
-    onResponse: handleResponse,
-    onFinish: handleFinish,
-  });
+  let projectName: string = "";
+
+  const { input, isLoading, handleInputChange, handleSubmit } =
+    useChat({
+      api: "/api/chat/openai_api",
+      onError: handleError,
+      onFinish: handleFinish,
+    });
 
   // ***********
   // WORK IN PROGRESS!
   // The idea is to dynamically import components based on the completion.
   // The components would be cards that display the project data as it is being generated.
   // ***********
+
   // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
   // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
   // const DynamicFrameworkCard = dynamic(
@@ -87,27 +86,38 @@ export default function IdeaInputForm() {
 
   function handleError(error: Error) {
     console.error(error);
+    if (spinnerRef.current) {
+      spinnerRef.current.style.display = "none";
+    }
+    // Error alert:
+    alert("Sorry, there was an error. Please try again.");
   }
 
-  function handleResponse(response: Response) {
+  async function customHandleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    handleSubmit(event);
     if (formRef.current) {
+      // spinnerRef.current.hidden = false;
       formRef.current.style.translate = "0 -100vh";
       formRef.current.style.filter = "blur(10px)";
       setTimeout(() => {
-        if (formRef.current) {
+        if (formRef.current && spinnerRef.current) {
+          spinnerRef.current.style.display = "block";
           formRef.current.style.display = "none";
         }
-      }, 1000);
+      }, 600);
     }
   }
 
-  async function handleFinish(prompt: string, completion: string) {
-    console.log("Finished completion!");
-    console.log("Completion:", completion);
-    console.log("Prompt:", prompt);
+  async function handleFinish(message: Message) {
+    if (formRef.current) {
+      formRef.current.remove();
+    }
+    console.log("Message finished!");
+    console.log("Message:", message.content);
+
     try {
-      const projectJson: ProjectData = await JSON.parse(`{${completion}`);
-      projectJson.idea = prompt;
+      const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
+      projectJson.idea = input;
       dispatch(addNewProject(projectJson));
       dispatch(addCurrentProject(projectJson));
 
@@ -119,8 +129,9 @@ export default function IdeaInputForm() {
         user?.username ? user.username : user?.firstName
       }/${projectName}/output`;
       router.push(url);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      handleError(error);
     }
   }
 
@@ -162,49 +173,43 @@ export default function IdeaInputForm() {
 
   // ***********
 
-  useEffect(() => {
-    // regexDataExtractor(completion);
-    console.log(completion);
-  }, [completion]);
-
-  // const projectName = "seismica";
-
   return (
     <>
       <div className={styles.inputContainer}>
-        {!isLoading && (
-          <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
-            <textarea
-              className={styles.ideaTextArea}
-              // ref={textAreaRef}
-              autoFocus={true}
-              onChange={handleInputChange}
-              value={input}
-              name="idea"
-              rows={1}
-              id="idea"
-              required={true}
-              autoComplete="off"
-            ></textarea>
-            {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
-            {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
-            {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
-            {/* <DynamicModelCard model={cardData?.backend.database} /> */}
-            {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
-            {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
-            <label className={styles.ideaLabel} htmlFor="name">
-              <span className={styles.ideaSpan}>Type in your app idea....</span>
-            </label>
-            <button type="submit" className={styles.sendBtn}>
-              <BiSend />
-            </button>
-          </form>
-        )}
-        {isLoading && (
-          <div className={styles.spinnerContainer}>
-            <Spinner />
-          </div>
-        )}
+        <form
+          className={styles.form}
+          onSubmit={customHandleSubmit}
+          ref={formRef}
+        >
+          <textarea
+            className={styles.ideaTextArea}
+            // ref={textAreaRef}
+            autoFocus={true}
+            onChange={handleInputChange}
+            value={input}
+            name="idea"
+            rows={1}
+            id="idea"
+            required={true}
+            autoComplete="off"
+          ></textarea>
+          {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
+          {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
+          {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
+          {/* <DynamicModelCard model={cardData?.backend.database} /> */}
+          {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
+          {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
+          <label className={styles.ideaLabel} htmlFor="name">
+            <span className={styles.ideaSpan}>Type in your app idea....</span>
+          </label>
+          <button type="submit" className={styles.sendBtn}>
+            <BiSend />
+          </button>
+        </form>
+
+        <div className={styles.spinnerContainer} ref={spinnerRef}>
+          <Spinner />
+        </div>
       </div>
     </>
   );
