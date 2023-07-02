@@ -89,14 +89,12 @@ export default function IdeaInputForm() {
     if (spinnerRef.current) {
       spinnerRef.current.style.display = "none";
     }
-    // Error alert:
     alert("Sorry, there was an error. Please try again.");
   }
 
   async function customHandleSubmit(event: React.FormEvent<HTMLFormElement>) {
     handleSubmit(event);
     if (formRef.current) {
-      // spinnerRef.current.hidden = false;
       formRef.current.style.translate = "0 -100vh";
       formRef.current.style.filter = "blur(10px)";
       setTimeout(() => {
