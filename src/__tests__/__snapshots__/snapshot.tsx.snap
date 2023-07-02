@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="introContainer"
+  >
+    <h2>
+      Welcome to 
+      <span
+        class="appName"
+      >
+        setapp
+      </span>
+      !
+    </h2>
+    <p>
+      Turn your app ideas into reality with ease. Our intuitive platform empowers you to bring your vision to life by guiding you through the process of creating your very own app. Whether you're a seasoned developer or just starting out, our powerful tools and customizable templates will help you craft a stunning and functional app tailored to your unique needs.
+    </p>
+    <h3>
+      Start creating your dream app now. Let's make it happen together!
+    </h3>
+  </div>
+</div>
+`;
