@@ -128,7 +128,6 @@ export default function IdeaInputForm() {
       }/${projectName}/output`;
       router.push(url);
     } catch (error: any) {
-      console.error(error);
       handleError(error);
     }
   }
