@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, FormEvent } from "react";
 import styles from "@/styles/IdeaInputForm.module.css";
 import { BiSend } from "react-icons/bi";
 import { ProjectData } from "@/types/typedefs";
@@ -23,7 +23,6 @@ export default function IdeaInputForm() {
   const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
 
-
   // CLERK AUTH
   const { user } = useUser();
   const {
@@ -38,7 +37,6 @@ export default function IdeaInputForm() {
     orgSlug,
   } = useAuth();
 
-
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -51,7 +49,6 @@ export default function IdeaInputForm() {
     orgSlug: orgSlug?.toString(),
   };
 
-
   const router = useRouter();
 
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -59,12 +56,11 @@ export default function IdeaInputForm() {
 
   let projectName: string = "";
 
-  const { input, isLoading, handleInputChange, handleSubmit } =
-    useChat({
-      api: "/api/chat/openai_api",
-      onError: handleError,
-      onFinish: handleFinish,
-    });
+  const { input, isLoading, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat/openai_api",
+    onError: handleError,
+    onFinish: handleFinish,
+  });
 
   // ***********
   // WORK IN PROGRESS!
@@ -90,13 +86,16 @@ export default function IdeaInputForm() {
       spinnerRef.current.style.display = "none";
     }
     alert("Sorry, there was an error. Please try again.");
+    // Refresh the page
+    router.reload();
   }
 
-  async function customHandleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
     if (formRef.current) {
       formRef.current.style.translate = "0 -100vh";
-      formRef.current.style.filter = "blur(10px)";
+      formRef.current.style.scale = "0";
+      formRef.current.style.filter = "blur(60px)";
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
           spinnerRef.current.style.display = "block";
@@ -189,6 +188,14 @@ export default function IdeaInputForm() {
             id="idea"
             required={true}
             autoComplete="off"
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                // TODO: Either change to input or fix textarea functionality
+                event.currentTarget.form?.dispatchEvent(
+                  new Event("submit", { cancelable: true, bubbles: true }),
+                );
+              }
+            }}
           ></textarea>
           {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
           {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
