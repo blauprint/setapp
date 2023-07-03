@@ -11,7 +11,7 @@ import Spinner from './Spinner';
 import { useUser, useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
-import { postProjects } from '@/services/projectsService';
+import { postProject } from '@/services/projectsService';
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -20,7 +20,6 @@ import { postProjects } from '@/services/projectsService';
 // });
 
 export default function IdeaInputForm() {
-  const [cardData, setCardData] = useState<ProjectData | null>(null);
   let dispatch = useAppDispatch();
 
   // CLERK AUTH
@@ -50,11 +49,11 @@ export default function IdeaInputForm() {
   };
 
   const router = useRouter();
+  let projectName: string = '';
+  let projectId: string = '';
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
-
-  let projectName: string = '';
 
   const { input, isLoading, handleInputChange, handleSubmit } = useChat({
     api: '/api/chat/openai_api',
@@ -118,16 +117,19 @@ export default function IdeaInputForm() {
     try {
       const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
       projectJson.idea = input;
+
       dispatch(addNewProject(projectJson));
       dispatch(addCurrentProject(projectJson));
 
-      setCardData(projectJson);
-      await postProjects(auth, projectJson);
-      projectName = projectJson.title;
+      let response = await postProject(auth, projectJson);
 
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/${projectName}/output`;
+      dispatch(addNewProject(response));
+      dispatch(addCurrentProject(response));
+
+      projectName = projectJson.title;
+      projectId = response.id;
+
+      const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/${projectId}/output`;
       router.push(url);
     } catch (error: any) {
       handleError(error);

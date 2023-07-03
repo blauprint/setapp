@@ -17,7 +17,7 @@ export async function getProjects(auth: Auth): Promise<ProjectData[]> {
 }
 
 
-export async function postProjects(auth: Auth, projectBody: ProjectData): Promise<{id: string}> {
+export async function postProject(auth: Auth, projectBody: ProjectData): Promise<{ id: string }> {
   auth.sessionToken = await auth.sessionToken();
   const options = {
     method: 'POST',
@@ -32,3 +32,18 @@ export async function postProjects(auth: Auth, projectBody: ProjectData): Promis
   return data;
 }
 
+export async function getProjectById(auth: Auth, id: string): Promise<ProjectData> {
+  // console.log(auth, 'in services')
+  auth.sessionToken = await auth.sessionToken();
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+  };
+
+  const projectPromise = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/${id}`, options);
+  const response = await projectPromise.json();
+  return response;
+}

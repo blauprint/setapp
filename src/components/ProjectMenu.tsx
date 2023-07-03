@@ -11,7 +11,7 @@ export default function ProjectMenu() {
   return (
     <>
       <div className={styles.menu}>
-        <button className={styles.menuButton} onClick={() => dispatch(addSelected(""))}>Start</button>
+        <button className={styles.menuButton} onClick={() => dispatch(addSelected("overview"))}>Overview</button>
         <div>
           <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
@@ -19,7 +19,7 @@ export default function ProjectMenu() {
               aria-controls="backend"
               id="backend-panel"
             >
-              <div className={styles.accordionTitle}>Backend</div>
+
               <div className={styles.accordionTitle}>Backend</div>
             </AccordionSummary>
             <AccordionDetails>
@@ -37,7 +37,6 @@ export default function ProjectMenu() {
               aria-controls="frontend"
               id="frontend-panel"
             >
-              <div className={styles.accordionTitle}>Frontend</div>
               <div className={styles.accordionTitle}>Frontend</div>
             </AccordionSummary>
             <AccordionDetails>

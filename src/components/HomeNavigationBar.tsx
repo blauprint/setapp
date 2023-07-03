@@ -23,7 +23,7 @@ export default function HomeNavigationBar() {
   const router = useRouter();
   const currentRoute = router.pathname;
 
-  let projectName: string = store.getState().currentProject.projectName;
+  let projectName: string = store.getState().currentProject.title;
   let userName = useUser().user?.username;
 
   return (
@@ -31,7 +31,7 @@ export default function HomeNavigationBar() {
       <div className={styles.container}>
         <div
           className={quicksand.className}
-          
+
           style={{
             fontSize: '28px',
             color: 'var(--text-color)',
@@ -42,14 +42,14 @@ export default function HomeNavigationBar() {
           <Link href={'/'}>setapp</Link>
         </div>
 
-        {projectName && currentRoute === '/[userName]/[projectName]/output' && (
+        {projectName && currentRoute === '/[userName]/[projectName]/[projectId]/output' && (
           <div className={styles.projectName}>{'./' + projectName}</div>
         )}
 
         <div className={styles.navOptions}>
           <SignedIn>
             {(currentRoute === '/' ||
-              currentRoute === '/[userName]/[projectName]/output' ||
+              currentRoute === '/[userName]/[projectName]/[projectId]/output' ||
               currentRoute === '/idea') && (
                 <div>
                   <Link className={styles.projectlink} href={'/projects'}>

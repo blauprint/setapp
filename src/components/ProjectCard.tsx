@@ -5,7 +5,6 @@ import { useUser } from '@clerk/nextjs';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 
-import { format, parse } from 'date-fns';
 export default function ProjectCard({ project }: { project: ProjectData }) {
   let router = useRouter();
   const { user } = useUser();
@@ -15,9 +14,9 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   const formattedDate = '25 Jun';
 
   function handleClickOnProjectCard(project: ProjectData) {
-    const url = `/${user?.username ? user.username : user?.firstName}/${
-      project.title
-    }/output`;
+
+    const url = `/${user?.username ? user.username : user?.firstName}/${project.title}/${project.id}/output`;
+
     dispatch(addCurrentProject(project));
 
     router.push(url);
