@@ -11,7 +11,7 @@ export default function ProjectMenu() {
   return (
     <>
       <div className={styles.menu}>
-        <button className={styles.menuButton} onClick={() => dispatch(addSelected(""))}>Start</button>
+        <button className={styles.menuButton} onClick={() => dispatch(addSelected("overview"))}>Overview</button>
         <div>
           <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
