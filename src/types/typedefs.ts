@@ -41,6 +41,33 @@ export type ProjectData = {
   createdAt: number;
 };
 
+// export type ProjectData = {
+//   id: string;
+//   userId: string;
+//   idea: string;
+//   title: string;
+//   summary: string;
+//   forontendId: string;
+//   frontend: {
+//     id: string;
+//     todoList: string[];
+//     framework: Technology;
+//     frameworkId: string;
+//     colorScheme: ColorScheme;
+//     colorSchemeId: string;
+//   };
+//   backendId: string;
+//   backend: {
+//     id: string;
+//     todoList: string[];
+//     framework: Technology;
+//     frameworkId: string;
+//     database: Database;
+//     databaseId: string;
+//   };
+//   createdAt: number;
+// };
+
 // Below is the copy of the above types, but with all the properties as string.
 // This is used to build the AI prompt, so we can get a valid JSON string.
 

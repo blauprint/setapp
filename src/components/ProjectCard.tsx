@@ -48,7 +48,8 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   function handleClickOnProjectCard(project: ProjectData) {
     const url = `/${user?.username ? user.username : user?.firstName}/${
       project.title
-    }/output`;
+    }/${project.id}/output`;
+
     dispatch(addCurrentProject(project));
 
     router.push(url);
