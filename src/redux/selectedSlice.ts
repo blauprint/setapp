@@ -3,7 +3,7 @@ import { RootState } from "./store";
 
 export const selectedSlice: Slice = createSlice({
   name: 'selected',
-  initialState: 'todosBE',
+  initialState: 'overview',
   reducers: {
     addSelected: (state: string, action: AnyAction) => {
       return action.payload;

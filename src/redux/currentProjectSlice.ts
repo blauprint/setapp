@@ -23,7 +23,6 @@ const initialState: ProjectData = {
       }
     },
   },
-
   backend: {
     todoList: [],
     framework: {
