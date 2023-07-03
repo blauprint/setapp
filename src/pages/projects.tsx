@@ -1,18 +1,18 @@
-import ProjectsList from "@/components/ProjectsList";
-import { useAppDispatch } from "@/redux/hooks";
-import { addProjects } from "@/redux/projectsSlice";
-import { getProjects } from "@/services/projectsService";
-import styles from "@/styles/ProjectsPage.module.css";
-import { Auth } from "@/types/Auth";
-import { ProjectData } from "@/types/typedefs";
+import ProjectsList from '@/components/ProjectsList';
+import { useAppDispatch } from '@/redux/hooks';
+import { addProjects } from '@/redux/projectsSlice';
+import { getProjects } from '@/services/projectsService';
+import styles from '@/styles/ProjectsPage.module.css';
+import { Auth } from '@/types/Auth';
+import { ProjectData } from '@/types/typedefs';
 import {
   RedirectToSignIn,
   SignedIn,
   SignedOut,
   useAuth,
   useUser,
-} from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+} from '@clerk/nextjs';
+import { useEffect, useState } from 'react';
 
 export default function ProjectsPage() {
   const { user } = useUser();
@@ -28,7 +28,6 @@ export default function ProjectsPage() {
     orgSlug,
   } = useAuth();
 
-
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -41,7 +40,6 @@ export default function ProjectsPage() {
     orgSlug: orgSlug?.toString(),
   };
 
-
   let dispatch = useAppDispatch();
   const [projects, setProjects] = useState<ProjectData[]>([]);
 
@@ -50,7 +48,7 @@ export default function ProjectsPage() {
       getProjects(auth).then((res) => {
         console.log(res);
         setProjects(res);
-        dispatch(addProjects(res))
+        dispatch(addProjects(res));
       });
     }
   }, [user]);
