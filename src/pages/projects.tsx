@@ -45,15 +45,7 @@ export default function ProjectsPage() {
 
   const projects: ProjectData[] = useAppSelector(selectProject);
 
-  // console.log('i ran');
-  // if (user) {
-  //   getProjects(auth).then((res) => {
-  //     dispatch(addProjects(res));
-  //   });
-  // }
-
   useEffect(() => {
-    console.log('i ran');
     if (user && projects.length === 0) {
       getProjects(auth).then((res) => {
         dispatch(addProjects(res));
