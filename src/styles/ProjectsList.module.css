@@ -3,9 +3,9 @@
   font-family: 'Montserrat', sans-serif;
   padding: 20px;
   border-radius: 25px;
-  width: 180px;
+  width: 200px;
   cursor: pointer;
-  height: 170px;
+  height: 190px;
   transition: all 0.2s;
   outline: none;
   border: 1px solid var(--primary-color);
