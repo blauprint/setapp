@@ -1,7 +1,59 @@
 .introContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroText {
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.heroSubText {
+  display: flex;
+  gap: 15px;
+}
+
+.typewriter {
+  color: var(--primary-color);
+}
+
+.setApp {
+  color: var(--primary-color);
+}
+
+.sell {
+  margin-top: 80px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.heroBtn {
+  background-color: var(--secondary-color);
+  font-size: 18px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+}
+
+.heroBtn:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.heroBtns {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.moreInfo {
   width: 60%;
-  margin: 0 auto;
-  margin-top: 10%;
-  line-height: 2;
-  text-align: justify;
 }
