@@ -10,6 +10,9 @@ export const projectsSlice: Slice = createSlice({
   initialState,
   reducers: {
     // add: (state: ProjectData[], action: PayloadAction<ProjectData[]>) => {
+    getAllProjects: (state: ProjectData[]) => {
+      return state;
+    },
     addProjects: (state: ProjectData[], action: AnyAction) => {
       // state = [...state, action.payload];
       // return state;
@@ -22,25 +25,24 @@ export const projectsSlice: Slice = createSlice({
     },
 
     deleteProjectFromStore: (state: ProjectData[], action: AnyAction) => {
-      console.log(current(state));
+      // console.log(current(state));
 
-      const idx = state.findIndex((project) => project.id === action.payload);
+      // const idx = state.findIndex((project) => project.id === action.payload);
 
-      if (idx !== -1) {
-        state.splice(idx, 1);
-      }
-      console.log(current(state));
-
-      // const filteredState = state.filter(
-      //   (project) => project.id !== action.payload
-      // );
-      // console.log(filteredState);
-      // state = [...filteredState];
+      // if (idx !== -1) {
+      //   state.splice(idx, 1);
+      // }
+      // console.log(current(state));
+      return state.filter((project) => project.id !== action.payload);
     },
   },
 });
 
-export const { addProjects, addNewProject, deleteProjectFromStore } =
-  projectsSlice.actions;
+export const {
+  addProjects,
+  addNewProject,
+  deleteProjectFromStore,
+  getAllProjects,
+} = projectsSlice.actions;
 export const selectProject = (state: RootState) => state.projects;
 export default projectsSlice.reducer;

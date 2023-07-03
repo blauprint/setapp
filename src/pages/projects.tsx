@@ -1,6 +1,7 @@
 import ProjectsList from '@/components/ProjectsList';
-import { useAppDispatch } from '@/redux/hooks';
-import { addProjects } from '@/redux/projectsSlice';
+import { selectProject } from '@/redux/currentProjectSlice';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { getAllProjects, addProjects } from '@/redux/projectsSlice';
 import { getProjects } from '@/services/projectsService';
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from '@/types/Auth';
@@ -12,7 +13,7 @@ import {
   useAuth,
   useUser,
 } from '@clerk/nextjs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function ProjectsPage() {
   const { user } = useUser();
@@ -41,13 +42,20 @@ export default function ProjectsPage() {
   };
 
   let dispatch = useAppDispatch();
-  const [projects, setProjects] = useState<ProjectData[]>([]);
+
+  const projects: ProjectData[] = useAppSelector(selectProject);
+
+  // console.log('i ran');
+  // if (user) {
+  //   getProjects(auth).then((res) => {
+  //     dispatch(addProjects(res));
+  //   });
+  // }
 
   useEffect(() => {
-    if (user) {
+    console.log('i ran');
+    if (user && projects.length === 0) {
       getProjects(auth).then((res) => {
-        console.log(res);
-        setProjects(res);
         dispatch(addProjects(res));
       });
     }

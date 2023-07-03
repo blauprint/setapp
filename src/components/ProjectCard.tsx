@@ -58,11 +58,10 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     e.stopPropagation();
 
     //delete from the redux store
-    console.log('button is clicked');
     dispatch(deleteProjectFromStore(project.id));
-    // deleteProject(auth, project.id);
 
     //delete from the database as well we need to make an api delete request
+    deleteProject(auth, project.id);
   }
 
   useEffect(() => {}, [project]);
