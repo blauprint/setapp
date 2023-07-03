@@ -14,7 +14,7 @@ export type Color = {
 export type ColorScheme = {
   whyGoodOption: string; //one short sentence
   colorPalette: {
-    color: Color[]
+    colors: Color[]
   };
 };
 
@@ -23,7 +23,7 @@ export type Database = Technology & {
 };
 
 export type ProjectData = {
-  id: string;
+  id?: string;
   idea: string;
   title: string;
   summary: string;
@@ -38,7 +38,7 @@ export type ProjectData = {
     framework: Technology;
     database: Database;
   };
-  createdAt: number;
+  createdAt?: number;
 };
 
 // export type ProjectData = {

@@ -1,17 +1,17 @@
-"use client";
-import { useRef, useState, useEffect, FormEvent } from "react";
-import styles from "@/styles/IdeaInputForm.module.css";
-import { BiSend } from "react-icons/bi";
-import { ProjectData } from "@/types/typedefs";
-import { Auth } from "@/types/Auth";
-import { useAppDispatch } from "@/redux/hooks";
-import { addNewProject, addProjects } from "@/redux/projectsSlice";
-import Spinner from "./Spinner";
-import { useUser, useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
-import { addCurrentProject } from "@/redux/currentProjectSlice";
-import { postProject } from "@/services/projectsService";
-import { Message } from 'ai';
+'use client';
+import { useRef, FormEvent } from 'react';
+import styles from '@/styles/IdeaInputForm.module.css';
+import { BiSend } from 'react-icons/bi';
+import { ProjectData } from '@/types/typedefs';
+import { Auth } from '@/types/Auth';
+import { useAppDispatch } from '@/redux/hooks';
+import { addNewProject } from '@/redux/projectsSlice';
+import Spinner from './Spinner';
+import { useUser, useAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/router';
+import { addCurrentProject } from '@/redux/currentProjectSlice';
+import { postProject } from '@/services/projectsService';
+import { Message, useChat } from 'ai/react';
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -54,7 +54,6 @@ export default function IdeaInputForm() {
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
-
 
   const { input, isLoading, handleInputChange, handleSubmit } = useChat({
     api: '/api/chat/openai_api',
@@ -120,11 +119,13 @@ export default function IdeaInputForm() {
       projectJson.idea = input;
       let response = await postProject(auth, projectJson);
       projectId = response.id;
-      dispatch(addNewProject(projectJson));
-      dispatch(addCurrentProject(projectJson));
+      dispatch(addNewProject(response));
+      dispatch(addCurrentProject(response));
       projectName = projectJson.title;
-
-      const url = `/${user?.username ? user.username : user?.firstName}/${projectName}/${projectId}/output`;
+      debugger;
+      const url = `/${
+        user?.username ? user.username : user?.firstName
+      }/${projectName}/${projectId}/output`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
