@@ -1,17 +1,17 @@
-"use client";
-import { useRef, useState, useEffect, FormEvent } from "react";
-import styles from "@/styles/IdeaInputForm.module.css";
-import { BiSend } from "react-icons/bi";
-import { ProjectData } from "@/types/typedefs";
-import { Auth } from "@/types/Auth";
-import { Message, useChat, useCompletion } from "ai/react";
-import { useAppDispatch } from "@/redux/hooks";
-import { addNewProject, addProjects } from "@/redux/projectsSlice";
-import Spinner from "./Spinner";
-import { useUser, useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
-import { addCurrentProject } from "@/redux/currentProjectSlice";
-import { postProjects } from "@/services/projectsService";
+'use client';
+import { useRef, useState, useEffect, FormEvent } from 'react';
+import styles from '@/styles/IdeaInputForm.module.css';
+import { BiSend } from 'react-icons/bi';
+import { ProjectData } from '@/types/typedefs';
+import { Auth } from '@/types/Auth';
+import { Message, useChat, useCompletion } from 'ai/react';
+import { useAppDispatch } from '@/redux/hooks';
+import { addNewProject, addProjects } from '@/redux/projectsSlice';
+import Spinner from './Spinner';
+import { useUser, useAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/router';
+import { addCurrentProject } from '@/redux/currentProjectSlice';
+import { postProjects } from '@/services/projectsService';
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -54,10 +54,10 @@ export default function IdeaInputForm() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
 
-  let projectName: string = "";
+  let projectName: string = '';
 
   const { input, isLoading, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat/openai_api",
+    api: '/api/chat/openai_api',
     onError: handleError,
     onFinish: handleFinish,
   });
@@ -83,9 +83,9 @@ export default function IdeaInputForm() {
   function handleError(error: Error) {
     console.error(error);
     if (spinnerRef.current) {
-      spinnerRef.current.style.display = "none";
+      spinnerRef.current.style.display = 'none';
     }
-    alert("Sorry, there was an error. Please try again.");
+    alert('Sorry, there was an error. Please try again.');
     // Refresh the page
     router.reload();
   }
@@ -93,13 +93,13 @@ export default function IdeaInputForm() {
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
     if (formRef.current) {
-      formRef.current.style.translate = "0 -100vh";
-      formRef.current.style.scale = "0";
-      formRef.current.style.filter = "blur(60px)";
+      formRef.current.style.translate = '0 -100vh';
+      formRef.current.style.scale = '0';
+      formRef.current.style.filter = 'blur(60px)';
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
-          spinnerRef.current.style.display = "block";
-          formRef.current.style.display = "none";
+          spinnerRef.current.style.display = 'block';
+          formRef.current.style.display = 'none';
         }
       }, 600);
     }
@@ -109,8 +109,11 @@ export default function IdeaInputForm() {
     if (formRef.current) {
       formRef.current.remove();
     }
-    console.log("Message finished!");
-    console.log("Message:", message.content);
+    console.log('Message finished!');
+    console.log('Message:', message.content);
+
+    // Remove trailing backticks if they exist (common with GPT-3 completions)
+    message.content = message.content.replace(/`+$/, '');
 
     try {
       const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
@@ -183,16 +186,16 @@ export default function IdeaInputForm() {
             autoFocus={true}
             onChange={handleInputChange}
             value={input}
-            name="idea"
+            name='idea'
             rows={1}
-            id="idea"
+            id='idea'
             required={true}
-            autoComplete="off"
+            autoComplete='off'
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 // TODO: Either change to input or fix textarea functionality
                 event.currentTarget.form?.dispatchEvent(
-                  new Event("submit", { cancelable: true, bubbles: true }),
+                  new Event('submit', { cancelable: true, bubbles: true }),
                 );
               }
             }}
@@ -203,10 +206,10 @@ export default function IdeaInputForm() {
           {/* <DynamicModelCard model={cardData?.backend.database} /> */}
           {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
           {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
-          <label className={styles.ideaLabel} htmlFor="name">
+          <label className={styles.ideaLabel} htmlFor='name'>
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type="submit" className={styles.sendBtn}>
+          <button type='submit' className={styles.sendBtn}>
             <BiSend />
           </button>
         </form>
