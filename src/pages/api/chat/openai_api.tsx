@@ -1,7 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { Configuration, OpenAIApi } from 'openai-edge';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { Configuration, OpenAIApi } from "openai-edge";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+
+// IMPORTANT! Set the runtime to edge
+export const runtime = "edge";
 
 // Create an OpenAI API client (that's edge friendly!)
 const config = new Configuration({
@@ -10,23 +11,26 @@ const config = new Configuration({
 
 const openai = new OpenAIApi(config);
 
-// IMPORTANT! Set the runtime to edge
-export const runtime = 'edge';
+export default async function POST(req: Request) {
 
-export default async function POST(req: NextApiRequest) {
-  // Extract the user's prompt from the body of the request
-  const userPrompt = req.body;
+  // Extract the messages from the body of the request
+  const { messages } = await req.json();
 
   // Build the full prompt to be sent to OpenAI
-  const fullPrompt = process.env.COMPLETION_PROMPT + `"` + userPrompt + `",\n`;
+  const fullPrompt = process.env.COMPLETION_PROMPT + `"` + messages[0].content + `",\n`;
 
   // Ask OpenAI for a streaming completion given the prompt
-  const response = await openai.createCompletion({
-    model: 'text-davinci-003',
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo-16k",
     stream: true,
     max_tokens: 1200,
-    temperature: 0.2,
-    prompt: fullPrompt,
+    temperature: 0.5,
+    messages: [
+      {
+        content: fullPrompt,
+        role: "user",
+      },
+    ],
   });
 
   // Convert the response into a friendly text-stream
