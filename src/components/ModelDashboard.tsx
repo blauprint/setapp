@@ -1,7 +1,6 @@
-import { Database } from "@/types/typedefs";
+import { Database } from '@/types/typedefs';
 
 export default function ModelDashboard({ model }: { model: Database }) {
-
   return (
     <>
       <div>{model.name}</div>
@@ -10,5 +9,5 @@ export default function ModelDashboard({ model }: { model: Database }) {
       <div>{model.schema}</div>
       <div>{model.link}</div>
     </>
-  )
+  );
 }

@@ -76,6 +76,8 @@ export default function IdeaInputForm() {
   // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
   // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
 
+
+  
   // ***********
 
   // Handler functions
@@ -124,7 +126,6 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       projectName = projectJson.title;
-      debugger;
       const url = `/${
         user?.username ? user.username : user?.firstName
       }/${projectName}/${projectId}/output`;

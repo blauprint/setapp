@@ -39,8 +39,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/__tests__/services/projectsService.test.jsx"  ],
+    "**/*.tsx",
+    "src/__tests__/services/projectsService.test.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]

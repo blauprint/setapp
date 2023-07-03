@@ -1,7 +1,7 @@
 import ProjectsList from '@/components/ProjectsList';
 import { selectProject } from '@/redux/currentProjectSlice';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
-import { getAllProjects, addProjects } from '@/redux/projectsSlice';
+import { addProjects } from '@/redux/projectsSlice';
 import { getProjects } from '@/services/projectsService';
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from '@/types/Auth';
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
   return (
     <div className={styles.projectsPageWrapper}>
       <SignedIn>
-        <ProjectsList projects={projects}></ProjectsList>
+        <ProjectsList projects={projects} />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
