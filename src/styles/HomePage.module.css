@@ -9,11 +9,7 @@
   font-size: 60px;
   font-weight: 800;
   letter-spacing: 3px;
-}
-
-.heroSubText {
-  display: flex;
-  gap: 15px;
+  text-align: center;
 }
 
 .typewriter {
@@ -21,7 +17,20 @@
 }
 
 .setApp {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   color: var(--primary-color);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroLogo {
+  display: flex;
 }
 
 .sell {
@@ -35,7 +44,7 @@
 .heroBtn {
   background-color: var(--secondary-color);
   font-size: 18px;
-  padding: 10px 25px;
+  padding: 12px 25px;
   border: none;
   border-radius: 25px;
   font-weight: 500;
@@ -49,11 +58,115 @@
 }
 
 .heroBtns {
-  margin-top: 20px;
+  margin-top: 40px;
   display: flex;
-  gap: 20px;
+  gap: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .moreInfo {
-  width: 60%;
+  background-color: var(--block-color);
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeading {
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--primary-color);
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  padding: 50px 150px;
+}
+
+.infoText {
+  width: 50%;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+.infoText > p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.infoImage {
+  width: 50%;
+}
+
+.lottieSetApp {
+  height: 400px;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+@media (max-width: 900px) {
+  .sectionHeading {
+    font-size: 25px;
+  }
+
+  .infoContainer {
+    padding: 50px 100px;
+  }
+}
+
+@media (max-width: 800px) {
+  .sectionHeading {
+    font-size: 20px;
+  }
+
+  .infoContainer {
+    padding: 50px 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  .heroText {
+    font-size: 50px;
+    letter-spacing: 2.5px;
+  }
+  .sectionHeading {
+    font-size: 20px;
+  }
+  .infoContainer {
+    flex-direction: column-reverse;
+    padding: 30px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sectionHeading {
+    font-size: 17px;
+    padding: 5px;
+  }
+
+  .infoText {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .sectionHeading {
+    font-size: 17px;
+    padding: 5px;
+  }
+
+  .infoText {
+    width: 100%;
+  }
 }

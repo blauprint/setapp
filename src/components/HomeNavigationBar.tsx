@@ -18,6 +18,12 @@ const quicksand = Quicksand({
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ThemeSwitch from './ThemeSwitch';
+import {
+  AiFillBuild,
+  AiOutlineBuild,
+  AiTwotoneBuild,
+  AiTwotoneEdit,
+} from 'react-icons/ai';
 
 export default function HomeNavigationBar() {
   const router = useRouter();
@@ -31,7 +37,6 @@ export default function HomeNavigationBar() {
       <div className={styles.container}>
         <div
           className={quicksand.className}
-
           style={{
             fontSize: '28px',
             color: 'var(--text-color)',
@@ -39,24 +44,31 @@ export default function HomeNavigationBar() {
             fontWeight: 600,
           }}
         >
-          <Link href={'/'}>setapp</Link>
+          <Link
+            href={'/'}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          >
+            <AiFillBuild />
+            setapp
+          </Link>
         </div>
 
-        {projectName && currentRoute === '/[userName]/[projectName]/[projectId]/output' && (
-          <div className={styles.projectName}>{'./' + projectName}</div>
-        )}
+        {projectName &&
+          currentRoute === '/[userName]/[projectName]/[projectId]/output' && (
+            <div className={styles.projectName}>{'./' + projectName}</div>
+          )}
 
         <div className={styles.navOptions}>
           <SignedIn>
             {(currentRoute === '/' ||
               currentRoute === '/[userName]/[projectName]/[projectId]/output' ||
               currentRoute === '/idea') && (
-                <div>
-                  <Link className={styles.projectlink} href={'/projects'}>
-                    Projects
-                  </Link>
-                </div>
-              )}
+              <div>
+                <Link className={styles.projectlink} href={'/projects'}>
+                  Projects
+                </Link>
+              </div>
+            )}
           </SignedIn>
           <ThemeSwitch />
           <SignedOut>
