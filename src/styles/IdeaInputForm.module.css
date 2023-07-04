@@ -27,7 +27,7 @@
   resize: none;
 }
 
-textarea.ideaTextArea+label.ideaLabel {
+textarea.ideaTextArea + label.ideaLabel {
   display: block;
   position: relative;
   white-space: nowrap;
@@ -40,8 +40,8 @@ textarea.ideaTextArea+label.ideaLabel {
   letter-spacing: 1px;
 }
 
-textarea.ideaTextArea:focus+label.ideaLabel,
-textarea.ideaTextArea:focus+label.ideaLabel {
+textarea.ideaTextArea:focus + label.ideaLabel,
+textarea.ideaTextArea:focus + label.ideaLabel {
   width: 60%;
 }
 
@@ -50,8 +50,8 @@ textarea.ideaTextArea:focus {
   margin-top: 35px;
 }
 
-textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
-textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
+textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
+textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
   top: 10px;
   font-size: 22px;
 }
@@ -98,10 +98,9 @@ span.ideaSpan {
 }
 
 .progressBarContainer {
-
   position: absolute;
-  bottom: 10px;
-  /* top: 20vh; */
+  /* bottom: 10px; */
+  top: 20vh;
 }
 
 .MuiLinearProgress-root {
