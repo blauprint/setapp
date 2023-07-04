@@ -41,7 +41,6 @@ export async function getProjectById(
   auth: Auth,
   id: string | string[],
 ): Promise<ProjectData> {
-  // console.log(auth, 'in services')
   auth.sessionToken = await auth.sessionToken();
   const options = {
     method: 'GET',
@@ -74,5 +73,24 @@ export async function deleteProject(auth: Auth, id: string): Promise<void> {
   );
 
   const response = await deleteProject.json();
+  return response;
+}
+
+
+export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
+  auth.sessionToken = await auth.sessionToken();
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+  };
+
+  const deleteTodo = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/todo/${id}`,
+    options,
+  );
+  const response = await deleteTodo.json();
   return response;
 }

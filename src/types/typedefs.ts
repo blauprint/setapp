@@ -28,15 +28,25 @@ export type ProjectData = {
   title: string;
   summary: string;
   frontend: {
-    todoList: string[];
+    todoList: TodoItem[];
     framework: Technology;
     colorScheme: ColorScheme;
   };
 
   backend: {
-    todoList: string[];
+    todoList: TodoItem[];
     framework: Technology;
     database: Database;
   };
   createdAt?: number;
 };
+
+export type TodoItem = {
+  id: string;
+  title: string;
+  done: boolean;
+  createdAt: string | number;
+  backendId?: string,
+  frontendId?: string
+}
+

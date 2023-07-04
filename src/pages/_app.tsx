@@ -18,27 +18,26 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(
     <ThemeProvider>
-      <ClerkProvider
-        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-        {...pageProps}
-        appearance={{
-          baseTheme: dark,
-          variables: {
-            colorPrimary: "#ffa41b",
-            colorText: "white",
-          },
-        }}
-      >
-        <Provider store={store}>
-          <HomeNavigationBar />
-          <Component {...pageProps} />
-        </Provider>
-      </ClerkProvider>
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+          {...pageProps}
+          appearance={{
+            baseTheme: dark,
+            variables: {
+              colorPrimary: "#ffa41b",
+              colorText: "white",
+            },
+          }}
+        >
+          <Provider store={store}>
+            <HomeNavigationBar />
+            <Component {...pageProps} />
+          </Provider>
+        </ClerkProvider>
     </ThemeProvider>
   );
 }

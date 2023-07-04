@@ -7,12 +7,11 @@ import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { useAuth } from '@clerk/nextjs';
 import { Auth } from '@/types/Auth';
 import { deleteProjectFromStore } from '@/redux/projectsSlice';
-
 import { deleteProject } from '@/services/projectsService';
 import { DeleteForever } from '@mui/icons-material';
-
 import React from 'react';
 import Link from 'next/link';
+
 export default function ProjectCard({ project }: { project: ProjectData }) {
   let router = useRouter();
   const { user } = useUser();
@@ -44,25 +43,17 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   //TODO need to convert project date to this format and save it
   const formattedDate = '25 Jun';
-
+  let projectId = "";
   function handleClickOnProjectCard(project: ProjectData) {
-    //TODO: maybe use Link from nextjs instead of router.push
-    // const url = `/${user?.username ? user.username : user?.firstName}/${
-    //   project.id
-    // }/output`;
     dispatch(addCurrentProject(project));
-
-    // router.push(url);
   }
 
   function handleDelete(e: React.SyntheticEvent) {
     e.stopPropagation();
-
     //delete from the redux store
-    dispatch(deleteProjectFromStore(project.id));
-
+    dispatch(deleteProjectFromStore(projectId));
     //delete from the database as well we need to make an api delete request
-    deleteProject(auth, project.id);
+    deleteProject(auth, projectId);
   }
 
   return (

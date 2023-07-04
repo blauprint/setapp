@@ -10,7 +10,7 @@ export default function ColorsDashboard({
   return (
     <>
       <ul className={styles.colorsList}>
-        {colorScheme.colorPalette.color.map((c: Color) => (
+        {colorScheme.colorPalette.colors.map((c: Color) => (
           <li key={crypto.randomUUID()}>
             <ColorCard color={c} />
           </li>

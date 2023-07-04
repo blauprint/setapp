@@ -15,17 +15,22 @@ import { useAuth, useUser } from '@clerk/nextjs';
 import { Auth } from '@/types/Auth';
 import { getProjectById } from '@/services/projectsService';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
+import { addTodo } from "@/redux/todoSlice";
 import { useRouter } from 'next/router';
 
 const Page: NextPageWithLayout = () => {
-  // const project = useAppSelector((state: RootState) => state.currentProject);
   let [project, setProject] = useState<ProjectData>({
     id: '',
     summary: '',
     idea: '',
     title: '',
     frontend: {
-      todoList: [],
+      todoList: [{
+        id: '',
+        title: '',
+        done: false,
+        createdAt: 0
+      }],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -40,7 +45,12 @@ const Page: NextPageWithLayout = () => {
       },
     },
     backend: {
-      todoList: [],
+      todoList: [{
+        id: '',
+        title: '',
+        done: false,
+        createdAt: ''
+      }],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -91,6 +101,8 @@ const Page: NextPageWithLayout = () => {
     if (user && project.idea === '') {
       getProject(auth, id!).then((res) => {
         setProject(res);
+        res.backend.todoList.forEach((todo) => dispatch(addTodo(todo)));
+        res.frontend.todoList.forEach((todo) => dispatch(addTodo(todo)));
         dispatch(addCurrentProject(res));
       });
     }
