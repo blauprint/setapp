@@ -11,7 +11,6 @@ import { deleteProjectFromStore } from '@/redux/projectsSlice';
 import { deleteProject } from '@/services/projectsService';
 import { DeleteForever } from '@mui/icons-material';
 
-import { format, parse } from 'date-fns';
 import React from 'react';
 import Link from 'next/link';
 export default function ProjectCard({ project }: { project: ProjectData }) {
@@ -70,13 +69,12 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     <Link
       prefetch={false}
       onClick={() => handleClickOnProjectCard(project)}
-      href={`/${user?.username ? user.username : user?.firstName}/projects/${
-        project.id
-      }/`}
+      href={`/${user?.username ? user.username : user?.firstName}/projects/${project.id
+        }/`}
     >
       <div
         className={styles.projectCard}
-        // onClick={() => handleClickOnProjectCard(project)}
+      // onClick={() => handleClickOnProjectCard(project)}
       >
         <div className={styles.deleteBtnContainer}>
           <button
