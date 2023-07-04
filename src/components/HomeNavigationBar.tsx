@@ -19,7 +19,14 @@ const quicksand = Quicksand({
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ThemeSwitch from './ThemeSwitch';
-import { useEffect } from 'react';
+
+import {
+  AiFillBuild,
+  AiOutlineBuild,
+  AiTwotoneBuild,
+  AiTwotoneEdit,
+} from 'react-icons/ai';
+
 
 export default function HomeNavigationBar() {
   const router = useRouter();
@@ -46,15 +53,21 @@ export default function HomeNavigationBar() {
             fontWeight: 600,
           }}
         >
-          <Link href={'/'}>setapp</Link>
+          <Link
+            href={'/'}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          >
+            <AiFillBuild />
+            setapp
+          </Link>
         </div>
 
-        {projectName && (
-          <div className={styles.projectName}>{'./' + projectName}</div>
-        )}
 
         <div className={styles.navOptions}>
           <SignedIn>
+        {projectName && (
+          <div className={styles.projectName}>{'./' + projectName}</div>
+        )}
             {
               <div>
                 <Link className={styles.projectlink} href={'/projects'}>
