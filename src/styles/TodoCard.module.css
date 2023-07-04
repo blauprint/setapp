@@ -11,7 +11,8 @@
   margin: 1%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   position: relative;
 }
@@ -21,11 +22,27 @@
   box-shadow: 0px 0px 10px 5px rgba(245, 245, 245, 0.25);
 }
 
-.deleteIcon {
+ .editIcon {
+  font-size: 13px;
+}
+ .deleteIcon {
   font-size: 13px;
 }
 
-.deleteBtn {
+ .deleteBtn {
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  color: dimgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+ .editBtn {
   background-color: transparent;
   border-radius: 50%;
   border: none;
@@ -39,14 +56,23 @@
   transition: color 0.2s;
 }
 
-.deleteBtn:hover {
+ .deleteBtn:hover {
+  color: var(--text-color);
+}
+ .editBtn:hover {
   color: var(--text-color);
 }
 
-.deleteBtnContainer {
+ .deleteBtnContainer {
   position: absolute;
-  right: 10px;
+  right: 5px;
   bottom: 10px;
+}
+
+ .editBtnContainer {
+  position: absolute;
+  right: 5px;
+  top: 10px;
 }
 
 .todo {
@@ -56,11 +82,12 @@
   color: black;
   letter-spacing: 2px;
   display: flex;
-  justify-content: center;
-  text-align: center;
+  align-self: center;
 }
 
 .createdAt {
   font-weight: 100;
   font-size: 12px;
+  justify-self: flex-end;
+  margin-top: 5px;
 }
