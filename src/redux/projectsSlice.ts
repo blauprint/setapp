@@ -17,7 +17,7 @@ export const projectsSlice: Slice = createSlice({
     },
 
     deleteProjectFromStore: (state: ProjectData[], action: AnyAction) => {
-      state.filter((project) => project.id !== action.payload);
+      return state.filter((project) => project.id !== action.payload);
     },
   },
 });
