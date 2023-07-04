@@ -26,7 +26,7 @@
   resize: none;
 }
 
-textarea.ideaTextArea + label.ideaLabel {
+textarea.ideaTextArea+label.ideaLabel {
   display: block;
   position: relative;
   white-space: nowrap;
@@ -39,8 +39,8 @@ textarea.ideaTextArea + label.ideaLabel {
   letter-spacing: 1px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel,
-textarea.ideaTextArea:focus + label.ideaLabel {
+textarea.ideaTextArea:focus+label.ideaLabel,
+textarea.ideaTextArea:focus+label.ideaLabel {
   width: 60%;
 }
 
@@ -49,8 +49,8 @@ textarea.ideaTextArea:focus {
   margin-top: 35px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
-textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
+textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
+textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
   top: 10px;
   font-size: 22px;
 }
@@ -82,6 +82,8 @@ span.ideaSpan {
 }
 
 .spinnerContainer {
+  width: 90%;
+  height: 100%;
   display: none;
   transition: all 0.2s ease-in-out;
 }
