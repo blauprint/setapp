@@ -43,16 +43,10 @@ export default function ProjectsPage() {
   };
 
   let dispatch = useAppDispatch();
-
-<<<<<<< HEAD
-  const projects: ProjectData[] = useAppSelector(selectProject); console.log(projects, 'in projects')
-=======
   const projects: ProjectData[] = useAppSelector(selectAllProjects);
->>>>>>> dev
 
   useEffect(() => {
     if (user && projects.length === 0) {
-      console.log('i ran');
       getProjects(auth).then((res) => {
         dispatch(addProjects(res));
       });

@@ -19,7 +19,6 @@ import { addTodo } from "@/redux/todoSlice";
 import { useRouter } from 'next/router';
 
 const Page: NextPageWithLayout = () => {
-  // const project = useAppSelector((state: RootState) => state.currentProject);
   let [project, setProject] = useState<ProjectData>({
     id: '',
     summary: '',
