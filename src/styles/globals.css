@@ -1,18 +1,40 @@
 :root {
-  /* button, icons, highlights */
-  --primary-color: #5be4d4;
-  /* --primary-color: #d4e2df; */
-  /* headers, section background, accents */
-  --secondary-color: #d4e2df;
-  /* text */
+  --primary-color: #146c94;
+
+  --secondary-color: #19a7ce;
+
   --text-color: black;
-  /* accents for hover on buttons, badges, and notifications */
-  --accent-color: #5be4d4c3;
-  /* shadows */
+
+  --accent-color: #a0c3d2;
+
   --shadow-color: rgba(0, 0, 0, 0.1);
 
-  /* dividors borders background elements */
   --neutral-color: #4f4f4f;
+  --background-color: #ffffffe5;
+  --surface-color: white;
+  --block-color: #f6f1f1;
+  --error-color: red;
+  --color-card-1: #e1ebf3;
+  --color-card-2: #d4e2df;
+  --color-card-3: #c6cfd5;
+  --color-card-4: #e9dcce;
+  --color-card-5: #e0d4d5;
+}
+
+/* button, icons, highlights */
+/* --primary-color: #5be4d4; */
+/* --primary-color: #d4e2df; */
+/* headers, section background, accents */
+/* --secondary-color: #d4e2df; */
+/* text */
+/* --text-color: black; */
+/* accents for hover on buttons, badges, and notifications */
+/* --accent-color: #5be4d4c3; */
+/* shadows */
+/* --shadow-color: rgba(0, 0, 0, 0.1); */
+
+/* dividors borders background elements */
+/* --neutral-color: #4f4f4f;
   --background-color: #f9faf7;
   --surface-color: white;
   --block-color: #bdb8b1;
@@ -21,8 +43,7 @@
   --color-card-2: #d4e2df;
   --color-card-3: #c6cfd5;
   --color-card-4: #e9dcce;
-  --color-card-5: #e0d4d5;
-}
+  --color-card-5: #e0d4d5; */
 
 [data-theme='dark'] {
   /* button, icons, highlights */
