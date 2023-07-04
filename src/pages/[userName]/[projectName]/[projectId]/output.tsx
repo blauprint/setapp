@@ -14,6 +14,7 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import { Auth } from "@/types/Auth";
 import { getProjectById } from "@/services/projectsService";
 import { addCurrentProject } from "@/redux/currentProjectSlice";
+import { addTodo } from "@/redux/todoSlice";
 
 
 const Page: NextPageWithLayout = () => {
@@ -24,7 +25,12 @@ const Page: NextPageWithLayout = () => {
     idea: '',
     title: '',
     frontend: {
-      todoList: [],
+      todoList: [{
+        id: '',
+        title: '',
+        done: false,
+        createdAt: 0
+      }],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -34,12 +40,17 @@ const Page: NextPageWithLayout = () => {
       colorScheme: {
         whyGoodOption: '',
         colorPalette: {
-          color: []
+          colors: []
         }
       },
     },
     backend: {
-      todoList: [],
+      todoList: [{
+        id: '',
+        title: '',
+        done: false,
+        createdAt: ''
+      }],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -54,13 +65,13 @@ const Page: NextPageWithLayout = () => {
         schema: ''
       },
     },
-    createdAt: 0
+    //createdAt: 0
   });
   let select: string = useSelector((state: RootState) => state.selected);
   let url = '';
   let id = '';
   const { user } = useUser();
-  let dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const {
     userId,
     sessionId,
@@ -95,6 +106,8 @@ const Page: NextPageWithLayout = () => {
       getProject(auth, id.toString()).then((res) => {
         // console.log(res, 'res');
         setProject(res);
+        res.backend.todoList.forEach((todo) => dispatch(addTodo(todo)));
+        res.frontend.todoList.forEach((todo) => dispatch(addTodo(todo)));
         dispatch(addCurrentProject(res));
       })
     }

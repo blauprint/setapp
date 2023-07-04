@@ -19,7 +19,7 @@ const initialState: ProjectData = {
     colorScheme: {
       whyGoodOption: '',
       colorPalette: {
-        color: []
+        colors: []
       }
     },
   },

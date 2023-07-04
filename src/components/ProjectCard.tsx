@@ -44,14 +44,12 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   //TODO need to convert project date to this format and save it
   const formattedDate = '25 Jun';
-
+  let projectId = "";
   function handleClickOnProjectCard(project: ProjectData) {
-    const url = `/${user?.username ? user.username : user?.firstName}/${
-      project.title
-    }/${project.id}/output`;
-
+    projectId = project.id || "";
+    const url = `/${user?.username ? user.username : user?.firstName}/${project.title
+      }/${projectId}/output`;
     dispatch(addCurrentProject(project));
-
     router.push(url);
   }
 
@@ -59,13 +57,13 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     e.stopPropagation();
 
     //delete from the redux store
-    dispatch(deleteProjectFromStore(project.id));
+    dispatch(deleteProjectFromStore(projectId));
 
     //delete from the database as well we need to make an api delete request
-    deleteProject(auth, project.id);
+    deleteProject(auth, projectId);
   }
 
-  useEffect(() => {}, [project]);
+  useEffect(() => { }, [project]);
 
   return (
     <div

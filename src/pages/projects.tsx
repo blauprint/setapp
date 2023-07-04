@@ -43,7 +43,7 @@ export default function ProjectsPage() {
 
   let dispatch = useAppDispatch();
 
-  const projects: ProjectData[] = useAppSelector(selectProject);
+  const projects: ProjectData[] = useAppSelector(selectProject); console.log(projects, 'in projects')
 
   useEffect(() => {
     if (user && projects.length === 0) {
