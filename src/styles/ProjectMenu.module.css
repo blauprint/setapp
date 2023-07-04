@@ -1,7 +1,7 @@
 .menuContainer {
   display: flex;
-  padding-top: 1%;
-  padding-inline: 1%;
+  padding-top: 50px;
+  padding-inline: 20px;
   min-width: 12vw;
   height: fit-content;
   background-color: var(--block-color);
