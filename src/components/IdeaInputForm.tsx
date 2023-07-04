@@ -94,8 +94,7 @@ export default function IdeaInputForm() {
     if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
       setProgress(100);
     }
-
-    console.log(messages[1]?.content)
+    // console.log(messages[1]?.content)
   }, [messages])
 
 
@@ -112,7 +111,6 @@ export default function IdeaInputForm() {
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
-
     // Submit animations
     if (formRef.current) {
       formRef.current.style.translate = '0 -100vh';
@@ -159,6 +157,7 @@ export default function IdeaInputForm() {
     } catch (error: any) {
       handleError(error);
     }
+    debugger;
   }
 
   // ***********
@@ -205,9 +204,20 @@ export default function IdeaInputForm() {
           </button>
         </form>
 
-        <div className={styles.spinnerContainer} ref={spinnerRef}>
+      </div>
+      <div className={styles.loadingContainer} ref={spinnerRef}>
+        {/* <div className={styles.loadingContainer}> */}
+        <div className={styles.spinnerContainer}>
           <Spinner />
-          <LinearProgress variant="determinate" value={progress} />
+        </div>
+        <div className={styles.progressBarContainer}>
+          <LinearProgress className={styles.progressBar} variant="determinate" value={progress}
+            sx={{
+              backgroundColor: 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)'
+              }
+            }} />
         </div>
       </div>
     </>
