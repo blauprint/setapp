@@ -15,7 +15,6 @@ import { useAuth, useUser } from '@clerk/nextjs';
 import { Auth } from '@/types/Auth';
 import { getProjectById } from '@/services/projectsService';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
-import { addTodo } from "@/redux/todoSlice";
 import { useRouter } from 'next/router';
 
 const Page: NextPageWithLayout = () => {
@@ -100,9 +99,8 @@ const Page: NextPageWithLayout = () => {
   useEffect(() => {
     if (user && project.idea === '') {
       getProject(auth, id!).then((res) => {
+        console.log('here is use effect');
         setProject(res);
-        res.backend.todoList.forEach((todo) => dispatch(addTodo(todo)));
-        res.frontend.todoList.forEach((todo) => dispatch(addTodo(todo)));
         dispatch(addCurrentProject(res));
       });
     }
@@ -115,13 +113,13 @@ const Page: NextPageWithLayout = () => {
   }
 
   if (project && select === 'todosBE') {
-    return <TodoList todos={project.backend.todoList} />;
+    return <TodoList />;
   } else if (select === 'frameworkBE') {
     return <FrameworkDashboard framework={project.backend.framework} />;
   } else if (select === 'model') {
     return <ModelDashboard model={project.backend.database} />;
   } else if (select === 'todosFE') {
-    return <TodoList todos={project.frontend.todoList} />;
+    return <TodoList />;
   } else if (select === 'frameworkFE') {
     return <FrameworkDashboard framework={project.frontend.framework} />;
   } else if (select === 'colors') {

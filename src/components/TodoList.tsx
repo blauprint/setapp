@@ -1,24 +1,41 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { deleteTodo } from '@/redux/todoSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { deleteTodo } from '@/redux/currentProjectSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
-import {Auth} from '@/types/Auth';
+import { Auth } from '@/types/Auth';
 import { deleteTodoService } from '@/services/projectsService';
+import { TodoItem } from '@/types/typedefs';
+import { useEffect } from 'react';
 
 function TodoList() {
-  const select = useSelector((state: RootState) => state.selected);
-  const todoList = useSelector((state: RootState) => {
-    if (select === 'todosBE') {
-      return state.todos.backend.todoList;
-    } else if (select === 'todosFE') {
-      return state.todos.frontend.todoList;
-    }
-    return [];
-  });
-  
+
+  const select = useAppSelector((state: RootState) => state.selected);
+  let todoList: TodoItem[] = [];
+
+  // useEffect(() => {
+  // todoList = useAppSelector((state: RootState) => {
+  //   if (select === 'todosBE' && todoList.length === 0) {
+  //     return state.todos.backend.todoList;
+  //   } else if (select === 'todosFE') {
+  //     return state.todos.frontend.todoList;
+  //   }
+  //   return [];
+  // });
+  // }, [select])
+
+
+  if (select === 'todosBE') {
+    useAppSelector((state: RootState) => { todoList = state.currentProject.backend.todoList })
+  } else if (select === 'todosFE') {
+    useAppSelector((state: RootState) => { todoList = state.currentProject.frontend.todoList })
+  }
+
+
+  console.log(todoList, 'todolist in TodoList')
+
   const {
     userId,
     sessionId,
@@ -42,20 +59,20 @@ function TodoList() {
     orgRole: orgRole?.toString(),
     orgSlug: orgSlug?.toString(),
   };
-  
+
   const dispatch = useAppDispatch();
   const handleDelete = (id: string) => {
     dispatch(deleteTodo(id));
     deleteTodoService(auth, id).then(() => {
       console.log('Deleted todo', id);
     }).catch(error => {
-        throw new Error('Error deleting error from server\n', error);
-      })
+      throw new Error('Error deleting error from server\n', error);
+    })
   };
 
   return (
     <div className={styles.todosList}>
-      {todoList.map((todo) => (
+      {todoList.map((todo: TodoItem) => (
         <TodoCard key={todo.id} todo={todo} handleDelete={() => handleDelete(todo.id)} />
       ))}
     </div>
