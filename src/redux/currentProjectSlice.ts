@@ -56,5 +56,5 @@ export const currentProjectSlice: Slice = createSlice({
 });
 
 export const { addCurrentProject } = currentProjectSlice.actions;
-export const selectProject = (state: RootState) => state.projects;
+export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;

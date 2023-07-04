@@ -28,5 +28,6 @@ export const {
   deleteProjectFromStore,
   getAllProjects,
 } = projectsSlice.actions;
-export const selectProject = (state: RootState) => state.projects;
+export const selectAllProjects = (state: RootState) => state.projects;
+export const selectSingleProject = (state: RootState) => state.currentProject;
 export default projectsSlice.reducer;

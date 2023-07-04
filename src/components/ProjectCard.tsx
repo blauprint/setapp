@@ -51,7 +51,6 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     // const url = `/${user?.username ? user.username : user?.firstName}/${
     //   project.id
     // }/output`;
-
     dispatch(addCurrentProject(project));
 
     // router.push(url);
@@ -69,14 +68,15 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   return (
     <Link
-      prefetch={true}
+      prefetch={false}
+      onClick={() => handleClickOnProjectCard(project)}
       href={`/${user?.username ? user.username : user?.firstName}/projects/${
         project.id
       }/`}
     >
       <div
         className={styles.projectCard}
-        onClick={() => handleClickOnProjectCard(project)}
+        // onClick={() => handleClickOnProjectCard(project)}
       >
         <div className={styles.deleteBtnContainer}>
           <button
