@@ -20,10 +20,11 @@ export default function ProjectMenu({
 
   return (
     <>
-      <div className={styles.menu}>
-        <Link
+      <div className={styles.menuContainer}>
+        {/* <Link
           className={styles.menuButton}
           onClick={() => dispatch(addSelected('overview'))}
+          // shallow={true}
           href={{
             pathname: `/${userName}/${projectId}/`,
             query: {
@@ -32,7 +33,14 @@ export default function ProjectMenu({
           }}
         >
           Overview
-        </Link>
+        </Link> */}
+        <a
+          className={styles.menuButton}
+          onClick={() => dispatch(addSelected('overview'))}
+          href='#overview'
+        >
+          Overview
+        </a>
         <div>
           <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
@@ -43,23 +51,35 @@ export default function ProjectMenu({
               <div className={styles.accordionTitle}>Backend</div>
             </AccordionSummary>
             <AccordionDetails>
-              {/* <Link
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('todosBE'))} href={''}              >
-                To-do
-              </Link>
-              <Link
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('frameworkBE'))}
-              >
-                Framework
-              </Link>
-              <Link
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('model'))}
-              >
-                Model
-              </Link> */}
+              <ul>
+                <li className={styles.listItem}>
+                  <a
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('todosBE'))}
+                    href='#todosBE'
+                  >
+                    To-do
+                  </a>
+                </li>
+                <li className={styles.listItem}>
+                  <a
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('frameworkBE'))}
+                    href='#frameworkBE'
+                  >
+                    Framework
+                  </a>
+                </li>
+                <li className={styles.listItem}>
+                  <a
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('model'))}
+                    href='#model'
+                  >
+                    Model
+                  </a>
+                </li>
+              </ul>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -74,24 +94,35 @@ export default function ProjectMenu({
               <div className={styles.accordionTitle}>Frontend</div>
             </AccordionSummary>
             <AccordionDetails>
-              <button
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('todosFE'))}
-              >
-                To-do
-              </button>
-              <button
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('frameworkFE'))}
-              >
-                Framework
-              </button>
-              <button
-                className={styles.menuButton}
-                onClick={() => dispatch(addSelected('colors'))}
-              >
-                Color Schema
-              </button>
+              <ul>
+                <li className={styles.listItem}>
+                  <a
+                    href='#todosFE'
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('todosFE'))}
+                  >
+                    To-do
+                  </a>
+                </li>
+                <li className={styles.listItem}>
+                  <a
+                    href='#frameworkFE'
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('frameworkFE'))}
+                  >
+                    Framework
+                  </a>
+                </li>
+                <li className={styles.listItem}>
+                  <a
+                    href='#colors'
+                    className={styles.menuButton}
+                    onClick={() => dispatch(addSelected('colors'))}
+                  >
+                    Color Schema
+                  </a>
+                </li>
+              </ul>
             </AccordionDetails>
           </Accordion>
         </div>

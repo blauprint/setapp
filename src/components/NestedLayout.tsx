@@ -11,7 +11,8 @@ export default function NestedLayout({ children }: { children: ReactElement }) {
         userName={router.query.userName!}
         projectId={router.query.projectId!}
       />
-      {children}
+
+      <main className={styles.outputContent}>{children}</main>
     </div>
   );
 }

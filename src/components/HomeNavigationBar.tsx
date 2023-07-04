@@ -1,5 +1,4 @@
 'use client';
-import { store } from '@/redux/store';
 import styles from '@/styles/HomeNavigationBar.module.css';
 
 import {
@@ -11,6 +10,7 @@ import {
 } from '@clerk/nextjs';
 
 import { Quicksand } from 'next/font/google';
+
 const quicksand = Quicksand({
   weight: ['400', '600', '700'],
   subsets: ['latin'],
@@ -19,6 +19,8 @@ const quicksand = Quicksand({
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ThemeSwitch from './ThemeSwitch';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/redux/hooks';
 
 import {
   AiFillBuild,
@@ -30,9 +32,27 @@ import {
 
 export default function HomeNavigationBar() {
   const router = useRouter();
-  const currentRoute = router.pathname;
+  const [navbarTitle, setNavbarTitle] = useState<string>('');
+  const currentProjectTitle = useAppSelector(
+    (state) => state.currentProject.title,
+  );
+  function getNavbarTitle(): string {
+    switch (router.asPath) {
+      case '/projects':
+        return 'Projects';
+      case '/profile':
+        return 'Profile';
+      case '/about':
+        return 'About';
+      case '/contact':
+        return 'Contact';
+      case '/':
+        return 'Home';
+      default:
+        return `./${currentProjectTitle}`;
+    }
+  }
 
-  let projectName: string = store.getState().currentProject.title;
   const user = useUser().user;
   let userName;
   console.log('userName: ', userName);
@@ -40,6 +60,10 @@ export default function HomeNavigationBar() {
   useEffect(() => {
     userName = user?.username;
   }, [user]);
+
+  useEffect(() => {
+    setNavbarTitle(getNavbarTitle());
+  }, [router.asPath]);
 
   return (
     <>
@@ -65,16 +89,12 @@ export default function HomeNavigationBar() {
 
         <div className={styles.navOptions}>
           <SignedIn>
-        {projectName && (
-          <div className={styles.projectName}>{'./' + projectName}</div>
-        )}
-            {
-              <div>
-                <Link className={styles.projectlink} href={'/projects'}>
-                  Projects
-                </Link>
-              </div>
-            }
+        {<div className={styles.projectName}>{navbarTitle}</div>}
+            <div>
+              <Link className={styles.projectsLink} href={'/projects'}>
+                Projects
+              </Link>
+            </div>
           </SignedIn>
           <ThemeSwitch />
           <SignedOut>

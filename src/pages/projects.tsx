@@ -1,6 +1,6 @@
 'use client';
 import ProjectsList from '@/components/ProjectsList';
-import { selectProject } from '@/redux/currentProjectSlice';
+import { selectAllProjects } from '@/redux/currentProjectSlice';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { addProjects } from '@/redux/projectsSlice';
 import { getProjects } from '@/services/projectsService';
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
 
   let dispatch = useAppDispatch();
 
-  const projects: ProjectData[] = useAppSelector(selectProject);
+  const projects: ProjectData[] = useAppSelector(selectAllProjects);
 
   useEffect(() => {
     if (user && projects.length === 0) {
