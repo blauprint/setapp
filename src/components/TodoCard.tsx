@@ -7,9 +7,10 @@ import { useState } from "react";
 interface TodoCardProps {
   todo: TodoItem;
   handleDelete: (id: string) => void;
+  handleTitleChange: (todo: TodoItem) => void;
 }
 
-const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete }) => {
+const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChange }) => {
   const colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
   const todoDate = formatDateFromNow(todo.createdAt);
 
@@ -26,10 +27,20 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete }) => {
     e.stopPropagation();
     handleDelete(todo.id);
   }
-  
-  function handleEditOnClick(e: React.SyntheticEvent) {
-    e.stopPropagation();
+
+ function handleTodoKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    e.currentTarget.blur();
   }
+}
+
+function handleTodoBlur(e: React.FocusEvent<HTMLDivElement>) {
+  const updatedTitle = e.currentTarget.textContent;
+    if (updatedTitle) {
+      handleTitleChange({ ...todo, title: updatedTitle });
+    }
+}
 
   return (
     <div className={styles.todoCard}
@@ -53,7 +64,13 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete }) => {
           </button>
         </div>
       )}
-      <div className={styles.todo}>{todo.title}</div>
+      <div 
+        suppressContentEditableWarning={true}
+        contentEditable="true"
+        className={styles.todo}
+        onInput={handleTodoKeyDown}
+        onBlur={handleTodoBlur}
+      >{todo.title}</div>
       <div className={styles.createdAt}>Created: {todoDate}</div>
     </div >
   )

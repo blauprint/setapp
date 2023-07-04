@@ -1,14 +1,12 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { deleteTodo } from '@/redux/currentProjectSlice';
+import { deleteTodo, updateTodoTitle } from '@/redux/currentProjectSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
 import { Auth } from '@/types/Auth';
-import { deleteTodoService } from '@/services/projectsService';
+import { deleteTodoService, updateTodoService } from '@/services/projectsService';
 import { TodoItem } from '@/types/typedefs';
-import { useEffect } from 'react';
 
 function TodoList() {
 
@@ -70,10 +68,19 @@ function TodoList() {
     })
   };
 
+  const handleTitleChange = (todo: TodoItem) => {
+    dispatch(updateTodoTitle(todo));
+    updateTodoService(auth, todo).then((res) => {
+      console.log(`Updated todo title:`, res);
+    }).catch((error) => {
+      throw new Error('Error updating todo title from server\n', error);
+    });
+  }
+
   return (
     <div className={styles.todosList}>
       {todoList.map((todo: TodoItem) => (
-        <TodoCard key={todo.id} todo={todo} handleDelete={() => handleDelete(todo.id)} />
+        <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} />
       ))}
     </div>
   );

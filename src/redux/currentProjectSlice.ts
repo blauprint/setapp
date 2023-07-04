@@ -56,9 +56,16 @@ export const currentProjectSlice: Slice = createSlice({
       state.backend.todoList = state.backend.todoList.filter((todo) => todo.id !== action.payload);
       state.frontend.todoList = state.frontend.todoList.filter((todo) => todo.id !== action.payload);
     },
+    updateTodoTitle: (state, action: PayloadAction<{id: string, title: string}>) => {
+      const { id, title } = action.payload;
+      const todo = state.backend.todoList.find((todo) => todo.id === id) || state.frontend.todoList.find((todo) => todo.id === id);
+      if (todo) {
+        todo.title = title;
+      }
+    }
   },
 });
 
-export const { addCurrentProject, deleteTodo } = currentProjectSlice.actions;
+export const { addCurrentProject, deleteTodo, updateTodoTitle } = currentProjectSlice.actions;
 export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;

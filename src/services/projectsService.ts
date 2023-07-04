@@ -1,5 +1,5 @@
 import { Auth } from '@/types/Auth';
-import { ProjectData } from '@/types/typedefs';
+import { ProjectData, TodoItem } from '@/types/typedefs';
 
 export async function getProjects(auth: Auth): Promise<ProjectData[]> {
   auth.sessionToken = await auth.sessionToken();
@@ -94,3 +94,23 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
   const response = await deleteTodo.json();
   return response;
 }
+
+export async function updateTodoService(auth: Auth, todo: TodoItem): Promise<void> {
+  auth.sessionToken = await auth.sessionToken();
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  };
+
+  const updatedTodoTitle = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/todo/${todo.id}`,
+    options,
+  );
+  const response = await updatedTodoTitle.json();
+  return response;
+}
+
