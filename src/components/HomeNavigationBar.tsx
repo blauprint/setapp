@@ -1,5 +1,4 @@
 'use client';
-import { store } from '@/redux/store';
 import styles from '@/styles/HomeNavigationBar.module.css';
 
 import {
@@ -22,15 +21,13 @@ import { useRouter } from 'next/router';
 import ThemeSwitch from './ThemeSwitch';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
-import { selectSingleProject } from '@/redux/projectsSlice';
 
 export default function HomeNavigationBar() {
   const router = useRouter();
   const [navbarTitle, setNavbarTitle] = useState<string>('');
-  let currentProjectTitle = useAppSelector(selectSingleProject)?.title;
-  // const currentProjectTitle = useAppSelector(
-  //   (state) => state.currentProject.title,
-  // );
+  const currentProjectTitle = useAppSelector(
+    (state) => state.currentProject.title,
+  );
   function getNavbarTitle(): string {
     switch (router.asPath) {
       case '/projects':
@@ -80,7 +77,7 @@ export default function HomeNavigationBar() {
         <div className={styles.navOptions}>
           <SignedIn>
             <div>
-              <Link className={styles.projectlink} href={'/projects'}>
+              <Link className={styles.projectsLink} href={'/projects'}>
                 Projects
               </Link>
             </div>

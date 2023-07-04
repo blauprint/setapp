@@ -8,6 +8,8 @@
   --text-color: black;
   /* accents for hover on buttons, badges, and notifications */
   --accent-color: #5be4d4c3;
+  /* shadows */
+  --shadow-color: rgba(0, 0, 0, 0.1);
 
   /* dividors borders background elements */
   --neutral-color: #4f4f4f;
@@ -52,7 +54,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Train+One&display=swap');
 
-/* 
+/*
 font-family: 'Barlow', sans-serif;
 font-family: 'Inter', sans-serif;
 font-family: 'Jost', sans-serif;
@@ -71,6 +73,7 @@ font-family: 'Zen Dots', cursive;
 
 * {
   margin: 0;
+  padding: 0;
 }
 
 html {
@@ -80,7 +83,6 @@ html {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  height: 100%;
   color: var(--text-color);
 }
 
@@ -130,4 +132,9 @@ a {
 a:hover,
 button:hover {
   cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
 }
