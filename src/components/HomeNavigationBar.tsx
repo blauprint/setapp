@@ -55,13 +55,13 @@ export default function HomeNavigationBar() {
 
         <div className={styles.navOptions}>
           <SignedIn>
-            {(currentRoute === '/' || currentRoute === '/idea') && (
+            {
               <div>
                 <Link className={styles.projectlink} href={'/projects'}>
                   Projects
                 </Link>
               </div>
-            )}
+            }
           </SignedIn>
           <ThemeSwitch />
           <SignedOut>

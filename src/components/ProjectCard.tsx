@@ -69,6 +69,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   return (
     <Link
+      prefetch={true}
       href={`/${user?.username ? user.username : user?.firstName}/projects/${
         project.id
       }/`}
