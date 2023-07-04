@@ -52,9 +52,13 @@ export const currentProjectSlice: Slice = createSlice({
     ) => {
       return action.payload;
     },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      state.backend.todoList = state.backend.todoList.filter((todo) => todo.id !== action.payload);
+      state.frontend.todoList = state.frontend.todoList.filter((todo) => todo.id !== action.payload);
+    },
   },
 });
 
-export const { addCurrentProject } = currentProjectSlice.actions;
+export const { addCurrentProject, deleteTodo } = currentProjectSlice.actions;
 export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;
