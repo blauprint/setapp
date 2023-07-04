@@ -58,12 +58,11 @@ const Page: NextPageWithLayout = () => {
     createdAt: 0,
   });
 
-  let select: string = useSelector((state: RootState) => state.selected);
+  const select: string = useSelector((state: RootState) => state.selected);
   const router = useRouter();
   const id = router.query.projectId;
-  let url = '';
   const { user } = useUser();
-  let dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const {
     userId,
     sessionId,
