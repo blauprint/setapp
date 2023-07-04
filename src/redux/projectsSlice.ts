@@ -1,7 +1,6 @@
-import { AnyAction, PayloadAction, Slice, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, Slice, createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { ProjectData } from '@/types/typedefs';
-import { current } from '@reduxjs/toolkit';
 
 const initialState: ProjectData[] = [];
 
@@ -10,7 +9,7 @@ export const projectsSlice: Slice = createSlice({
   initialState,
   reducers: {
     addProjects: (state: ProjectData[], action: AnyAction) => {
-      state.push(...action.payload);
+      return [...action.payload];
     },
     addNewProject: (state: ProjectData[], action: AnyAction) => {
       state.push(action.payload);

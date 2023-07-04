@@ -89,7 +89,7 @@ export default function HomeNavigationBar() {
 
         <div className={styles.navOptions}>
           <SignedIn>
-        {<div className={styles.projectName}>{navbarTitle}</div>}
+            {<div className={styles.projectName}>{navbarTitle}</div>}
             <div>
               <Link className={styles.projectsLink} href={'/projects'}>
                 Projects
