@@ -39,7 +39,7 @@ export async function postProject(auth: Auth, projectBody: ProjectData) {
 
 export async function getProjectById(
   auth: Auth,
-  id: string,
+  id: string | string[],
 ): Promise<ProjectData> {
   // console.log(auth, 'in services')
   auth.sessionToken = await auth.sessionToken();

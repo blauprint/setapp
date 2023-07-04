@@ -1,3 +1,4 @@
+'use client';
 import ProjectsList from '@/components/ProjectsList';
 import { selectProject } from '@/redux/currentProjectSlice';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';

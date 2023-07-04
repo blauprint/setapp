@@ -23,7 +23,7 @@ export type Database = Technology & {
 };
 
 export type ProjectData = {
-  id?: string;
+  id: string;
   idea: string;
   title: string;
   summary: string;

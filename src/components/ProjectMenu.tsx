@@ -1,21 +1,38 @@
+//WORK IN PROGRESS
+//TODO: Fix links and styles
+
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from '@/styles/ProjectMenu.module.css';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addSelected } from '@/redux/selectedSlice';
+import Link from 'next/link';
 
-export default function ProjectMenu() {
+export default function ProjectMenu({
+  userName,
+  projectId,
+}: {
+  userName: string | string[];
+  projectId: string | string[];
+}) {
   const dispatch = useAppDispatch();
+  // const currentProject = useAppSelector((state) => state.currentProject);
 
   return (
     <>
       <div className={styles.menu}>
-        <button
+        <Link
           className={styles.menuButton}
           onClick={() => dispatch(addSelected('overview'))}
+          href={{
+            pathname: `/${userName}/${projectId}/`,
+            query: {
+              id: 'overview',
+            },
+          }}
         >
           Overview
-        </button>
+        </Link>
         <div>
           <Accordion className={styles.accordion} defaultExpanded={true}>
             <AccordionSummary
@@ -26,24 +43,23 @@ export default function ProjectMenu() {
               <div className={styles.accordionTitle}>Backend</div>
             </AccordionSummary>
             <AccordionDetails>
-              <button
+              {/* <Link
                 className={styles.menuButton}
-                onClick={() => dispatch(addSelected('todosBE'))}
-              >
+                onClick={() => dispatch(addSelected('todosBE'))} href={''}              >
                 To-do
-              </button>
-              <button
+              </Link>
+              <Link
                 className={styles.menuButton}
                 onClick={() => dispatch(addSelected('frameworkBE'))}
               >
                 Framework
-              </button>
-              <button
+              </Link>
+              <Link
                 className={styles.menuButton}
                 onClick={() => dispatch(addSelected('model'))}
               >
                 Model
-              </button>
+              </Link> */}
             </AccordionDetails>
           </Accordion>
         </div>

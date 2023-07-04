@@ -12,7 +12,8 @@ import { deleteProject } from '@/services/projectsService';
 import { DeleteForever } from '@mui/icons-material';
 
 import { format, parse } from 'date-fns';
-import React, { useEffect } from 'react';
+import React from 'react';
+import Link from 'next/link';
 export default function ProjectCard({ project }: { project: ProjectData }) {
   let router = useRouter();
   const { user } = useUser();
@@ -46,13 +47,14 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   const formattedDate = '25 Jun';
 
   function handleClickOnProjectCard(project: ProjectData) {
-    const url = `/${user?.username ? user.username : user?.firstName}/${
-      project.title
-    }/${project.id}/output`;
+    //TODO: maybe use Link from nextjs instead of router.push
+    // const url = `/${user?.username ? user.username : user?.firstName}/${
+    //   project.id
+    // }/output`;
 
     dispatch(addCurrentProject(project));
 
-    router.push(url);
+    // router.push(url);
   }
 
   function handleDelete(e: React.SyntheticEvent) {
@@ -65,36 +67,40 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     deleteProject(auth, project.id);
   }
 
-  useEffect(() => {}, [project]);
-
   return (
-    <div
-      className={styles.projectCard}
-      onClick={() => handleClickOnProjectCard(project)}
+    <Link
+      href={`/${user?.username ? user.username : user?.firstName}/projects/${
+        project.id
+      }/`}
     >
-      <div className={styles.deleteBtnContainer}>
-        <button
-          className={styles.deleteBtn}
-          onClick={(e) => {
-            handleDelete(e);
-          }}
-        >
-          <DeleteForever
-            style={{ height: '25px', position: 'relative', top: '3px' }}
-          />
-        </button>
-      </div>
-      <div className={styles.title}>
-        <p>{project.title}</p>
-      </div>
-      <div className={styles.idea}>{project.idea + '...'}</div>
+      <div
+        className={styles.projectCard}
+        onClick={() => handleClickOnProjectCard(project)}
+      >
+        <div className={styles.deleteBtnContainer}>
+          <button
+            className={styles.deleteBtn}
+            onClick={(e) => {
+              handleDelete(e);
+            }}
+          >
+            <DeleteForever
+              style={{ height: '25px', position: 'relative', top: '3px' }}
+            />
+          </button>
+        </div>
+        <div className={styles.title}>
+          <p>{project.title}</p>
+        </div>
+        <div className={styles.idea}>{project.idea + '...'}</div>
 
-      <div className={styles.details}>
-        <div
-          className={styles.tech}
-        >{`${project.backend.framework.name} / ${project.frontend.framework.name}`}</div>
-        <div className={styles.createdAt}>{formattedDate}</div>
+        <div className={styles.details}>
+          <div
+            className={styles.tech}
+          >{`${project.backend.framework.name} / ${project.frontend.framework.name}`}</div>
+          <div className={styles.createdAt}>{formattedDate}</div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
