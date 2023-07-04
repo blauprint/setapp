@@ -1,28 +1,35 @@
 .frameworkContainer {
-  width: 100%;
+  max-width: 60vw;
   display: flex;
   flex-direction: column;
-  padding: 5%;
-  padding-left: 10%;
-  padding-right: 10%;
+
 }
 
 .frameworkName {
-  font-size: 600%;
+  font-size: 6rem;
+  margin-bottom: 4rem;
 }
 
 .frameworkElement {
-  padding: 2%;
+  /* padding: 2%; */
   font-size: larger;
   display: flex;
+  flex-direction: column;
 }
 
-.comment {
-  margin: 10px;
+.descriptionTitle {
+
   color: var(--secondary-color);
+  /* display: block; */
 }
+
+.description {
+  margin-bottom: 2em;
+}
+
 
 .frameworkElementLink {
+  margin-top: 40px;
   display: flex;
   justify-content: flex-end;
   align-items: center;

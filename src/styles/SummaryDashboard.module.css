@@ -1,0 +1,19 @@
+.outputPage {
+  margin-top: 12vh;
+  height: 88vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.outputContent {
+  position: relative;
+  margin-left: 200px;
+}
+
+.projectSummary {
+  font-size: 1.5rem;
+
+  margin-top: 3rem;
+}

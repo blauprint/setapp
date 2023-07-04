@@ -33,7 +33,7 @@ export default function HomeNavigationBar() {
   const router = useRouter();
   const [navbarTitle, setNavbarTitle] = useState<string>('');
   const currentProjectTitle = useAppSelector(
-    (state) => state.currentProject.title
+    (state) => state.currentProject.title,
   );
   function getNavbarTitle(): string {
     switch (router.asPath) {
@@ -87,7 +87,11 @@ export default function HomeNavigationBar() {
         <SignedIn>
           <div className={styles.projectName}>{navbarTitle}</div>
           <div>
-            <Link className={styles.projectsLink} href={'/projects'}>
+            <Link
+              className={styles.projectsLink}
+              href={'/projects'}
+              prefetch={true}
+            >
               Projects
             </Link>
           </div>
@@ -95,17 +99,17 @@ export default function HomeNavigationBar() {
         <ThemeSwitch />
         <SignedOut>
           <SignInButton
-            mode="modal"
-            afterSignInUrl="/projects"
-            afterSignUpUrl="/projects"
+            mode='modal'
+            afterSignInUrl='/projects'
+            afterSignUpUrl='/projects'
           >
             <button className={styles.loginBtn}>Login</button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
-          <Link href="/profile">
+          <Link href='/profile'>
             <div className={styles.userName}>{userName}</div>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl='/' />
           </Link>
         </SignedIn>
       </div>
