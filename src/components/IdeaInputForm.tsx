@@ -1,5 +1,5 @@
 'use client';
-import { useRef, FormEvent } from 'react';
+import { useRef, FormEvent, useEffect, useState } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
 import { ProjectData } from '@/types/typedefs';
@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
+import regexDataExtractor from '@/utils/regexDataExtractor';
+import LinearProgress from '@mui/material/LinearProgress';
 
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
@@ -22,6 +24,7 @@ import { Message, useChat } from 'ai/react';
 
 export default function IdeaInputForm() {
   const dispatch = useAppDispatch();
+  let [progress, setProgress] = useState(0);
 
   // CLERK AUTH
   const { user } = useUser();
@@ -54,7 +57,7 @@ export default function IdeaInputForm() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
 
-  const { input, handleInputChange, handleSubmit } = useChat({
+  const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: '/api/chat/openai_api',
     onError: handleError,
     onFinish: handleFinish,
@@ -78,6 +81,23 @@ export default function IdeaInputForm() {
 
   // Handler functions
 
+  useEffect(() => {
+    if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
+      setProgress(25);
+    }
+    if (messages[1]?.content.match(/"summary":\s*"([^"]*)"/)?.[0]) {
+      setProgress(50);
+    }
+    if (messages[1]?.content.match(/"frontend":\s*{([^}]*)}/)?.[0]) {
+      setProgress(75);
+    }
+    if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
+      setProgress(100);
+    }
+    // console.log(messages[1]?.content)
+  }, [messages])
+
+
   function handleError(error: Error) {
     console.error(error);
     if (spinnerRef.current) {
@@ -91,7 +111,6 @@ export default function IdeaInputForm() {
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
-
     // Submit animations
     if (formRef.current) {
       formRef.current.style.translate = '0 -100vh';
@@ -132,13 +151,13 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/projects/${projectId}/`;
+      const url = `/${user?.username ? user.username : user?.firstName
+        }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
     }
+    debugger;
   }
 
   // ***********
@@ -185,8 +204,20 @@ export default function IdeaInputForm() {
           </button>
         </form>
 
-        <div className={styles.spinnerContainer} ref={spinnerRef}>
+      </div>
+      <div className={styles.loadingContainer} ref={spinnerRef}>
+        {/* <div className={styles.loadingContainer}> */}
+        <div className={styles.spinnerContainer}>
           <Spinner />
+        </div>
+        <div className={styles.progressBarContainer}>
+          <LinearProgress className={styles.progressBar} variant="determinate" value={progress}
+            sx={{
+              backgroundColor: 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)'
+              }
+            }} />
         </div>
       </div>
     </>

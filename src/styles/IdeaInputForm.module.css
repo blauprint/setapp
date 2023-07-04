@@ -1,4 +1,5 @@
 .inputContainer {
+  /* display: none; */
   display: flex;
   width: 100vw;
   height: 83vh;
@@ -26,7 +27,7 @@
   resize: none;
 }
 
-textarea.ideaTextArea + label.ideaLabel {
+textarea.ideaTextArea+label.ideaLabel {
   display: block;
   position: relative;
   white-space: nowrap;
@@ -39,8 +40,8 @@ textarea.ideaTextArea + label.ideaLabel {
   letter-spacing: 1px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel,
-textarea.ideaTextArea:focus + label.ideaLabel {
+textarea.ideaTextArea:focus+label.ideaLabel,
+textarea.ideaTextArea:focus+label.ideaLabel {
   width: 60%;
 }
 
@@ -49,8 +50,8 @@ textarea.ideaTextArea:focus {
   margin-top: 35px;
 }
 
-textarea.ideaTextArea:focus + label.ideaLabel > span.ideaSpan,
-textarea.ideaTextArea:valid + label.ideaLabel > span.ideaSpan {
+textarea.ideaTextArea:focus+label.ideaLabel>span.ideaSpan,
+textarea.ideaTextArea:valid+label.ideaLabel>span.ideaSpan {
   top: 10px;
   font-size: 22px;
 }
@@ -81,7 +82,32 @@ span.ideaSpan {
   transform: translateX(10px) rotate(-45deg);
 }
 
-.spinnerContainer {
+.loadingContainer {
   display: none;
+  position: relative;
+  /* top: 50vh; */
+  margin: auto auto;
+  width: 90%;
+  height: 100%;
   transition: all 0.2s ease-in-out;
+}
+
+.spinnerContainer {
+  display: flex;
+  width: 100%;
+}
+
+.progressBarContainer {
+
+  position: absolute;
+  bottom: 10px;
+  /* top: 20vh; */
+}
+
+.MuiLinearProgress-root {
+  background-color: var(--secondary-color);
+}
+
+.MuiLinearProgress-barColorPrimary {
+  background-color: var(--primary-color);
 }

@@ -1,7 +1,7 @@
 //WORK IN PROGRESS
 export default async function regexDataExtractor(data: string) {
   let projectNameRegex = /"projectName":\s*"([^"]*)"/;
-  let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
+  // let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
   let summaryRegex = /"summary":\s*"([^"]*)"/;
   let frontendRegex = /"frontend":\s*{([^}]*)}/;
   let backendRegex = /"backend":\s*{([^}]*)}/;
@@ -10,7 +10,7 @@ export default async function regexDataExtractor(data: string) {
   let regexes: RegExp[] = [
     summaryRegex,
     projectNameRegex,
-    toDoListRegex,
+    // toDoListRegex,
     frontendRegex,
     backendRegex,
   ];
