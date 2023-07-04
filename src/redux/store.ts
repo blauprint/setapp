@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     projects: projectReducer,
     currentProject: currentProjectReducer,
-    selected: selectedReducer
+    selected: selectedReducer,
   },
 });
 

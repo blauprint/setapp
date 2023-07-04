@@ -11,7 +11,7 @@ export default function ProjectsList({
 }) {
   return (
     <>
-      <Link className={styles.addProjectButton} href="/idea">
+      <Link className={styles.addProjectButton} href='/idea'>
         <div className={styles.content}>
           <p>
             <MdAddCircleOutline size={35} />
@@ -21,7 +21,7 @@ export default function ProjectsList({
       </Link>
 
       {projects.map((project) => (
-        <ProjectCard project={project} key={crypto.randomUUID()}></ProjectCard>
+        <ProjectCard project={project} key={crypto.randomUUID()} />
       ))}
     </>
   );

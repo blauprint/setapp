@@ -1,7 +1,7 @@
-import { AnyAction, PayloadAction, Slice, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { PayloadAction, Slice, createSlice } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
-import { ProjectData } from "@/types/typedefs";
+import { ProjectData } from '@/types/typedefs';
 
 const initialState: ProjectData = {
   id: '',
@@ -14,13 +14,13 @@ const initialState: ProjectData = {
       name: '',
       whyGoodOption: '',
       description: '',
-      link: ''
+      link: '',
     },
     colorScheme: {
       whyGoodOption: '',
       colorPalette: {
-        color: []
-      }
+        colors: [],
+      },
     },
   },
   backend: {
@@ -29,26 +29,28 @@ const initialState: ProjectData = {
       name: '',
       whyGoodOption: '',
       description: '',
-      link: ''
+      link: '',
     },
     database: {
       name: '',
       whyGoodOption: '',
       description: '',
       link: '',
-      schema: ''
+      schema: '',
     },
   },
-  createdAt: 0
-}
-
+  createdAt: 0,
+};
 
 export const currentProjectSlice: Slice = createSlice({
   name: 'currentProject',
   initialState,
   reducers: {
-    addCurrentProject: (state: ProjectData, action: PayloadAction<ProjectData>) => {
-      return action.payload
+    addCurrentProject: (
+      state: ProjectData,
+      action: PayloadAction<ProjectData>,
+    ) => {
+      return action.payload;
     },
   },
 });

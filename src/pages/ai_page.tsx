@@ -2,18 +2,18 @@
 // This is a test page for the AI. It is not currently linked to the rest of the app.
 // This is a test page for the AI. It is not currently linked to the rest of the app.
 
-"use client";
-import React, { use, useEffect, useState } from "react";
-import { useAppDispatch } from "@/redux/hooks";
-import { store } from "@/redux/store";
+'use client';
+import React, { use, useEffect, useState } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
+import { store } from '@/redux/store';
 
 import {
   useChat,
   UseChatHelpers,
   useCompletion,
   UseCompletionHelpers,
-} from "ai/react";
-import { ProjectData, Technology, ColorScheme, Color } from "@/types/typedefs";
+} from 'ai/react';
+import { ProjectData, Technology, ColorScheme, Color } from '@/types/typedefs';
 // import { add } from "@/redux/projectsSlice";
 
 export default function Ai() {
@@ -30,13 +30,11 @@ export default function Ai() {
     stop,
     handleSubmit,
   } = useCompletion({
-    api: "/api/chat/openai_api",
+    api: '/api/chat/openai_api',
     onError: handleError,
     onResponse: handleResponse,
     onFinish: handleFinish,
   });
-
-
 
   // Handler functions
 
@@ -45,18 +43,17 @@ export default function Ai() {
   }
 
   function handleResponse(response: Response) {
-    console.log("Getting response...");
+    console.log('Getting response...');
   }
 
   function handleFinish(prompt: string, completion: string) {
-    console.log("Finished completion!");
-    console.log("Completion:", completion);
-    console.log("Prompt:", prompt);
+    console.log('Finished completion!');
+    console.log('Completion:', completion);
+    console.log('Prompt:', prompt);
     const projectJson: ProjectData = JSON.parse(`{ ${completion} }`);
     // dispatch(add(projectJson));
     setCardData(projectJson);
   }
-
 
   // Regex functions
 
@@ -129,16 +126,16 @@ export default function Ai() {
         <label>
           Say something...
           <input
-            type="text"
-            name="userPrompt"
+            type='text'
+            name='userPrompt'
             onChange={handleInputChange}
             value={input}
           />
         </label>
-        <button type="button" onClick={stop}>
+        <button type='button' onClick={stop}>
           Stop
         </button>
-        <button disabled={isLoading} type="submit">
+        <button disabled={isLoading} type='submit'>
           Submit
         </button>
       </form>
