@@ -22,6 +22,14 @@ import ThemeSwitch from './ThemeSwitch';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 
+import {
+  AiFillBuild,
+  AiOutlineBuild,
+  AiTwotoneBuild,
+  AiTwotoneEdit,
+} from 'react-icons/ai';
+
+
 export default function HomeNavigationBar() {
   const router = useRouter();
   const [navbarTitle, setNavbarTitle] = useState<string>('');
@@ -69,13 +77,19 @@ export default function HomeNavigationBar() {
             fontWeight: 600,
           }}
         >
-          <Link href={'/'}>setapp</Link>
+          <Link
+            href={'/'}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          >
+            <AiFillBuild />
+            setapp
+          </Link>
         </div>
 
-        {<div className={styles.projectName}>{navbarTitle}</div>}
 
         <div className={styles.navOptions}>
           <SignedIn>
+        {<div className={styles.projectName}>{navbarTitle}</div>}
             <div>
               <Link className={styles.projectsLink} href={'/projects'}>
                 Projects

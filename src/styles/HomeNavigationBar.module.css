@@ -8,10 +8,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 35px;
-  height: 10vh;
+  padding: 20px 35px;
   box-shadow: 0px 0.2px 12px var(--shadow-color);
-  /* box-shadow: 0px 1px 15px rgba(0, 0, 0, 1.1); */
 }
 
 .navOptions {
@@ -50,7 +48,6 @@
 
 .projectsLink:hover {
   background-color: var(--accent-color);
-  /* box-shadow: #5be4d486 1px 1px 10px; */
 }
 
 .projectName {
