@@ -1,12 +1,18 @@
-import ProjectMenu from "./ProjectMenu";
-import styles from "@/styles/Output.module.css";
-import { ReactElement } from "react";
+import ProjectMenu from './ProjectMenu';
+import styles from '@/styles/Output.module.css';
+import { useRouter } from 'next/router';
+import { ReactElement } from 'react';
 
 export default function NestedLayout({ children }: { children: ReactElement }) {
+  const router = useRouter();
   return (
     <div className={styles.outputPage}>
-      <ProjectMenu />
-      {children}
+      <ProjectMenu
+        userName={router.query.userName!}
+        projectId={router.query.projectId!}
+      />
+
+      <main className={styles.outputContent}>{children}</main>
     </div>
-  )
+  );
 }

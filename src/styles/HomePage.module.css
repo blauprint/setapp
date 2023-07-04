@@ -1,7 +1,172 @@
 .introContainer {
-  width: 60%;
-  margin: 0 auto;
-  margin-top: 10%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroText {
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.typewriter {
+  color: var(--primary-color);
+}
+
+.setApp {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--primary-color);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroLogo {
+  display: flex;
+}
+
+.sell {
+  margin-top: 80px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.heroBtn {
+  background-color: var(--secondary-color);
+  font-size: 18px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+}
+
+.heroBtn:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.heroBtns {
+  margin-top: 40px;
+  display: flex;
+  gap: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.moreInfo {
+  background-color: var(--block-color);
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeading {
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--primary-color);
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  padding: 50px 150px;
+}
+
+.infoText {
+  width: 50%;
+
+  font-size: 18px;
+  font-weight: 500;
   line-height: 2;
-  text-align: justify;
+  letter-spacing: 1px;
+}
+
+.infoText > p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.infoImage {
+  width: 50%;
+}
+
+.lottieSetApp {
+  height: 400px;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+@media (max-width: 900px) {
+  .sectionHeading {
+    font-size: 25px;
+  }
+
+  .infoContainer {
+    padding: 50px 100px;
+  }
+}
+
+@media (max-width: 800px) {
+  .sectionHeading {
+    font-size: 20px;
+  }
+
+  .infoContainer {
+    padding: 50px 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  .heroText {
+    font-size: 50px;
+    letter-spacing: 2.5px;
+  }
+  .sectionHeading {
+    font-size: 20px;
+  }
+  .infoContainer {
+    flex-direction: column-reverse;
+    padding: 30px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sectionHeading {
+    font-size: 17px;
+    padding: 5px;
+  }
+
+  .infoText {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .sectionHeading {
+    font-size: 17px;
+    padding: 5px;
+  }
+
+  .infoText {
+    width: 100%;
+  }
 }

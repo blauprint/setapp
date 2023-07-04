@@ -1,5 +1,5 @@
 'use client';
-import { useRef, FormEvent } from 'react';
+import { useRef, FormEvent, useEffect, useState } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
 import { ProjectData } from '@/types/typedefs';
@@ -12,6 +12,9 @@ import { useRouter } from 'next/router';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
+import regexDataExtractor from '@/utils/regexDataExtractor';
+import LinearProgress from '@mui/material/LinearProgress';
+
 // import * as Yup from "yup";
 // import dynamic from "next/dynamic";
 
@@ -20,7 +23,8 @@ import { Message, useChat } from 'ai/react';
 // });
 
 export default function IdeaInputForm() {
-  let dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  let [progress, setProgress] = useState(0);
 
   // CLERK AUTH
   const { user } = useUser();
@@ -49,13 +53,11 @@ export default function IdeaInputForm() {
   };
 
   const router = useRouter();
-  let projectName: string = '';
-  let projectId: string = '';
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
 
-  const { input, isLoading, handleInputChange, handleSubmit } = useChat({
+  const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: '/api/chat/openai_api',
     onError: handleError,
     onFinish: handleFinish,
@@ -79,18 +81,37 @@ export default function IdeaInputForm() {
 
   // Handler functions
 
+  useEffect(() => {
+    if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
+      setProgress(25);
+    }
+    if (messages[1]?.content.match(/"summary":\s*"([^"]*)"/)?.[0]) {
+      setProgress(50);
+    }
+    if (messages[1]?.content.match(/"frontend":\s*{([^}]*)}/)?.[0]) {
+      setProgress(75);
+    }
+    if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
+      setProgress(100);
+    }
+    // console.log(messages[1]?.content)
+  }, [messages])
+
+
   function handleError(error: Error) {
     console.error(error);
     if (spinnerRef.current) {
       spinnerRef.current.style.display = 'none';
     }
     alert('Sorry, there was an error. Please try again.');
+
     // Refresh the page
     router.reload();
   }
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
+    // Submit animations
     if (formRef.current) {
       formRef.current.style.translate = '0 -100vh';
       formRef.current.style.scale = '0';
@@ -105,9 +126,11 @@ export default function IdeaInputForm() {
   }
 
   async function handleFinish(message: Message) {
+    //Prevent the form from reappearing after the message is finished
     if (formRef.current) {
       formRef.current.remove();
     }
+
     console.log('Message finished!');
     console.log('Message:', message.content);
 
@@ -115,57 +138,26 @@ export default function IdeaInputForm() {
     message.content = message.content.replace(/`+$/, '');
 
     try {
+      // Parse the message content into a JSON object
       const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
+
+      // Add the project idea to the object
       projectJson.idea = input;
-      let response = await postProject(auth, projectJson);
-      projectId = response.id;
+
+      // Post the project to the database and get the project ID
+      const response = await postProject(auth, projectJson);
+      const projectId = response.id;
       dispatch(addNewProject(response));
       dispatch(addCurrentProject(response));
-      projectName = projectJson.title;
-      debugger;
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/${projectName}/${projectId}/output`;
+
+      // Redirect to the project page
+      const url = `/${user?.username ? user.username : user?.firstName
+        }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
     }
-  }
-
-  // ***********
-  // Regex functions
-
-  async function regexDataExtractor(data: string) {
-    //WORK IN PROGRESS
-    let projectNameRegex = /"projectName":\s*"([^"]*)"/;
-    let toDoListRegex = /"toDoList":\s*\[\s*"([^"]*)"\s*\]/;
-    let summaryRegex = /"summary":\s*"([^"]*)"/;
-    let frontendRegex = /"frontend":\s*{([^}]*)}/;
-    let backendRegex = /"backend":\s*{([^}]*)}/;
-
-    //TODO: memoize regexes
-    let regexes: RegExp[] = [
-      summaryRegex,
-      projectNameRegex,
-      toDoListRegex,
-      frontendRegex,
-      backendRegex,
-    ];
-
-    while (regexes.length > 0 && isLoading) {
-      let regex = regexes.pop();
-      if (regex) {
-        let match = data.match(regex);
-        if (match) {
-          console.log(match);
-        }
-      }
-    }
-
-    if (projectNameRegex.test(data)) {
-      let projectName = data.match(projectNameRegex);
-      console.log(projectName);
-    }
+    debugger;
   }
 
   // ***********
@@ -212,8 +204,20 @@ export default function IdeaInputForm() {
           </button>
         </form>
 
-        <div className={styles.spinnerContainer} ref={spinnerRef}>
+      </div>
+      <div className={styles.loadingContainer} ref={spinnerRef}>
+        {/* <div className={styles.loadingContainer}> */}
+        <div className={styles.spinnerContainer}>
           <Spinner />
+        </div>
+        <div className={styles.progressBarContainer}>
+          <LinearProgress className={styles.progressBar} variant="determinate" value={progress}
+            sx={{
+              backgroundColor: 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)'
+              }
+            }} />
         </div>
       </div>
     </>

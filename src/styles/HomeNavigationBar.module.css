@@ -1,13 +1,15 @@
 .container {
+  z-index: 1;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background-color: var(--surface-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 35px;
-  height: 10vh;
+  padding: 20px 35px;
+  box-shadow: 0px 0.2px 12px var(--shadow-color);
 }
 
 .navOptions {
@@ -31,7 +33,7 @@
   background-color: var(--accent-color);
 }
 
-.projectlink {
+.projectsLink {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -44,9 +46,8 @@
   transition: all 0.2s;
 }
 
-.projectlink:hover {
+.projectsLink:hover {
   background-color: var(--accent-color);
-  /* box-shadow: #5be4d486 1px 1px 10px; */
 }
 
 .projectName {
@@ -57,7 +58,7 @@
   text-transform: uppercase;
 }
 
-/* 
+/*
 font-family: 'Barlow', sans-serif;
 font-family: 'Jost', sans-serif;
 font-family: 'Montserrat', sans-serif;

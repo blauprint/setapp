@@ -1,7 +1,8 @@
+'use client';
 import ProjectsList from '@/components/ProjectsList';
-import { selectProject } from '@/redux/currentProjectSlice';
+import { selectAllProjects } from '@/redux/currentProjectSlice';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
-import { getAllProjects, addProjects } from '@/redux/projectsSlice';
+import { addProjects } from '@/redux/projectsSlice';
 import { getProjects } from '@/services/projectsService';
 import styles from '@/styles/ProjectsPage.module.css';
 import { Auth } from '@/types/Auth';
@@ -43,10 +44,15 @@ export default function ProjectsPage() {
 
   let dispatch = useAppDispatch();
 
+<<<<<<< HEAD
   const projects: ProjectData[] = useAppSelector(selectProject); console.log(projects, 'in projects')
+=======
+  const projects: ProjectData[] = useAppSelector(selectAllProjects);
+>>>>>>> dev
 
   useEffect(() => {
     if (user && projects.length === 0) {
+      console.log('i ran');
       getProjects(auth).then((res) => {
         dispatch(addProjects(res));
       });
@@ -56,7 +62,7 @@ export default function ProjectsPage() {
   return (
     <div className={styles.projectsPageWrapper}>
       <SignedIn>
-        <ProjectsList projects={projects}></ProjectsList>
+        <ProjectsList projects={projects} />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
