@@ -141,6 +141,7 @@ h6 {
 /* GLOBALS */
 
 body {
+  padding-top: 82px;
   font-family: 'Montserrat', sans-serif;
   background-color: var(--background-color);
 }

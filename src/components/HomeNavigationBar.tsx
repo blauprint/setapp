@@ -29,17 +29,16 @@ import {
   AiTwotoneEdit,
 } from 'react-icons/ai';
 
-
 export default function HomeNavigationBar() {
   const router = useRouter();
   const [navbarTitle, setNavbarTitle] = useState<string>('');
   const currentProjectTitle = useAppSelector(
-    (state) => state.currentProject.title,
+    (state) => state.currentProject.title
   );
   function getNavbarTitle(): string {
     switch (router.asPath) {
       case '/projects':
-        return 'Projects';
+        return '';
       case '/profile':
         return 'Profile';
       case '/about':
@@ -47,7 +46,7 @@ export default function HomeNavigationBar() {
       case '/contact':
         return 'Contact';
       case '/':
-        return 'Home';
+        return '';
       default:
         return `./${currentProjectTitle}`;
     }
@@ -55,7 +54,6 @@ export default function HomeNavigationBar() {
 
   const user = useUser().user;
   let userName;
-  console.log('userName: ', userName);
 
   useEffect(() => {
     userName = user?.username;
@@ -66,54 +64,51 @@ export default function HomeNavigationBar() {
   }, [router.asPath]);
 
   return (
-    <>
-      <div className={styles.container}>
-        <div
-          className={quicksand.className}
-          style={{
-            fontSize: '28px',
-            color: 'var(--text-color)',
-            letterSpacing: '9px',
-            fontWeight: 600,
-          }}
+    <div className={styles.container}>
+      <div
+        className={quicksand.className}
+        style={{
+          fontSize: '28px',
+          color: 'var(--text-color)',
+          letterSpacing: '9px',
+          fontWeight: 600,
+        }}
+      >
+        <Link
+          href={'/'}
+          style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
         >
-          <Link
-            href={'/'}
-            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-          >
-            <AiFillBuild />
-            setapp
-          </Link>
-        </div>
-
-
-        <div className={styles.navOptions}>
-          <SignedIn>
-            {<div className={styles.projectName}>{navbarTitle}</div>}
-            <div>
-              <Link className={styles.projectsLink} href={'/projects'}>
-                Projects
-              </Link>
-            </div>
-          </SignedIn>
-          <ThemeSwitch />
-          <SignedOut>
-            <SignInButton
-              mode='modal'
-              afterSignInUrl='/projects'
-              afterSignUpUrl='/projects'
-            >
-              <button className={styles.loginBtn}>Login</button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <Link href='/profile'>
-              <div className={styles.userName}>{userName}</div>
-              <UserButton afterSignOutUrl='/' />
-            </Link>
-          </SignedIn>
-        </div>
+          <AiFillBuild />
+          setapp
+        </Link>
       </div>
-    </>
+
+      <div className={styles.navOptions}>
+        <SignedIn>
+          <div className={styles.projectName}>{navbarTitle}</div>
+          <div>
+            <Link className={styles.projectsLink} href={'/projects'}>
+              Projects
+            </Link>
+          </div>
+        </SignedIn>
+        <ThemeSwitch />
+        <SignedOut>
+          <SignInButton
+            mode="modal"
+            afterSignInUrl="/projects"
+            afterSignUpUrl="/projects"
+          >
+            <button className={styles.loginBtn}>Login</button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <Link href="/profile">
+            <div className={styles.userName}>{userName}</div>
+            <UserButton afterSignOutUrl="/" />
+          </Link>
+        </SignedIn>
+      </div>
+    </div>
   );
 }

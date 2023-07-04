@@ -95,8 +95,7 @@ export default function IdeaInputForm() {
       setProgress(100);
     }
     // console.log(messages[1]?.content)
-  }, [messages])
-
+  }, [messages]);
 
   function handleError(error: Error) {
     console.error(error);
@@ -151,13 +150,13 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${user?.username ? user.username : user?.firstName
-        }/projects/${projectId}/`;
+      const url = `/${
+        user?.username ? user.username : user?.firstName
+      }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
     }
-    debugger;
   }
 
   // ***********
@@ -176,16 +175,16 @@ export default function IdeaInputForm() {
             autoFocus={true}
             onChange={handleInputChange}
             value={input}
-            name='idea'
+            name="idea"
             rows={1}
-            id='idea'
+            id="idea"
             required={true}
-            autoComplete='off'
+            autoComplete="off"
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 // TODO: Either change to input or fix textarea functionality
                 event.currentTarget.form?.dispatchEvent(
-                  new Event('submit', { cancelable: true, bubbles: true }),
+                  new Event('submit', { cancelable: true, bubbles: true })
                 );
               }
             }}
@@ -196,14 +195,13 @@ export default function IdeaInputForm() {
           {/* <DynamicModelCard model={cardData?.backend.database} /> */}
           {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
           {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
-          <label className={styles.ideaLabel} htmlFor='name'>
+          <label className={styles.ideaLabel} htmlFor="name">
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type='submit' className={styles.sendBtn}>
+          <button type="submit" className={styles.sendBtn}>
             <BiSend />
           </button>
         </form>
-
       </div>
       <div className={styles.loadingContainer} ref={spinnerRef}>
         {/* <div className={styles.loadingContainer}> */}
@@ -211,13 +209,17 @@ export default function IdeaInputForm() {
           <Spinner />
         </div>
         <div className={styles.progressBarContainer}>
-          <LinearProgress className={styles.progressBar} variant="determinate" value={progress}
+          <LinearProgress
+            className={styles.progressBar}
+            variant="determinate"
+            value={progress}
             sx={{
               backgroundColor: 'var(--secondary-color)',
               '& .MuiLinearProgress-bar': {
-                backgroundColor: 'var(--primary-color)'
-              }
-            }} />
+                backgroundColor: 'var(--primary-color)',
+              },
+            }}
+          />
         </div>
       </div>
     </>

@@ -43,29 +43,34 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
 
   //TODO need to convert project date to this format and save it
   const formattedDate = '25 Jun';
-  let projectId = "";
+  let projectId = '';
   function handleClickOnProjectCard(project: ProjectData) {
     dispatch(addCurrentProject(project));
   }
 
-  function handleDelete(e: React.SyntheticEvent) {
+  function handleDelete(e: React.MouseEvent) {
+    e.preventDefault();
     e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    console.log('got here', project.id);
+
     //delete from the redux store
-    dispatch(deleteProjectFromStore(projectId));
+    dispatch(deleteProjectFromStore(project.id));
     //delete from the database as well we need to make an api delete request
-    deleteProject(auth, projectId);
+    deleteProject(auth, project.id);
   }
 
   return (
     <Link
       prefetch={false}
       onClick={() => handleClickOnProjectCard(project)}
-      href={`/${user?.username ? user.username : user?.firstName}/projects/${project.id
-        }/`}
+      href={`/${user?.username ? user.username : user?.firstName}/projects/${
+        project.id
+      }/`}
     >
       <div
         className={styles.projectCard}
-      // onClick={() => handleClickOnProjectCard(project)}
+        // onClick={() => handleClickOnProjectCard(project)}
       >
         <div className={styles.deleteBtnContainer}>
           <button
