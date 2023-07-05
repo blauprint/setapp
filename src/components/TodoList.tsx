@@ -39,7 +39,7 @@ function TodoList() {
     orgRole,
     orgSlug,
   } = useAuth();
-
+  
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
@@ -65,7 +65,6 @@ function TodoList() {
     dispatch(updateTodo(todo));
     updateTodoService(auth, todo).then(() => {
     }).catch((error) => {
-      console.log(error, 'todo error')
       throw new Error('Error updating todo title from server\n', error);
     });
   }
@@ -73,7 +72,6 @@ function TodoList() {
     dispatch(updateTodo(todo));
     updateTodoService(auth, todo).then(() => {
     }).catch((error) => {
-      console.log(error, 'todo error')
       throw new Error('Error updating todo title from server\n', error);
     });
   }
@@ -90,7 +88,7 @@ function TodoList() {
       if (select === 'todosFE') {
         dispatch(addFrontendTodo({ id: uuid, title: title }));
         if (auth && frontendId && title) {
-          createFrontendTodoService(auth, frontendId, { title: title }).then(res => {
+          createFrontendTodoService(auth, frontendId, { title: title, done: false }).then(res => {
             res.uuid = uuid;
             dispatch(updateNewTodo(res));
           }).catch(error => {
@@ -101,7 +99,7 @@ function TodoList() {
       } else {
         dispatch(addBackendTodo({ id: uuid, title: title }))
         if (auth && backendId && title) {
-          createBackendTodoService(auth, backendId, { title: title }).then(res => {
+          createBackendTodoService(auth, backendId, { title: title, done: false }).then(res => {
             res.uuid = uuid;
             dispatch(updateNewTodo(res));
           }).catch(error => {

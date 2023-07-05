@@ -9,8 +9,10 @@ import { deleteProjectFromStore } from '@/redux/projectsSlice';
 import { deleteProject } from '@/services/projectsService';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import formatDateFromNow from '@/utils/dateFormatter';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { addSelected } from '@/redux/selectedSlice';
+
 
 export default function ProjectCard({ project }: { project: ProjectData }) {
 
@@ -45,7 +47,9 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   const [isHovered, setIsHovered] = useState(false);
 
   //TODO need to convert project date to this format and save it
-  const formattedDate = '25 Jun';
+
+  const formattedDate = formatDateFromNow(project.createdAt);
+
   function handleClickOnProjectCard(project: ProjectData) {
     dispatch(addCurrentProject(project));
     dispatch(addSelected('overview'));
@@ -55,8 +59,6 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     e.preventDefault();
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    console.log('got here', project.id);
-
     //delete from the redux store
     dispatch(deleteProjectFromStore(project.id));
     //delete from the database as well we need to make an api delete request

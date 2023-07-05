@@ -44,7 +44,18 @@ export default function ProjectsPage() {
 
   let dispatch = useAppDispatch();
   const projects: ProjectData[] = useAppSelector(selectAllProjects);
-
+  let sortedProjects = [...projects];
+   sortedProjects = sortedProjects.sort((a, b) => {
+    const dateA = a.createdAt || new Date(0);
+    const dateB = b.createdAt || new Date(0);
+    if (dateA < dateB) {
+      return 1;
+    } else if (dateA > dateB) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
   useEffect(() => {
     if (user && projects.length === 0) {
       getProjects(auth).then((res) => {
@@ -56,7 +67,7 @@ export default function ProjectsPage() {
   return (
     <div className={styles.projectsPageWrapper}>
       <SignedIn>
-        <ProjectsList projects={projects} />
+        <ProjectsList projects={sortedProjects} />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />

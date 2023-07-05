@@ -77,8 +77,6 @@ export default function HomeNavigationBar() {
   }, [user]);
 
   function handleTitleChange(e: React.KeyboardEvent<HTMLDivElement>) {
-    // newTitle = e.target.textContent || '';
-    // setTitle(newTitle);
     if (e.key === 'Enter') {
       e.preventDefault();
       e.currentTarget.blur();
@@ -88,12 +86,14 @@ export default function HomeNavigationBar() {
   async function handleTitleBlur(e: React.FocusEvent<HTMLDivElement>) {
     if (auth) {
       newTitle = e.target.textContent || '';
-      // setTitle(newTitle);
-
-      let titleObject = { title: newTitle };
-      updateProjectTitle(auth, currentProject.id, titleObject).then(
-        (res) => res
-      );
+      const updatedProject = { ...currentProject };
+      updatedProject.title = newTitle;
+      updateProjectTitle(auth, currentProject.id, updatedProject)
+        .then((res) => res)
+        .catch(error => {
+          console.log(error)
+          throw new Error(`Error updating project title: ${newTitle}`)
+        });
       dispatch(changeTitle(newTitle));
     }
   }
