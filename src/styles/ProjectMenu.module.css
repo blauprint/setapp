@@ -2,14 +2,14 @@
   display: flex;
   padding-top: 50px;
   padding-inline: 20px;
-  min-width: 12vw;
+  min-width: 17vw;
   height: fit-content;
   background-color: var(--block-color);
   flex-direction: column;
   position: fixed;
   height: 100%;
   left: 0;
-  top: 10vh;
+  top: 9vh;
 }
 
 .accordion {
