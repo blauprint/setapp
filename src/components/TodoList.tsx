@@ -18,7 +18,15 @@ function TodoList() {
   } else if (select === 'todosFE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.frontend.todoList })
   }
-  console.log(todoList)
+  const sortedTodos = [...todoList].sort((a, b) => {
+    if (a.done && !b.done) {
+      return 1;
+    } else if (!a.done && b.done) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
   const {
     userId,
     sessionId,
@@ -71,7 +79,7 @@ function TodoList() {
 
   return (
     <div className={styles.todosList}>
-      {todoList.map((todo: TodoItem) => (
+      {sortedTodos.map((todo: TodoItem) => (
         <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
       ))}
     </div>
