@@ -1,5 +1,6 @@
 import IdeaInputForm from '@/components/IdeaInputForm';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
+import { RedirectToSignIn, SignedIn, SignedOut, SignUp } from '@clerk/nextjs';
+import styles from '@/styles/SignUpPage.module.css';
 
 export default function IdeaPage() {
   return (
@@ -8,7 +9,9 @@ export default function IdeaPage() {
         <IdeaInputForm />
       </SignedIn>
       <SignedOut>
-        <RedirectToSignIn />
+        <div className={styles.signUpPage}>
+          <SignUp redirectUrl='/sign-up' />
+        </div>
       </SignedOut>
     </>
   );
