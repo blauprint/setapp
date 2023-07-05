@@ -1,15 +1,16 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { deleteTodo, updateTodo } from '@/redux/currentProjectSlice';
+import { addBackendTodo, addFrontendTodo, deleteTodo, updateTodo } from '@/redux/currentProjectSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
+import { useRef } from 'react';
 import { Auth } from '@/types/Auth';
-import { deleteTodoService, updateTodoService } from '@/services/projectsService';
+import { createBackendTodoService, createFrontendTodoService, deleteTodoService, updateTodoService } from '@/services/projectsService';
 import { TodoItem } from '@/types/typedefs';
+import { v4 as uuidv4 } from 'uuid';
 
 function TodoList() {
-
   const select = useAppSelector((state: RootState) => state.selected);
   let todoList: TodoItem[] = [];
 
@@ -77,12 +78,58 @@ function TodoList() {
     });
   }
 
+  const frontendId = useAppSelector((state: RootState) => state.currentProject.frontend.id); 
+  const backendId = useAppSelector((state: RootState) => state.currentProject.backend.id);
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  function handleCreateTodoKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const title = e.currentTarget.textContent;
+      if (select === 'todosFE') {
+        dispatch(addFrontendTodo({ title: title }));
+        if (auth && frontendId && title) {
+          createFrontendTodoService(auth, frontendId, { title: title }).then(res => {
+            dispatch(updateTodo(res));
+          }).catch(error => {
+            console.log(error);
+            throw new Error(`Error creating a frontend todo on server!`);
+          });
+        }
+      } else {
+        dispatch(addBackendTodo({ title: title }))
+        if (auth && backendId && title) {
+          createBackendTodoService(auth, backendId, { title: title }).then(res => {
+            dispatch(updateTodo(res));
+          }).catch(error => {
+            console.log(error);
+            throw new Error(`Error creating a backend todo on server`);
+          });
+        }
+      }
+
+      e.currentTarget.textContent = '';
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
+    }
+  }
+
   return (
-    <div className={styles.todosList}>
-      {sortedTodos.map((todo: TodoItem) => (
-        <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
-      ))}
-    </div>
+    <>
+      <div className={styles.todosList}>
+        <div className={styles.addTodoButton}
+          suppressContentEditableWarning={true}
+          contentEditable="true"
+          onKeyDown={handleCreateTodoKeyDown}
+          ref={inputRef}
+        >
+        </div>
+        {sortedTodos.map((todo: TodoItem) => (
+          <TodoCard key={todo.id || uuidv4()} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
+        ))}
+      </div>
+    </>
   );
 }
 

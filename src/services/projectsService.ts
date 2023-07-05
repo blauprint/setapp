@@ -136,6 +136,37 @@ export async function updateProjectTitle(auth: Auth, id: string, title: any) {
   return response;
 }
 
+export async function createBackendTodoService(auth: Auth, backendId: string, todo: {title: string}) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  }
+  const addedBackendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/backend/${backendId}/todo`, options);
+  const response = await addedBackendTodo.json();
+  return response;
+}
 
-
+export async function createFrontendTodoService(auth: Auth, frontendId: string, todo: {title: string}) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  }
+  const addedFrontendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/frontend/${frontendId}/todo`, options);
+  const response = await addedFrontendTodo.json();
+  return response;
+}
 

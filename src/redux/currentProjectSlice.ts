@@ -1,7 +1,7 @@
 import { PayloadAction, Slice, createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
-
-import { ProjectData } from '@/types/typedefs';
+import { ProjectData, TodoItem } from '@/types/typedefs';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: ProjectData = {
   id: '',
@@ -60,6 +60,7 @@ export const currentProjectSlice: Slice = createSlice({
       const { id, title, done } = action.payload;
       const todo = state.backend.todoList.find((todo) => todo.id === id) || state.frontend.todoList.find((todo) => todo.id === id);
       if (todo) {
+        todo.id = id;
         todo.title = title;
         todo.done = done;
       }
@@ -67,10 +68,26 @@ export const currentProjectSlice: Slice = createSlice({
     changeTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
       return state;
+    },
+    addFrontendTodo: (state, action: PayloadAction<{title: string, createdAt: string, id: string, done: boolean}>) => {
+      const id = '';
+      const date = new Date();
+      action.payload.id = id;
+      action.payload.done = false;
+      action.payload.createdAt = date.toString();
+      state.frontend.todoList.push(action.payload)
+    },
+    addBackendTodo: (state, action: PayloadAction<TodoItem>) => {
+      const id = '';
+      const date = new Date();
+      action.payload.id = id;
+      action.payload.done = false;
+      action.payload.createdAt = date.toString();
+      state.backend.todoList.push(action.payload)
     }
   },
 });
 
-export const { addCurrentProject, deleteTodo, updateTodo, changeTitle } = currentProjectSlice.actions;
+export const { addCurrentProject, deleteTodo, updateTodo, changeTitle, addFrontendTodo, addBackendTodo } = currentProjectSlice.actions;
 export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;
