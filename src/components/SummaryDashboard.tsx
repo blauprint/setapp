@@ -1,6 +1,7 @@
+'use client';
 import { ProjectData } from '@/types/typedefs';
 import styles from '@/styles/SummaryDashboard.module.css';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 
 export default function SummaryDashboard({

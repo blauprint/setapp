@@ -1,3 +1,4 @@
+'use client';
 import { Database } from '@/types/typedefs';
 import styles from '@/styles/ModelDashboard.module.css';
 import Link from 'next/link';
@@ -13,7 +14,7 @@ export default function ModelDashboard({ model }: { model: Database }) {
         <p className={styles.modelDescription}>{model.description}</p>
 
         <h2 className={styles.descriptionTitle}>
-        Why should I choose it for my app?
+          Why should I choose it for my app?
         </h2>
 
         <p className={styles.description}>{model.whyGoodOption}</p>
@@ -35,7 +36,7 @@ export default function ModelDashboard({ model }: { model: Database }) {
         </div>
       </div>
       <div className={styles.modelElement}>
-      <hr/>
+        <hr />
 
         <h2 className={styles.descriptionTitle}>Learn more</h2>
         <p className={styles.description}>

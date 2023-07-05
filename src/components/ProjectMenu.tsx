@@ -1,6 +1,6 @@
 //WORK IN PROGRESS
 //TODO: Fix links and styles
-
+'use client'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from '@/styles/ProjectMenu.module.css';
