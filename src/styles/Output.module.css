@@ -1,5 +1,24 @@
+.projectSummary {
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
+
+.descriptionTitle {
+  color: var(--secondary-color);
+}
+
+.description {
+  font-size: 1.5rem;
+}
+
+.link {
+  color: var(--accent-color);
+  margin-left: 0.5em;
+}
+
 .outputPage {
-  margin-top: 5vh;
+  margin-top: 2.5vh;
   height: 78vh;
   width: 100%;
   display: flex;

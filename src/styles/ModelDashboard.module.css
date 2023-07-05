@@ -1,0 +1,54 @@
+
+.descriptionTitle {
+  color: var(--secondary-color);
+}
+
+.description {
+  font-size: 1.5rem;
+}
+
+.link {
+  color: var(--accent-color);
+  margin-left: 0.5em;
+}
+
+.modelSchema {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}
+
+.modelContainer {
+  max-width: 60vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.modelDescription {
+  margin-bottom: 3rem;
+}
+
+.modelElement {
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.modelName {
+  font-size: 6rem;
+  margin-bottom: 4rem;
+}
+
+.schema {
+  margin-top: 1em;
+  padding: 9em 9em;
+}
+
+.schemaContainer {
+  margin-top: 0.6em;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.4em;
+  border-color: var(--accent-color);
+  padding: 1em 1em;
+}
