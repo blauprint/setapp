@@ -10,6 +10,7 @@ import {
   AiTwotoneBuild,
   AiTwotoneEdit,
 } from 'react-icons/ai';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -19,7 +20,7 @@ export default function Home() {
         <meta name="description" content="SetApp" />
         <meta
           name="viewport"
-          content="width=device-width, 
+          content="width=device-width,
         initial-scale=1"
         />
       </Head>
@@ -60,7 +61,9 @@ export default function Home() {
           <div>
             <div className={styles.sell}>Start building now</div>
             <div className={styles.heroBtns}>
+              <Link href="/idea">
               <button className={styles.heroBtn}>Get Started</button>
+              </Link>
             </div>
           </div>
         </div>
