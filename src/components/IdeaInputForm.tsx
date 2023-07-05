@@ -1,5 +1,5 @@
 'use client';
-import { useRef, FormEvent, useEffect, useState } from 'react';
+import { useRef, FormEvent, useEffect, useState, ChangeEvent } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
 import { ProjectData } from '@/types/typedefs';
@@ -53,6 +53,7 @@ export default function IdeaInputForm() {
 
   const router = useRouter();
 
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
 
@@ -61,7 +62,6 @@ export default function IdeaInputForm() {
     onError: handleError,
     onFinish: handleFinish,
   });
-
 
   // Handler functions
 
@@ -78,7 +78,6 @@ export default function IdeaInputForm() {
     if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
       setProgress(100);
     }
-
   }, [messages]);
 
   function handleError(error: Error) {
@@ -91,6 +90,17 @@ export default function IdeaInputForm() {
 
     // Refresh the page
     router.reload();
+  }
+
+  async function customHandleInputChange(
+    event: ChangeEvent<HTMLTextAreaElement>
+  ) {
+    handleInputChange(event);
+
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = `${event.target.scrollHeight - 5}px`;
+    }
   }
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -121,7 +131,6 @@ export default function IdeaInputForm() {
     // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
     message.content = message.content.replace(/(\"|`)+$/, '');
     console.log('Message content:', message.content);
-
 
     try {
       // Parse the message content into a JSON object
@@ -157,28 +166,28 @@ export default function IdeaInputForm() {
         >
           <textarea
             className={styles.ideaTextArea}
-            // ref={textAreaRef}
+            ref={textAreaRef}
             autoFocus={true}
-            onChange={handleInputChange}
+            onChange={customHandleInputChange}
             value={input}
-            name='idea'
+            name="idea"
             rows={1}
-            id='idea'
+            id="idea"
             required={true}
-            autoComplete='off'
+            autoComplete="off"
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 // TODO: Either change to input or fix textarea functionality
                 event.currentTarget.form?.dispatchEvent(
-                  new Event('submit', { cancelable: true, bubbles: true }),
+                  new Event('submit', { cancelable: true, bubbles: true })
                 );
               }
             }}
           ></textarea>
-          <label className={styles.ideaLabel} htmlFor='name'>
+          <label className={styles.ideaLabel} htmlFor="name">
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type='submit' className={styles.sendBtn}>
+          <button type="submit" className={styles.sendBtn}>
             <BiSend />
           </button>
         </form>
@@ -191,14 +200,14 @@ export default function IdeaInputForm() {
         <div className={styles.progressBarContainer}>
           <LinearProgress
             className={styles.progressBar}
-            variant='determinate'
+            variant="determinate"
             value={progress}
             sx={{
-              'backgroundColor': 'var(--secondary-color)',
+              backgroundColor: 'var(--secondary-color)',
               '& .MuiLinearProgress-bar': {
                 backgroundColor: 'var(--primary-color)',
               },
-              'height': '20px',
+              height: '20px',
             }}
           />
         </div>
