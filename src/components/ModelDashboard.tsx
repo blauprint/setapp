@@ -23,7 +23,7 @@ export default function ModelDashboard({ model }: { model: Database }) {
         <h2 className={styles.descriptionTitle}>Schema</h2>
         <div className={styles.schemaContainer}>
           This is a sample {model.name} model schema for your app:
-          {/* <code> */}
+
           <SyntaxHighlighter
             className={styles.schema}
             language='javascript'
@@ -31,7 +31,7 @@ export default function ModelDashboard({ model }: { model: Database }) {
           >
             {model.schema}
           </SyntaxHighlighter>
-          {/* </code> */}
+
         </div>
       </div>
       <div className={styles.modelElement}>
