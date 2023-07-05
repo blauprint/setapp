@@ -10,8 +10,12 @@ import { deleteProject } from '@/services/projectsService';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { addSelected } from '@/redux/selectedSlice';
 
 export default function ProjectCard({ project }: { project: ProjectData }) {
+
+  const colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+
   const { user } = useUser();
   const {
     userId,
@@ -44,6 +48,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   const formattedDate = '25 Jun';
   function handleClickOnProjectCard(project: ProjectData) {
     dispatch(addCurrentProject(project));
+    dispatch(addSelected('overview'));
   }
 
   function handleDelete(e: React.MouseEvent) {
@@ -75,9 +80,13 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
       onMouseLeave={handleMouseLeave}
       href={`/${user?.username ? user.username : user?.firstName}/projects/${project.id
         }/`}
+
     >
       <div
         className={styles.projectCard}
+        style={{
+          backgroundColor: colors[Math.floor(Math.random() * 5)]
+        }}
       // onClick={() => handleClickOnProjectCard(project)}
       >
         {isHovered &&

@@ -1,18 +1,18 @@
 :root {
-  --primary-color: #146c94;
+  --primary-color: #e1ebf3;
 
-  --secondary-color: #a98d7e;
+  --secondary-color: #c6cfd5;
 
   --text-color: black;
 
-  --accent-color: #a0c3d2;
+  --accent-color: #d4e2df;
 
   --shadow-color: rgba(0, 0, 0, 0.1);
 
   --neutral-color: #4f4f4f;
-  --background-color: #ffffffe5;
+  --background-color: #D3D0CB;
   --surface-color: white;
-  --block-color: #f6f1f1;
+  --block-color: #9FB1BC;
   --error-color: red;
 
   --color-card-1: #e1ebf3;
@@ -22,7 +22,7 @@
   --color-card-5: #e0d4d5;
 }
 
-/* #846452 */
+/* --accent-color: #E5B769; */
 /* --primary-color: #146c94; */
 /* --secondary-color: #19a7ce; */
 
