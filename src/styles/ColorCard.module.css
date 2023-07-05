@@ -1,18 +1,20 @@
 .colorCard {
-
   transition: all 0.2s;
   width: 16em;
   height: 20em;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   cursor: pointer;
   color: white;
-
+  & .colorCardText {
+    height: 10em;
+  }
 }
 
 .colorCard:hover {
-  transform: translateY(-2px);
   height: 26em;
+  box-shadow: 0px 0px 20px var(--neutral-color);
 }
 
 .colorCardText {
@@ -21,28 +23,20 @@
   padding: 0.8em;
   width: 100%;
   height: 10em;
-  /* border-radius: 3px; */
   background-color: rgba(0, 0.5, 0.5, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   font-weight: 900;
   font-size: larger;
-  /* mix-blend-mode: difference; */
-  /* filter: grayscale(100);
-  filter: contrast(0.8); */
   transition: all 0.3s;
 }
 .colorName {
   align-self: center;
-  /* margin-bottom: 1em; */
 }
 
 .colorCodesContainer {
-  /* align-self: space-between; */
   display: flex;
-  /* flex: 1; */
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;

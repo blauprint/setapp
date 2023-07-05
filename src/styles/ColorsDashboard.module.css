@@ -1,9 +1,12 @@
 .colorsList {
   display: flex;
   list-style: none;
+  flex-wrap: wrap;
+  /* gap: 2px; */
 }
 
 .colorPalette {
+  display: flex;
   margin-top: 3em;
 }
 
