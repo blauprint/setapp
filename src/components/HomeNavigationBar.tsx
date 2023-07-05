@@ -66,7 +66,7 @@ export default function HomeNavigationBar() {
   const currentProject: ProjectData = useAppSelector((state: RootState) => state.currentProject)
   const currentProjectTitle = currentProject.title;
   let newTitle = currentProjectTitle;
-  let [title, setTitle] = useState(currentProjectTitle);
+  // let [title, setTitle] = useState(currentProjectTitle);
   let dispatch = useAppDispatch();
 
   const user = useUser().user;
@@ -88,7 +88,7 @@ export default function HomeNavigationBar() {
   async function handleTitleBlur(e: React.FocusEvent<HTMLDivElement>) {
     if (auth) {
       newTitle = e.target.textContent || '';
-      setTitle(newTitle);
+      // setTitle(newTitle);
 
       let titleObject = { title: newTitle };
       updateProjectTitle(auth, currentProject.id, titleObject).then(res => res);
