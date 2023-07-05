@@ -101,17 +101,19 @@ const Page: NextPageWithLayout = () => {
     orgSlug: orgSlug?.toString(),
   };
 
+  let proj = useAppSelector((state: RootState) => state.currentProject);
+
   useEffect(() => {
     if (user && project.idea === '') {
       getProject(auth, id!).then((res) => {
-        console.log('here is use effect');
         setProject(res);
         dispatch(addCurrentProject(res));
       });
     }
+    setProject(proj);
   }, [user]);
 
-  useState(useAppSelector((state: RootState) => state.currentProject));
+  // setProject(useAppSelector((state: RootState) => state.currentProject));
 
   async function getProject(auth: Auth, id: string | string[]) {
     return await getProjectById(auth, id!);
