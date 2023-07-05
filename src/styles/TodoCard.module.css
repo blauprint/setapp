@@ -5,7 +5,6 @@
   align-items: center;
 }
 
-
 .todoCard {
   background-color: var(--surface-color);
   font-family: 'Montserrat', sans-serif;
@@ -22,6 +21,7 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  max-width: 80%;
 }
 
 .todoCard:hover {
@@ -61,7 +61,6 @@
   bottom: 10px;
 }
 
-
 .todo {
   font-size: 14px;
   font-weight: 100;
@@ -70,6 +69,7 @@
   letter-spacing: 2px;
   display: flex;
   align-self: center;
+  font-weight: 500;
 }
 
 .createdAt {
@@ -77,6 +77,7 @@
   font-size: 12px;
   justify-self: flex-end;
   margin-top: 5px;
+  font-weight: 500;
 }
 
 .todoCardDone {
@@ -113,12 +114,12 @@
   place-content: center;
 }
 
-.form-control+.form-control {
+.form-control + .form-control {
   margin-top: 1em;
 }
 
 .checkbox::before {
-  content: "";
+  content: '';
   width: 1em;
   height: 1em;
   transform: scale(0);
