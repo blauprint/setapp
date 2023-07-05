@@ -83,14 +83,14 @@ span.ideaSpan {
   transform: translateX(10px) rotate(-45deg);
 }
 
-.loadingContainer {
+.spinnerContainer {
   display: none;
   transition: all 0.2s ease-in-out;
 }
 
-.spinnerContainer {
-  display: flex;
-}
+/* .spinnerContainer {
+  display: ;
+} */
 
 .progressBarContainer {
   position: absolute;

@@ -114,7 +114,7 @@ export default function IdeaInputForm() {
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
           formRef.current.style.display = 'none';
-          spinnerRef.current.style.display = 'flex';
+          spinnerRef.current.style.display = 'block';
         }
       }, 600);
     }
@@ -191,11 +191,11 @@ export default function IdeaInputForm() {
             <BiSend />
           </button>
         </form>
-        <div className={styles.loadingContainer}>
-          <div className={styles.spinnerContainer} ref={spinnerRef}>
-            <Spinner />
-          </div>
+        {/* <div className={styles.loadingContainer}> */}
+        <div className={styles.spinnerContainer} ref={spinnerRef}>
+          <Spinner />
         </div>
+        {/* </div> */}
         {/* <div className={styles.progressBarContainer} ref={progressBarRef}> */}
         <div className={styles.progressBarContainer}>
           <LinearProgress
