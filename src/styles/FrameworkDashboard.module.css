@@ -2,7 +2,6 @@
   max-width: 60vw;
   display: flex;
   flex-direction: column;
-
 }
 
 .frameworkName {
@@ -11,26 +10,33 @@
 }
 
 .frameworkElement {
-  /* padding: 2%; */
   font-size: larger;
   display: flex;
   flex-direction: column;
-}
-
-.descriptionTitle {
-
-  color: var(--secondary-color);
-  /* display: block; */
-}
-
-.description {
   margin-bottom: 2em;
 }
 
+.descriptionTitle {
+  color: var(--secondary-color);
+}
 
-.frameworkElementLink {
+.frameworkDescription {
+  margin-bottom: 3rem;
+}
+
+.description {
+  /* margin-bottom: 2em; */
+  font-size: 1.5rem;
+}
+
+.link {
+  color: var(--accent-color);
+  margin-left: 0.5em;
+}
+
+/* .frameworkElementLink {
   margin-top: 40px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
+} */

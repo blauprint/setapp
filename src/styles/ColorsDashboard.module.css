@@ -2,3 +2,19 @@
   display: flex;
   list-style: none;
 }
+
+.colorPalette {
+  margin-top: 3em;
+}
+
+.whyGoodOption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1em;
+}
+
+.whyGoodOption h2 {
+  margin-bottom: 0.5em;
+  color: var(--secondary-color);
+}
