@@ -1,6 +1,6 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { deleteTodo, updateTodoTitle } from '@/redux/currentProjectSlice';
+import { deleteTodo, updateTodo } from '@/redux/currentProjectSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
@@ -13,27 +13,12 @@ function TodoList() {
   const select = useAppSelector((state: RootState) => state.selected);
   let todoList: TodoItem[] = [];
 
-  // useEffect(() => {
-  // todoList = useAppSelector((state: RootState) => {
-  //   if (select === 'todosBE' && todoList.length === 0) {
-  //     return state.todos.backend.todoList;
-  //   } else if (select === 'todosFE') {
-  //     return state.todos.frontend.todoList;
-  //   }
-  //   return [];
-  // });
-  // }, [select])
-
-
   if (select === 'todosBE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.backend.todoList })
   } else if (select === 'todosFE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.frontend.todoList })
   }
-
-
-  console.log(todoList, 'todolist in TodoList')
-
+  console.log(todoList)
   const {
     userId,
     sessionId,
@@ -62,17 +47,24 @@ function TodoList() {
   const handleDelete = (id: string) => {
     dispatch(deleteTodo(id));
     deleteTodoService(auth, id).then(() => {
-      console.log('Deleted todo', id);
     }).catch(error => {
       throw new Error('Error deleting error from server\n', error);
     })
   };
 
   const handleTitleChange = (todo: TodoItem) => {
-    dispatch(updateTodoTitle(todo));
-    updateTodoService(auth, todo).then((res) => {
-      console.log(`Updated todo title:`, res);
+    dispatch(updateTodo(todo));
+    updateTodoService(auth, todo).then(() => {
     }).catch((error) => {
+      console.log(error, 'todo error')
+      throw new Error('Error updating todo title from server\n', error);
+    });
+  }
+  const handleCheckboxChange = (todo: TodoItem) => {
+    dispatch(updateTodo(todo));
+    updateTodoService(auth, todo).then(() => {
+    }).catch((error) => {
+      console.log(error, 'todo error')
       throw new Error('Error updating todo title from server\n', error);
     });
   }
@@ -80,7 +72,7 @@ function TodoList() {
   return (
     <div className={styles.todosList}>
       {todoList.map((todo: TodoItem) => (
-        <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} />
+        <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
       ))}
     </div>
   );

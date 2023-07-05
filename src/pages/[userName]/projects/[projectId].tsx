@@ -104,7 +104,6 @@ const Page: NextPageWithLayout = () => {
   useEffect(() => {
     if (user && project.idea === '') {
       getProject(auth, id!).then((res) => {
-        console.log('here is use effect');
         setProject(res);
         dispatch(addCurrentProject(res));
       });

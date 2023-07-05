@@ -96,7 +96,10 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
 }
 
 export async function updateTodoService(auth: Auth, todo: TodoItem): Promise<void> {
-  auth.sessionToken = await auth.sessionToken();
+  console.log(auth, 'auth in service')
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
   const options = {
     method: 'PUT',
     headers: {
