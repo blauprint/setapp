@@ -1,7 +1,7 @@
 import styles from "@/styles/TodoCard.module.css";
 import { TodoItem } from "@/types/typedefs";
 import formatDateFromNow from "@/utils/dateFormatter";
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai';
 import { useState } from "react";
 
 interface TodoCardProps {
@@ -65,7 +65,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
         {isHovered && (
           <div className={styles.deleteBtnContainer}>
             <button className={styles.deleteBtn} onClick={handleDeleteOnClick}>
-              <AiOutlineDelete className={styles.deleteIcon} />
+              <AiOutlineDelete className={styles.deleteIcon} size={25} />
             </button>
           </div>
         )}
