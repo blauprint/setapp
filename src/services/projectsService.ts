@@ -1,5 +1,5 @@
 import { Auth } from '@/types/Auth';
-import { ProjectData } from '@/types/typedefs';
+import { ProjectData, TodoItem } from '@/types/typedefs';
 
 export async function getProjects(auth: Auth): Promise<ProjectData[]> {
   auth.sessionToken = await auth.sessionToken();
@@ -95,6 +95,26 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
   return response;
 }
 
+export async function updateTodoService(auth: Auth, todo: TodoItem): Promise<void> {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  };
+
+  const updatedTodoTitle = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/todo/${todo.id}`,
+    options,
+  );
+  const response = await updatedTodoTitle.json();
+  return response;
+}
 
 export async function updateProjectTitle(auth: Auth, id: string, title: any) {
   if (typeof auth.sessionToken !== 'string') {
@@ -108,10 +128,45 @@ export async function updateProjectTitle(auth: Auth, id: string, title: any) {
     },
     body: JSON.stringify(title),
   };
-  const response = await fetch(
+  const updatedTitle = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${id}/title`,
     options,
   );
-  const data = await response.json();
-  return data;
+  const response = await updatedTitle.json();
+  return response;
 }
+
+export async function createBackendTodoService(auth: Auth, backendId: string, todo: {title: string}) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  }
+  const addedBackendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/backend/${backendId}/todo`, options);
+  const response = await addedBackendTodo.json();
+  return response;
+}
+
+export async function createFrontendTodoService(auth: Auth, frontendId: string, todo: {title: string}) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(todo),
+  }
+  const addedFrontendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/frontend/${frontendId}/todo`, options);
+  const response = await addedFrontendTodo.json();
+  return response;
+}
+

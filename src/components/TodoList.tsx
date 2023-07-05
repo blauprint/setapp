@@ -1,41 +1,33 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { deleteTodo } from '@/redux/currentProjectSlice';
+import { addBackendTodo, addFrontendTodo, deleteTodo, updateTodo, updateNewTodo } from '@/redux/currentProjectSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
+import { useRef } from 'react';
 import { Auth } from '@/types/Auth';
-import { deleteTodoService } from '@/services/projectsService';
+import { createBackendTodoService, createFrontendTodoService, deleteTodoService, updateTodoService } from '@/services/projectsService';
 import { TodoItem } from '@/types/typedefs';
-import { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 function TodoList() {
-
   const select = useAppSelector((state: RootState) => state.selected);
   let todoList: TodoItem[] = [];
-
-  // useEffect(() => {
-  // todoList = useAppSelector((state: RootState) => {
-  //   if (select === 'todosBE' && todoList.length === 0) {
-  //     return state.todos.backend.todoList;
-  //   } else if (select === 'todosFE') {
-  //     return state.todos.frontend.todoList;
-  //   }
-  //   return [];
-  // });
-  // }, [select])
-
 
   if (select === 'todosBE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.backend.todoList })
   } else if (select === 'todosFE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.frontend.todoList })
   }
-
-
-  console.log(todoList, 'todolist in TodoList')
-
+  const sortedTodos = [...todoList].sort((a, b) => {
+    if (a.done && !b.done) {
+      return 1;
+    } else if (!a.done && b.done) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
   const {
     userId,
     sessionId,
@@ -64,18 +56,83 @@ function TodoList() {
   const handleDelete = (id: string) => {
     dispatch(deleteTodo(id));
     deleteTodoService(auth, id).then(() => {
-      console.log('Deleted todo', id);
     }).catch(error => {
       throw new Error('Error deleting error from server\n', error);
     })
   };
 
+  const handleTitleChange = (todo: TodoItem) => {
+    dispatch(updateTodo(todo));
+    updateTodoService(auth, todo).then(() => {
+    }).catch((error) => {
+      console.log(error, 'todo error')
+      throw new Error('Error updating todo title from server\n', error);
+    });
+  }
+  const handleCheckboxChange = (todo: TodoItem) => {
+    dispatch(updateTodo(todo));
+    updateTodoService(auth, todo).then(() => {
+    }).catch((error) => {
+      console.log(error, 'todo error')
+      throw new Error('Error updating todo title from server\n', error);
+    });
+  }
+
+  const frontendId = useAppSelector((state: RootState) => state.currentProject.frontend.id);
+  const backendId = useAppSelector((state: RootState) => state.currentProject.backend.id);
+  const inputRef = useRef<HTMLDivElement>(null);
+  const uuid = uuidv4();
+
+  function handleCreateTodoKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const title = e.currentTarget.textContent;
+      if (select === 'todosFE') {
+        dispatch(addFrontendTodo({ id: uuid, title: title }));
+        if (auth && frontendId && title) {
+          createFrontendTodoService(auth, frontendId, { title: title }).then(res => {
+            res.uuid = uuid;
+            dispatch(updateNewTodo(res));
+          }).catch(error => {
+            console.log(error);
+            throw new Error(`Error creating a frontend todo on server!`);
+          });
+        }
+      } else {
+        dispatch(addBackendTodo({ id: uuid, title: title }))
+        if (auth && backendId && title) {
+          createBackendTodoService(auth, backendId, { title: title }).then(res => {
+            res.uuid = uuid;
+            dispatch(updateNewTodo(res));
+          }).catch(error => {
+            console.log(error);
+            throw new Error(`Error creating a backend todo on server`);
+          });
+        }
+      }
+
+      e.currentTarget.textContent = '';
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
+    }
+  }
+
   return (
-    <div className={styles.todosList}>
-      {todoList.map((todo: TodoItem) => (
-        <TodoCard key={todo.id} todo={todo} handleDelete={() => handleDelete(todo.id)} />
-      ))}
-    </div>
+    <>
+      <div className={styles.todosList}>
+        <div className={styles.addTodoButton}
+          suppressContentEditableWarning={true}
+          contentEditable="true"
+          onKeyDown={handleCreateTodoKeyDown}
+          ref={inputRef}
+        >
+        </div>
+        {sortedTodos.map((todo: TodoItem) => (
+          <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
+        ))}
+      </div>
+    </>
   );
 }
 
