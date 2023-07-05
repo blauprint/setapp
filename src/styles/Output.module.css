@@ -1,6 +1,6 @@
 .outputPage {
-  margin-top: 12vh;
-  height: 88vh;
+  margin-top: 5vh;
+  height: 78vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,17 @@
 }
 
 .outputContent {
-  margin-left: 15vw;
+  padding-inline: 40px;
   position: relative;
-  margin-left: 200px;
+  margin-left: max(18vw, 250px);
+  width: calc(100% - max(18vw, 250px));
+}
+
+.outputContent h1 {
+  /* color: var(--primary-color); */
+  font-size: 6rem;
+  /* font-size: 2.5rem; */
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-weight: lighter;
 }

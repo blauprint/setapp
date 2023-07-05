@@ -16,6 +16,7 @@ import { Auth } from '@/types/Auth';
 import { getProjectById } from '@/services/projectsService';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { useRouter } from 'next/router';
+import SummaryDashboard from '@/components/SummaryDashboard';
 
 const Page: NextPageWithLayout = () => {
   let [project, setProject] = useState<ProjectData>({
@@ -24,12 +25,14 @@ const Page: NextPageWithLayout = () => {
     idea: '',
     title: '',
     frontend: {
-      todoList: [{
-        id: '',
-        title: '',
-        done: false,
-        createdAt: 0
-      }],
+      todoList: [
+        {
+          id: '',
+          title: '',
+          done: false,
+          createdAt: 0,
+        },
+      ],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -44,12 +47,14 @@ const Page: NextPageWithLayout = () => {
       },
     },
     backend: {
-      todoList: [{
-        id: '',
-        title: '',
-        done: false,
-        createdAt: ''
-      }],
+      todoList: [
+        {
+          id: '',
+          title: '',
+          done: false,
+          createdAt: '',
+        },
+      ],
       framework: {
         name: '',
         whyGoodOption: '',
@@ -125,12 +130,7 @@ const Page: NextPageWithLayout = () => {
   } else if (select === 'colors') {
     return <ColorsDashboard colorScheme={project.frontend.colorScheme} />;
   } else if (select === 'overview' || select === '') {
-    return (
-      <>
-        <div>{project.idea}</div>
-        <div>{project.summary}</div>
-      </>
-    );
+    return <SummaryDashboard project={project} />;
   }
 };
 
