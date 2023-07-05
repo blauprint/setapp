@@ -56,9 +56,18 @@ export const currentProjectSlice: Slice = createSlice({
       state.backend.todoList = state.backend.todoList.filter((todo) => todo.id !== action.payload);
       state.frontend.todoList = state.frontend.todoList.filter((todo) => todo.id !== action.payload);
     },
-    updateTodo: (state, action: PayloadAction<{id: string, title: string, done: boolean}>) => {
+    updateTodo: (state, action: PayloadAction<{ id: string, title: string, done: boolean }>) => {
       const { id, title, done } = action.payload;
       const todo = state.backend.todoList.find((todo) => todo.id === id) || state.frontend.todoList.find((todo) => todo.id === id);
+      if (todo) {
+        todo.id = id;
+        todo.title = title;
+        todo.done = done;
+      }
+    },
+    updateNewTodo: (state, action: PayloadAction<{ id: string, title: string, done: boolean, uuid: string }>) => {
+      const { uuid, id, title, done } = action.payload;
+      const todo = state.backend.todoList.find((todo) => todo.id === uuid) || state.frontend.todoList.find((todo) => todo.id === uuid);
       if (todo) {
         todo.id = id;
         todo.title = title;
@@ -69,18 +78,14 @@ export const currentProjectSlice: Slice = createSlice({
       state.title = action.payload;
       return state;
     },
-    addFrontendTodo: (state, action: PayloadAction<{title: string, createdAt: string, id: string, done: boolean}>) => {
-      const id = '';
+    addFrontendTodo: (state, action: PayloadAction<{ title: string, createdAt: string, id: string, done: boolean }>) => {
       const date = new Date();
-      action.payload.id = id;
       action.payload.done = false;
       action.payload.createdAt = date.toString();
       state.frontend.todoList.push(action.payload)
     },
     addBackendTodo: (state, action: PayloadAction<TodoItem>) => {
-      const id = '';
       const date = new Date();
-      action.payload.id = id;
       action.payload.done = false;
       action.payload.createdAt = date.toString();
       state.backend.todoList.push(action.payload)
@@ -88,6 +93,6 @@ export const currentProjectSlice: Slice = createSlice({
   },
 });
 
-export const { addCurrentProject, deleteTodo, updateTodo, changeTitle, addFrontendTodo, addBackendTodo } = currentProjectSlice.actions;
+export const { addCurrentProject, deleteTodo, updateTodo, changeTitle, addFrontendTodo, addBackendTodo, updateNewTodo } = currentProjectSlice.actions;
 export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;

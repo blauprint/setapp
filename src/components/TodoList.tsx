@@ -1,6 +1,6 @@
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
-import { addBackendTodo, addFrontendTodo, deleteTodo, updateTodo } from '@/redux/currentProjectSlice';
+import { addBackendTodo, addFrontendTodo, deleteTodo, updateTodo, updateNewTodo } from '@/redux/currentProjectSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { useAuth } from '@clerk/nextjs';
@@ -78,29 +78,32 @@ function TodoList() {
     });
   }
 
-  const frontendId = useAppSelector((state: RootState) => state.currentProject.frontend.id); 
+  const frontendId = useAppSelector((state: RootState) => state.currentProject.frontend.id);
   const backendId = useAppSelector((state: RootState) => state.currentProject.backend.id);
   const inputRef = useRef<HTMLDivElement>(null);
+  const uuid = uuidv4();
 
   function handleCreateTodoKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter') {
       e.preventDefault();
       const title = e.currentTarget.textContent;
       if (select === 'todosFE') {
-        dispatch(addFrontendTodo({ title: title }));
+        dispatch(addFrontendTodo({ id: uuid, title: title }));
         if (auth && frontendId && title) {
           createFrontendTodoService(auth, frontendId, { title: title }).then(res => {
-            dispatch(updateTodo(res));
+            res.uuid = uuid;
+            dispatch(updateNewTodo(res));
           }).catch(error => {
             console.log(error);
             throw new Error(`Error creating a frontend todo on server!`);
           });
         }
       } else {
-        dispatch(addBackendTodo({ title: title }))
+        dispatch(addBackendTodo({ id: uuid, title: title }))
         if (auth && backendId && title) {
           createBackendTodoService(auth, backendId, { title: title }).then(res => {
-            dispatch(updateTodo(res));
+            res.uuid = uuid;
+            dispatch(updateNewTodo(res));
           }).catch(error => {
             console.log(error);
             throw new Error(`Error creating a backend todo on server`);
@@ -126,7 +129,7 @@ function TodoList() {
         >
         </div>
         {sortedTodos.map((todo: TodoItem) => (
-          <TodoCard key={todo.id || uuidv4()} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
+          <TodoCard key={todo.id} todo={todo} handleTitleChange={handleTitleChange} handleDelete={handleDelete} handleCheckboxChange={handleCheckboxChange} />
         ))}
       </div>
     </>
