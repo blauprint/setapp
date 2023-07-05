@@ -1,12 +1,19 @@
+.todoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+
 .todoCard {
   background-color: var(--surface-color);
   font-family: 'Montserrat', sans-serif;
   border: 1px solid var(--primary-color);
   padding: 20px;
   border-radius: 25px;
-  width: 200px;
+  width: 80%;
   cursor: pointer;
-  height: 190px;
   transition: all 0.2s;
   margin: 1%;
   display: flex;
@@ -22,54 +29,35 @@
   box-shadow: 0px 0px 10px 5px rgba(245, 245, 245, 0.25);
 }
 
- .editIcon {
-  font-size: 13px;
-}
- .deleteIcon {
+.editIcon {
   font-size: 13px;
 }
 
- .deleteBtn {
-  background-color: transparent;
-  border-radius: 50%;
-  border: none;
-  color: dimgray;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  transition: color 0.2s;
+.deleteIcon {
+  font-size: 13px;
 }
- .editBtn {
+
+.deleteBtn {
   background-color: transparent;
   border-radius: 50%;
   border: none;
-  color: dimgray;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   transition: color 0.2s;
 }
 
- .deleteBtn:hover {
-  color: var(--text-color);
-}
- .editBtn:hover {
-  color: var(--text-color);
-}
-
- .deleteBtnContainer {
+.deleteBtnContainer {
   position: absolute;
   right: 5px;
   bottom: 10px;
 }
 
- .editBtnContainer {
+.editBtnContainer {
   position: absolute;
   right: 5px;
   top: 10px;
@@ -79,7 +67,7 @@
   font-size: 14px;
   font-weight: 100;
   text-transform: uppercase;
-  color: black;
+  color: var(--text-color);
   letter-spacing: 2px;
   display: flex;
   align-self: center;
@@ -98,9 +86,8 @@
   border: 1px solid var(--primary-color);
   padding: 20px;
   border-radius: 25px;
-  width: 200px;
+  width: 80%;
   cursor: pointer;
-  height: 190px;
   transition: all 0.2s;
   margin: 1%;
   display: flex;
@@ -111,4 +98,38 @@
   position: relative;
   opacity: 0.5;
   text-decoration-line: line-through;
+}
+
+.checkbox {
+  appearance: none;
+  background-color: var(--background-color);
+  font: inherit;
+  color: var(--text-color);
+  width: 2em;
+  height: 2em;
+  border: 0.15em solid var(--primary-color);
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+.form-control+.form-control {
+  margin-top: 1em;
+}
+
+.checkbox::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--primary-color);
+  color: var(--text-color);
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.checkbox:checked::before {
+  transform: scale(1);
 }
