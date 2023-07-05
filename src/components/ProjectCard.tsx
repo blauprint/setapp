@@ -12,11 +12,22 @@ import Link from 'next/link';
 import formatDateFromNow from '@/utils/dateFormatter';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { addSelected } from '@/redux/selectedSlice';
+import { useTheme } from 'next-themes';
 
 
 export default function ProjectCard({ project }: { project: ProjectData }) {
 
-  const colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+  const { resolvedTheme, setTheme } = useTheme();
+  let colors: string[] = [];
+  let colorTitle: string = '';
+  if (resolvedTheme === "light") {
+    colorTitle = 'var(--text-color)'
+    colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+  } else {
+    colorTitle = 'var(--primary-color)'
+    colors = ['var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)']
+  }
+
 
   const { user } = useUser();
   const {
@@ -104,7 +115,7 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
               />
             </button>
           </div>}
-        <div className={styles.title}>
+        <div className={styles.title} style={{ color: colorTitle }}>
           <p>{project.title}</p>
         </div>
         <div className={styles.idea}>{project.idea}</div>

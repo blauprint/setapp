@@ -1,3 +1,4 @@
+'use client';
 import styles from '@/styles/ColorCard.module.css';
 import { Color } from '@/types/typedefs';
 

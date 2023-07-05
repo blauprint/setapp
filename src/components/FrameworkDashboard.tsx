@@ -1,3 +1,4 @@
+'use client'
 import { Technology } from '@/types/typedefs';
 import styles from '@/styles/FrameworkDashboard.module.css';
 import { MdChevronRight } from 'react-icons/md';

@@ -1,3 +1,4 @@
+'use client';
 import ProjectMenu from './ProjectMenu';
 import styles from '@/styles/Output.module.css';
 import { useRouter } from 'next/router';

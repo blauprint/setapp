@@ -1,3 +1,4 @@
+'use client';
 import ColorCard from './ColorCard';
 import styles from '@/styles/ColorsDashboard.module.css';
 import { ColorScheme, Color } from '@/types/typedefs';
