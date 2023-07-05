@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
-import regexDataExtractor from '@/utils/regexDataExtractor';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // import * as Yup from "yup";
@@ -63,21 +62,6 @@ export default function IdeaInputForm() {
     onFinish: handleFinish,
   });
 
-  // ***********
-  // WORK IN PROGRESS!
-  // The idea is to dynamically import components based on the completion.
-  // The components would be cards that display the project data as it is being generated.
-  // ***********
-
-  // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
-  // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
-  // const DynamicFrameworkCard = dynamic(
-  //   () => import("@/components/FrameworkCard")
-  // );
-  // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
-  // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
-
-  // ***********
 
   // Handler functions
 
@@ -94,7 +78,7 @@ export default function IdeaInputForm() {
     if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
       setProgress(100);
     }
-    // console.log(messages[1]?.content)
+
   }, [messages]);
 
   function handleError(error: Error) {
@@ -102,6 +86,7 @@ export default function IdeaInputForm() {
     if (spinnerRef.current) {
       spinnerRef.current.style.display = 'none';
     }
+
     alert('Sorry, there was an error. Please try again.');
 
     // Refresh the page
@@ -110,6 +95,7 @@ export default function IdeaInputForm() {
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
+
     // Submit animations
     if (formRef.current) {
       formRef.current.style.translate = '0 -100vh';
@@ -135,7 +121,6 @@ export default function IdeaInputForm() {
     // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
     message.content = message.content.replace(/(\"|`)+$/, '');
 
-    // console.log('Message:', message.content);
 
     try {
       // Parse the message content into a JSON object
@@ -145,8 +130,6 @@ export default function IdeaInputForm() {
 
       // Post the project to the database and get the project ID
       const response = await postProject(auth, projectJson);
-      console.log('RESPONSE!!!!!!', response);
-      debugger;
       const projectId = response.id;
       dispatch(addNewProject(response));
       dispatch(addCurrentProject(response));
