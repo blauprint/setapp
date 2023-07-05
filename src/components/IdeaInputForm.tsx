@@ -117,8 +117,8 @@ export default function IdeaInputForm() {
       formRef.current.style.filter = 'blur(60px)';
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
-          spinnerRef.current.style.display = 'block';
           formRef.current.style.display = 'none';
+          spinnerRef.current.style.display = 'flex';
         }
       }, 600);
     }
@@ -189,12 +189,6 @@ export default function IdeaInputForm() {
               }
             }}
           ></textarea>
-          {/* <DynamicSummaryCard summary={cardData?.summary} /> */}
-          {/* <DynamicColorCard colorScheme={cardData?.frontend.colorScheme} /> */}
-          {/* <DynamicFrameworkCard framework={cardData?.frontend.framework} /> */}
-          {/* <DynamicModelCard model={cardData?.backend.database} /> */}
-          {/* <DynamicToDoList todos={cardData?.frontend.toDoList} /> */}
-          {/* <DynamicToDoList todos={cardData?.backend.toDoList} /> */}
           <label className={styles.ideaLabel} htmlFor="name">
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
@@ -202,24 +196,24 @@ export default function IdeaInputForm() {
             <BiSend />
           </button>
         </form>
-      </div>
-      <div className={styles.loadingContainer} ref={spinnerRef}>
-        {/* <div className={styles.loadingContainer}> */}
-        <div className={styles.spinnerContainer}>
-          <Spinner />
-        </div>
-        <div className={styles.progressBarContainer}>
-          <LinearProgress
-            className={styles.progressBar}
-            variant="determinate"
-            value={progress}
-            sx={{
-              backgroundColor: 'var(--secondary-color)',
-              '& .MuiLinearProgress-bar': {
-                backgroundColor: 'var(--primary-color)',
-              },
-            }}
-          />
+        <div className={styles.loadingContainer} ref={spinnerRef}>
+          <div className={styles.spinnerContainer}>
+            <Spinner />
+          </div>
+          <div className={styles.progressBarContainer}>
+            <LinearProgress
+              className={styles.progressBar}
+              variant="determinate"
+              value={progress}
+              sx={{
+                backgroundColor: 'var(--secondary-color)',
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: 'var(--primary-color)',
+                },
+                height: '20px',
+              }}
+            />
+          </div>
         </div>
       </div>
     </>

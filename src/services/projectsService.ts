@@ -94,3 +94,24 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
   const response = await deleteTodo.json();
   return response;
 }
+
+
+export async function updateProjectTitle(auth: Auth, id: string, title: any) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(title),
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${id}/title`,
+    options,
+  );
+  const data = await response.json();
+  return data;
+}
