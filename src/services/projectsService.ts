@@ -97,7 +97,9 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
 
 
 export async function updateProjectTitle(auth: Auth, id: string, title: any) {
-  auth.sessionToken = await auth.sessionToken();
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
   const options = {
     method: 'PUT',
     headers: {

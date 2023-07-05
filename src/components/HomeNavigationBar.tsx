@@ -85,13 +85,15 @@ export default function HomeNavigationBar() {
     }
   }
 
-  function handleTitleBlur(e: React.FocusEvent<HTMLDivElement>) {
-    newTitle = e.target.textContent || '';
-    setTitle(newTitle);
+  async function handleTitleBlur(e: React.FocusEvent<HTMLDivElement>) {
+    if (auth) {
+      newTitle = e.target.textContent || '';
+      setTitle(newTitle);
 
-    let titleObject = { title: newTitle };
-    updateProjectTitle(auth, currentProject.id, titleObject).then(res => res);
-    dispatch(changeTitle(newTitle));
+      let titleObject = { title: newTitle };
+      updateProjectTitle(auth, currentProject.id, titleObject).then(res => res);
+      dispatch(changeTitle(newTitle));
+    }
   }
 
   return (
