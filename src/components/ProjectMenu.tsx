@@ -16,7 +16,7 @@ export default function ProjectMenu({
   projectId: string | string[];
 }) {
   const dispatch = useAppDispatch();
-  // const currentProject = useAppSelector((state) => state.currentProject);
+  let selected = useAppSelector((state) => state.selected);
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function ProjectMenu({
           Overview
         </Link> */}
         <a
-          className={styles.menuButton}
+          className={selected === 'overview' ? styles.menuButtonSelected : styles.menuButton}
           onClick={() => dispatch(addSelected('overview'))}
           href='#overview'
         >
@@ -54,7 +54,7 @@ export default function ProjectMenu({
               <ul>
                 <li className={styles.listItem}>
                   <a
-                    className={styles.menuButton}
+                    className={selected === 'todosBE' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('todosBE'))}
                     href='#todosBE'
                   >
@@ -63,7 +63,7 @@ export default function ProjectMenu({
                 </li>
                 <li className={styles.listItem}>
                   <a
-                    className={styles.menuButton}
+                    className={selected === 'frameworkBE' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('frameworkBE'))}
                     href='#frameworkBE'
                   >
@@ -72,7 +72,7 @@ export default function ProjectMenu({
                 </li>
                 <li className={styles.listItem}>
                   <a
-                    className={styles.menuButton}
+                    className={selected === 'model' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('model'))}
                     href='#model'
                   >
@@ -98,7 +98,7 @@ export default function ProjectMenu({
                 <li className={styles.listItem}>
                   <a
                     href='#todosFE'
-                    className={styles.menuButton}
+                    className={selected === 'todosFE' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('todosFE'))}
                   >
                     To-do
@@ -107,7 +107,7 @@ export default function ProjectMenu({
                 <li className={styles.listItem}>
                   <a
                     href='#frameworkFE'
-                    className={styles.menuButton}
+                    className={selected === 'frameworkFE' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('frameworkFE'))}
                   >
                     Framework
@@ -116,7 +116,7 @@ export default function ProjectMenu({
                 <li className={styles.listItem}>
                   <a
                     href='#colors'
-                    className={styles.menuButton}
+                    className={selected === 'colors' ? styles.menuButtonSelected : styles.menuButton}
                     onClick={() => dispatch(addSelected('colors'))}
                   >
                     Color Schema
