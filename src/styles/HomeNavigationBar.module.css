@@ -65,6 +65,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.navLinks {
+  display: flex;
+  gap: 10px;
+}
+
 /*
 font-family: 'Barlow', sans-serif;
 font-family: 'Jost', sans-serif;

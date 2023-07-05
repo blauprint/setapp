@@ -7,13 +7,10 @@
   justify-content: flex-start;
   cursor: pointer;
   color: white;
-  & .colorCardText {
-    height: 10em;
-  }
 }
 
 .colorCard:hover {
-  height: 26em;
+  /* height: 26em; */
   box-shadow: 0px 0px 20px var(--neutral-color);
 }
 
@@ -22,7 +19,7 @@
   top: 0;
   padding: 0.8em;
   width: 100%;
-  height: 10em;
+  height: 8em;
   background-color: rgba(0, 0.5, 0.5, 0.5);
   display: flex;
   flex-direction: column;
@@ -40,6 +37,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  font-size: smaller;
 }
 
 .colorCode {
@@ -49,3 +47,5 @@
 .colorCode:hover {
   color: lightgray;
 }
+
+

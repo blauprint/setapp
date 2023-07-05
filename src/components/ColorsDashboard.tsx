@@ -30,18 +30,20 @@ export default function ColorsDashboard({
 
   return (
     <>
-      <div className={styles.whyGoodOption}>
-        <h2>Why should I choose this color scheme for my app?</h2>
-        <p>{colorScheme.whyGoodOption}</p>
-      </div>
-      <div className={styles.colorPalette}>
-        <ul className={styles.colorsList}>
-          {colorScheme.colorPalette.colors.map((c: Color) => (
-            <li key={crypto.randomUUID()}>
-              <ColorCard color={c} handleClick={handleClick} />
-            </li>
-          ))}
-        </ul>
+      <div className={styles.container}>
+        <div className={styles.whyGoodOption}>
+          <h2>Why should I choose this color scheme for my app?</h2>
+          <p>{colorScheme.whyGoodOption}</p>
+        </div>
+        <div className={styles.colorPalette}>
+          <ul className={styles.colorsList}>
+            {colorScheme.colorPalette.colors.map((c: Color) => (
+              <li key={crypto.randomUUID()}>
+                <ColorCard color={c} handleClick={handleClick} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
         <Alert severity='success' sx={{ width: '100', marginLeft: '50vw' }}>

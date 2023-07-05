@@ -62,11 +62,10 @@ export default function HomeNavigationBar() {
   };
 
   const currentProject: ProjectData = useAppSelector(
-    (state: RootState) => state.currentProject
+    (state: RootState) => state.currentProject,
   );
   const currentProjectTitle = currentProject.title;
   let newTitle = currentProjectTitle;
-  // let [title, setTitle] = useState(currentProjectTitle);
   let dispatch = useAppDispatch();
 
   const user = useUser().user;
@@ -90,9 +89,9 @@ export default function HomeNavigationBar() {
       updatedProject.title = newTitle;
       updateProjectTitle(auth, currentProject.id, updatedProject)
         .then((res) => res)
-        .catch(error => {
-          console.log(error)
-          throw new Error(`Error updating project title: ${newTitle}`)
+        .catch((error) => {
+          console.log(error);
+          throw new Error(`Error updating project title: ${newTitle}`);
         });
       dispatch(changeTitle(newTitle));
     }
@@ -124,7 +123,7 @@ export default function HomeNavigationBar() {
               {router.query.userName && (
                 <div
                   className={styles.projectName}
-                  contentEditable="true"
+                  contentEditable='true'
                   suppressContentEditableWarning={true}
                   onKeyDown={handleTitleChange}
                   onBlur={handleTitleBlur}
@@ -138,26 +137,33 @@ export default function HomeNavigationBar() {
 
         <div className={styles.navOptions}>
           <SignedIn>
-            <div>
-              <Link className={styles.projectsLink} href={'/projects'}>
-                Projects
-              </Link>
-            </div>
+            <ul className={styles.navLinks}>
+              <li>
+                <Link className={styles.projectsLink} href={'/idea'}>
+                  + New
+                </Link>
+              </li>
+              <li>
+                <Link className={styles.projectsLink} href={'/projects'}>
+                  Projects
+                </Link>
+              </li>
+            </ul>
           </SignedIn>
           <ThemeSwitch />
           <SignedOut>
             <SignInButton
-              mode="modal"
-              afterSignInUrl="/projects"
-              afterSignUpUrl="/projects"
+              mode='modal'
+              afterSignInUrl='/projects'
+              afterSignUpUrl='/projects'
             >
               <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
-            <Link href="/profile">
+            <Link href='/profile'>
               <div className={styles.userName}>{userName}</div>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton afterSignOutUrl='/' />
             </Link>
           </SignedIn>
         </div>
