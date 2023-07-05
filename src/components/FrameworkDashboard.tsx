@@ -9,26 +9,42 @@ export default function FrameworkDashboard({
 }) {
   return (
     <div className={styles.frameworkContainer}>
-      <div className={styles.frameworkName}>{framework.name}</div>
+
+      <h1 className={styles.frameworkName}>
+        {framework.name}
+      </h1>
+
       <div className={styles.frameworkElement}>
-        <p>
-          <span className={styles.comment}>why? </span>
+
+        <h2 className={styles.descriptionTitle}>
+          Why?
+        </h2>
+
+        <p className={styles.description}>
           {framework.description}
         </p>
+
       </div>
+
       <div className={styles.frameworkElement}>
-        <p>
-          <span className={styles.comment}>to sum up: </span>
-          {framework.whyGoodOption}
-        </p>
+
+        <h2 className={styles.descriptionTitle}>
+          To sum up:
+        </h2>
+
+        <p>{framework.whyGoodOption}</p>
       </div>
+
       <div className={styles.frameworkElementLink}>
-        <span className={styles.comment}>
+
+        <h2 className={styles.descriptionTitle}>
           <MdChevronRight />
-        </span>
+        </h2>
+
         <a className={styles.link} href={framework.link}>
           {framework.link}
         </a>
+
       </div>
     </div>
   );
