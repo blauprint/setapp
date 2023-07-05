@@ -86,7 +86,6 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
       'authorization': JSON.stringify(auth),
     },
   };
-
   const deleteTodo = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/projects/todo/${id}`,
     options,
@@ -136,7 +135,7 @@ export async function updateProjectTitle(auth: Auth, id: string, title: any) {
   return response;
 }
 
-export async function createBackendTodoService(auth: Auth, backendId: string, todo: {title: string}) {
+export async function createBackendTodoService(auth: Auth, backendId: string, todo: {title: string, done: boolean}) {
   if (typeof auth.sessionToken !== 'string') {
     auth.sessionToken = await auth.sessionToken();
   }
@@ -147,13 +146,17 @@ export async function createBackendTodoService(auth: Auth, backendId: string, to
       'authorization': JSON.stringify(auth),
     },
     body: JSON.stringify(todo),
+  } 
+  try {
+    const addedBackendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/backend/${backendId}/todo`, options);
+    const response = await addedBackendTodo.json(); 
+    return response;
+  } catch(error) {
+    console.log(error)
   }
-  const addedBackendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/backend/${backendId}/todo`, options);
-  const response = await addedBackendTodo.json();
-  return response;
 }
 
-export async function createFrontendTodoService(auth: Auth, frontendId: string, todo: {title: string}) {
+export async function createFrontendTodoService(auth: Auth, frontendId: string, todo: {title: string, done: boolean}) {
   if (typeof auth.sessionToken !== 'string') {
     auth.sessionToken = await auth.sessionToken();
   }
@@ -165,6 +168,7 @@ export async function createFrontendTodoService(auth: Auth, frontendId: string, 
     },
     body: JSON.stringify(todo),
   }
+
   const addedFrontendTodo = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/projects/frontend/${frontendId}/todo`, options);
   const response = await addedFrontendTodo.json();
   return response;

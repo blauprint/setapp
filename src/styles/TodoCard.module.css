@@ -59,9 +59,7 @@
  .deleteBtn:hover {
   color: var(--text-color);
 }
- .editBtn:hover {
-  color: var(--text-color);
-}
+
 
  .deleteBtnContainer {
   position: absolute;
@@ -69,11 +67,7 @@
   bottom: 10px;
 }
 
- .editBtnContainer {
-  position: absolute;
-  right: 5px;
-  top: 10px;
-}
+
 
 .todo {
   font-size: 14px;
