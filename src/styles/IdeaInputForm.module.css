@@ -2,9 +2,10 @@
   /* display: none; */
   display: flex;
   width: 100vw;
-  height: 83vh;
+  height: 92vh;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .form {
@@ -84,22 +85,18 @@ span.ideaSpan {
 
 .loadingContainer {
   display: none;
-  position: relative;
-  /* top: 50vh; */
-  margin: auto auto;
-  width: 90%;
-  height: 100%;
   transition: all 0.2s ease-in-out;
 }
 
 .spinnerContainer {
   display: flex;
-  width: 100%;
 }
 
 .progressBarContainer {
   position: absolute;
-  top: 20vh;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
 }
 
 .MuiLinearProgress-root {
