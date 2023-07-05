@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
-import regexDataExtractor from '@/utils/regexDataExtractor';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // import * as Yup from "yup";
@@ -63,21 +62,6 @@ export default function IdeaInputForm() {
     onFinish: handleFinish,
   });
 
-  // ***********
-  // WORK IN PROGRESS!
-  // The idea is to dynamically import components based on the completion.
-  // The components would be cards that display the project data as it is being generated.
-  // ***********
-
-  // const DynamicSummaryCard = dynamic(() => import("@/components/SummaryCard"));
-  // const DynamicColorCard = dynamic(() => import("@/components/ColorCard"));
-  // const DynamicFrameworkCard = dynamic(
-  //   () => import("@/components/FrameworkCard")
-  // );
-  // const DynamicModelCard = dynamic(() => import("@/components/ModelCard"));
-  // const DynamicToDoList = dynamic(() => import("@/components/ToDoList"));
-
-  // ***********
 
   // Handler functions
 
@@ -94,7 +78,7 @@ export default function IdeaInputForm() {
     if (messages[1]?.content.match(/"backend":\s*{([^}]*)}/)?.[0]) {
       setProgress(100);
     }
-    // console.log(messages[1]?.content)
+
   }, [messages]);
 
   function handleError(error: Error) {
@@ -102,6 +86,7 @@ export default function IdeaInputForm() {
     if (spinnerRef.current) {
       spinnerRef.current.style.display = 'none';
     }
+
     alert('Sorry, there was an error. Please try again.');
 
     // Refresh the page
@@ -110,6 +95,7 @@ export default function IdeaInputForm() {
 
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
+
     // Submit animations
     if (formRef.current) {
       formRef.current.style.translate = '0 -100vh';
@@ -131,15 +117,14 @@ export default function IdeaInputForm() {
     }
 
     console.log('Message finished!');
-    console.log('Message:', message.content);
 
-    // Remove trailing backticks if they exist (common with GPT-3 completions)
-    message.content = message.content.replace(/`+$/, '');
+    // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
+    message.content = message.content.replace(/(\"|`)+$/, '');
+
 
     try {
       // Parse the message content into a JSON object
       const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
-
       // Add the project idea to the object
       projectJson.idea = input;
 
@@ -175,45 +160,46 @@ export default function IdeaInputForm() {
             autoFocus={true}
             onChange={handleInputChange}
             value={input}
-            name="idea"
+            name='idea'
             rows={1}
-            id="idea"
+            id='idea'
             required={true}
-            autoComplete="off"
+            autoComplete='off'
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 // TODO: Either change to input or fix textarea functionality
                 event.currentTarget.form?.dispatchEvent(
-                  new Event('submit', { cancelable: true, bubbles: true })
+                  new Event('submit', { cancelable: true, bubbles: true }),
                 );
               }
             }}
           ></textarea>
-          <label className={styles.ideaLabel} htmlFor="name">
+          <label className={styles.ideaLabel} htmlFor='name'>
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type="submit" className={styles.sendBtn}>
+          <button type='submit' className={styles.sendBtn}>
             <BiSend />
           </button>
         </form>
-        <div className={styles.loadingContainer} ref={spinnerRef}>
-          <div className={styles.spinnerContainer}>
+        <div className={styles.loadingContainer}>
+          <div className={styles.spinnerContainer} ref={spinnerRef}>
             <Spinner />
           </div>
-          <div className={styles.progressBarContainer}>
-            <LinearProgress
-              className={styles.progressBar}
-              variant="determinate"
-              value={progress}
-              sx={{
-                backgroundColor: 'var(--secondary-color)',
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: 'var(--primary-color)',
-                },
-                height: '20px',
-              }}
-            />
-          </div>
+        </div>
+        {/* <div className={styles.progressBarContainer} ref={progressBarRef}> */}
+        <div className={styles.progressBarContainer}>
+          <LinearProgress
+            className={styles.progressBar}
+            variant='determinate'
+            value={progress}
+            sx={{
+              'backgroundColor': 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)',
+              },
+              'height': '20px',
+            }}
+          />
         </div>
       </div>
     </>
