@@ -131,20 +131,22 @@ export default function IdeaInputForm() {
     }
 
     console.log('Message finished!');
-    console.log('Message:', message.content);
 
-    // Remove trailing backticks if they exist (common with GPT-3 completions)
-    message.content = message.content.replace(/`+$/, '');
+    // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
+    message.content = message.content.replace(/(\"|`)+$/, '');
+
+    // console.log('Message:', message.content);
 
     try {
       // Parse the message content into a JSON object
       const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
-
       // Add the project idea to the object
       projectJson.idea = input;
 
       // Post the project to the database and get the project ID
       const response = await postProject(auth, projectJson);
+      console.log('RESPONSE!!!!!!', response);
+      debugger;
       const projectId = response.id;
       dispatch(addNewProject(response));
       dispatch(addCurrentProject(response));
@@ -175,45 +177,46 @@ export default function IdeaInputForm() {
             autoFocus={true}
             onChange={handleInputChange}
             value={input}
-            name="idea"
+            name='idea'
             rows={1}
-            id="idea"
+            id='idea'
             required={true}
-            autoComplete="off"
+            autoComplete='off'
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 // TODO: Either change to input or fix textarea functionality
                 event.currentTarget.form?.dispatchEvent(
-                  new Event('submit', { cancelable: true, bubbles: true })
+                  new Event('submit', { cancelable: true, bubbles: true }),
                 );
               }
             }}
           ></textarea>
-          <label className={styles.ideaLabel} htmlFor="name">
+          <label className={styles.ideaLabel} htmlFor='name'>
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type="submit" className={styles.sendBtn}>
+          <button type='submit' className={styles.sendBtn}>
             <BiSend />
           </button>
         </form>
-        <div className={styles.loadingContainer} ref={spinnerRef}>
-          <div className={styles.spinnerContainer}>
+        <div className={styles.loadingContainer}>
+          <div className={styles.spinnerContainer} ref={spinnerRef}>
             <Spinner />
           </div>
-          <div className={styles.progressBarContainer}>
-            <LinearProgress
-              className={styles.progressBar}
-              variant="determinate"
-              value={progress}
-              sx={{
-                backgroundColor: 'var(--secondary-color)',
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: 'var(--primary-color)',
-                },
-                height: '20px',
-              }}
-            />
-          </div>
+        </div>
+        {/* <div className={styles.progressBarContainer} ref={progressBarRef}> */}
+        <div className={styles.progressBarContainer}>
+          <LinearProgress
+            className={styles.progressBar}
+            variant='determinate'
+            value={progress}
+            sx={{
+              'backgroundColor': 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)',
+              },
+              'height': '20px',
+            }}
+          />
         </div>
       </div>
     </>
