@@ -124,6 +124,7 @@ function TodoList() {
           contentEditable="true"
           onKeyDown={handleCreateTodoKeyDown}
           ref={inputRef}
+          placeholder="Add"
         >
         </div>
         {sortedTodos.map((todo: TodoItem) => (

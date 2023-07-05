@@ -1,25 +1,30 @@
 :root {
-  --primary-color: #146c94;
+  --primary-color: #2E5266;
 
-  --secondary-color: #19a7ce;
+  --secondary-color: #6E8898;
 
   --text-color: black;
 
-  --accent-color: #a0c3d2;
+  --accent-color: #6E4555;
 
   --shadow-color: rgba(0, 0, 0, 0.1);
 
   --neutral-color: #4f4f4f;
-  --background-color: #ffffffe5;
+  --background-color: #D3D0CB;
   --surface-color: white;
-  --block-color: #f6f1f1;
+  --block-color: #9FB1BC;
   --error-color: red;
+
   --color-card-1: #e1ebf3;
   --color-card-2: #d4e2df;
   --color-card-3: #c6cfd5;
   --color-card-4: #e9dcce;
   --color-card-5: #e0d4d5;
 }
+
+/* --accent-color: #E5B769; */
+/* --primary-color: #146c94; */
+/* --secondary-color: #19a7ce; */
 
 /* button, icons, highlights */
 /* --primary-color: #5be4d4; */
