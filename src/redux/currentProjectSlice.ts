@@ -63,10 +63,14 @@ export const currentProjectSlice: Slice = createSlice({
         todo.title = title;
         todo.done = done;
       }
+    },
+    changeTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+      return state;
     }
   },
 });
 
-export const { addCurrentProject, deleteTodo, updateTodo } = currentProjectSlice.actions;
+export const { addCurrentProject, deleteTodo, updateTodo, changeTitle } = currentProjectSlice.actions;
 export const selectAllProjects = (state: RootState) => state.projects;
 export default currentProjectSlice.reducer;

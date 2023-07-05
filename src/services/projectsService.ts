@@ -97,9 +97,7 @@ export async function deleteTodoService(auth: Auth, id: string): Promise<void> {
 
 export async function updateTodoService(auth: Auth, todo: TodoItem): Promise<void> {
   console.log(auth, 'auth in service')
-  if (typeof auth.sessionToken !== 'string') {
-    auth.sessionToken = await auth.sessionToken();
-  }
+
   const options = {
     method: 'PUT',
     headers: {
@@ -116,4 +114,27 @@ export async function updateTodoService(auth: Auth, todo: TodoItem): Promise<voi
   const response = await updatedTodoTitle.json();
   return response;
 }
+
+export async function updateProjectTitle(auth: Auth, id: string, title: any) {
+  if (typeof auth.sessionToken !== 'string') {
+    auth.sessionToken = await auth.sessionToken();
+  }
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': JSON.stringify(auth),
+    },
+    body: JSON.stringify(title),
+  };
+  const updatedTitle = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${id}/title`,
+    options,
+  );
+  const response = await updatedTitle.json();
+  return response;
+}
+
+
+
 
