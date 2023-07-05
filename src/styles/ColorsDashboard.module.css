@@ -4,7 +4,7 @@
 }
 
 .colorPalette {
-  margin-bottom: 2em;
+  margin-top: 3em;
 }
 
 .whyGoodOption {
@@ -15,7 +15,6 @@
 }
 
 .whyGoodOption h2 {
-  /* font-size: 1.5rem; */
   margin-bottom: 0.5em;
   color: var(--secondary-color);
 }
