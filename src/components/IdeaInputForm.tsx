@@ -120,6 +120,7 @@ export default function IdeaInputForm() {
 
     // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
     message.content = message.content.replace(/(\"|`)+$/, '');
+    console.log('Message content:', message.content);
 
 
     try {

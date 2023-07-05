@@ -45,7 +45,7 @@ export default function ProjectsPage() {
   let dispatch = useAppDispatch();
   const projects: ProjectData[] = useAppSelector(selectAllProjects);
   let sortedProjects = [...projects];
-   sortedProjects = sortedProjects.sort((a, b) => {
+  sortedProjects = sortedProjects.sort((a, b) => {
     const dateA = a.createdAt || new Date(0);
     const dateB = b.createdAt || new Date(0);
     if (dateA < dateB) {
