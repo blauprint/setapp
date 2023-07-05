@@ -39,7 +39,7 @@ export default function Home() {
             <Typewriter
               options={{
                 autoStart: true,
-                loop: true,
+                loop: false,
               }}
               onInit={(typewriter) => {
                 typewriter
@@ -52,7 +52,6 @@ export default function Home() {
                   .deleteAll()
                   .typeString('MVP')
                   .pauseFor(3000)
-                  .deleteAll()
                   .start();
               }}
             />

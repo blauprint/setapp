@@ -35,9 +35,7 @@ import { Auth } from '@/types/Auth';
 import { updateProjectTitle } from '@/services/projectsService';
 import { changeTitle } from '@/redux/currentProjectSlice';
 
-
 export default function HomeNavigationBar() {
-
   const router = useRouter();
   const {
     userId,
@@ -63,7 +61,9 @@ export default function HomeNavigationBar() {
     orgSlug: orgSlug?.toString(),
   };
 
-  const currentProject: ProjectData = useAppSelector((state: RootState) => state.currentProject)
+  const currentProject: ProjectData = useAppSelector(
+    (state: RootState) => state.currentProject
+  );
   const currentProjectTitle = currentProject.title;
   let newTitle = currentProjectTitle;
   // let [title, setTitle] = useState(currentProjectTitle);
@@ -91,7 +91,9 @@ export default function HomeNavigationBar() {
       // setTitle(newTitle);
 
       let titleObject = { title: newTitle };
-      updateProjectTitle(auth, currentProject.id, titleObject).then(res => res);
+      updateProjectTitle(auth, currentProject.id, titleObject).then(
+        (res) => res
+      );
       dispatch(changeTitle(newTitle));
     }
   }
@@ -99,30 +101,43 @@ export default function HomeNavigationBar() {
   return (
     <>
       <div className={styles.container}>
-        <div
-          className={quicksand.className}
-          style={{
-            fontSize: '28px',
-            color: 'var(--text-color)',
-            letterSpacing: '9px',
-            fontWeight: 600,
-          }}
-        >
-          <Link
-            href={'/'}
-            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+        <div className={styles.logoAndName}>
+          <div
+            className={quicksand.className}
+            style={{
+              fontSize: '28px',
+              color: 'var(--text-color)',
+              letterSpacing: '9px',
+              fontWeight: 600,
+            }}
           >
-            <AiFillBuild />
-            setapp
-          </Link>
+            <Link
+              href={'/'}
+              style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+            >
+              <AiFillBuild />
+              setapp
+            </Link>
+          </div>
+          <div className={styles.projectTitleDisplay}>
+            <SignedIn>
+              {router.query.userName && (
+                <div
+                  className={styles.projectName}
+                  contentEditable="true"
+                  suppressContentEditableWarning={true}
+                  onKeyDown={handleTitleChange}
+                  onBlur={handleTitleBlur}
+                >
+                  {currentProjectTitle}
+                </div>
+              )}
+            </SignedIn>
+          </div>
         </div>
-
 
         <div className={styles.navOptions}>
           <SignedIn>
-
-            {router.query.userName &&
-              <div className={styles.projectName} contentEditable="true" suppressContentEditableWarning={true} onKeyDown={handleTitleChange} onBlur={handleTitleBlur}>{currentProjectTitle}</div>}
             <div>
               <Link className={styles.projectsLink} href={'/projects'}>
                 Projects
@@ -132,17 +147,17 @@ export default function HomeNavigationBar() {
           <ThemeSwitch />
           <SignedOut>
             <SignInButton
-              mode='modal'
-              afterSignInUrl='/projects'
-              afterSignUpUrl='/projects'
+              mode="modal"
+              afterSignInUrl="/projects"
+              afterSignUpUrl="/projects"
             >
               <button className={styles.loginBtn}>Login</button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
-            <Link href='/profile'>
+            <Link href="/profile">
               <div className={styles.userName}>{userName}</div>
-              <UserButton afterSignOutUrl='/' />
+              <UserButton afterSignOutUrl="/" />
             </Link>
           </SignedIn>
         </div>
