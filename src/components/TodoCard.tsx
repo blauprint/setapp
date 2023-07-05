@@ -1,7 +1,7 @@
 import styles from "@/styles/TodoCard.module.css";
 import { TodoItem } from "@/types/typedefs";
 import formatDateFromNow from "@/utils/dateFormatter";
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai';
 import { useState } from "react";
 
 interface TodoCardProps {
@@ -48,13 +48,13 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
   }
 
   function handleCardCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const updatedTodo = {...todo};
+    const updatedTodo = { ...todo };
     updatedTodo.done = e.target.checked;
     handleCheckboxChange(updatedTodo);
   }
 
   return (
-    <>
+    <div className={styles.todoContainer}>
       <div className={`${todo.done ? styles.todoCardDone : styles.todoCard}`}
         style={{
           backgroundColor: colors[Math.floor(Math.random() * 5)]
@@ -65,7 +65,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
         {isHovered && (
           <div className={styles.deleteBtnContainer}>
             <button className={styles.deleteBtn} onClick={handleDeleteOnClick}>
-              <AiOutlineDelete className={styles.deleteIcon} />
+              <AiOutlineDelete className={styles.deleteIcon} size={25} />
             </button>
           </div>
         )}
@@ -78,8 +78,10 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
         >{todo.title}</div>
         <div className={styles.createdAt}>Created: {todoDate}</div>
       </div >
-      <input type="checkbox" checked={todo.done} onChange={handleCardCheckboxChange}></input>
-    </>
+      <label className={styles.formControl}>
+        <input type="checkbox" checked={todo.done} onChange={handleCardCheckboxChange} className={styles.checkbox}></input>
+      </label>
+    </div>
   )
 }
 

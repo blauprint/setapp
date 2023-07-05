@@ -1,6 +1,5 @@
 import styles from '@/styles/ProjectCard.module.css';
 import { ProjectData } from '@/types/typedefs';
-import { useRouter } from 'next/router';
 import { useUser } from '@clerk/nextjs';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCurrentProject } from '@/redux/currentProjectSlice';
@@ -8,12 +7,15 @@ import { useAuth } from '@clerk/nextjs';
 import { Auth } from '@/types/Auth';
 import { deleteProjectFromStore } from '@/redux/projectsSlice';
 import { deleteProject } from '@/services/projectsService';
-import { DeleteForever } from '@mui/icons-material';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { addSelected } from '@/redux/selectedSlice';
 
 export default function ProjectCard({ project }: { project: ProjectData }) {
-  let router = useRouter();
+
+  const colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+
   const { user } = useUser();
   const {
     userId,
@@ -40,12 +42,13 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
   };
 
   let dispatch = useAppDispatch();
+  const [isHovered, setIsHovered] = useState(false);
 
   //TODO need to convert project date to this format and save it
   const formattedDate = '25 Jun';
-  let projectId = '';
   function handleClickOnProjectCard(project: ProjectData) {
     dispatch(addCurrentProject(project));
+    dispatch(addSelected('overview'));
   }
 
   function handleDelete(e: React.MouseEvent) {
@@ -60,34 +63,49 @@ export default function ProjectCard({ project }: { project: ProjectData }) {
     deleteProject(auth, project.id);
   }
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+
   return (
     <Link
       prefetch={false}
       onClick={() => handleClickOnProjectCard(project)}
-      href={`/${user?.username ? user.username : user?.firstName}/projects/${
-        project.id
-      }/`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      href={`/${user?.username ? user.username : user?.firstName}/projects/${project.id
+        }/`}
+
     >
       <div
         className={styles.projectCard}
-        // onClick={() => handleClickOnProjectCard(project)}
+        style={{
+          backgroundColor: colors[Math.floor(Math.random() * 5)]
+        }}
+      // onClick={() => handleClickOnProjectCard(project)}
       >
-        <div className={styles.deleteBtnContainer}>
-          <button
-            className={styles.deleteBtn}
-            onClick={(e) => {
-              handleDelete(e);
-            }}
-          >
-            <DeleteForever
-              style={{ height: '25px', position: 'relative', top: '3px' }}
-            />
-          </button>
-        </div>
+        {isHovered &&
+          <div className={styles.deleteBtnContainer}>
+            <button
+              className={styles.deleteBtn}
+              onClick={(e) => {
+                handleDelete(e);
+              }}
+            >
+              <AiOutlineDelete size={20}
+                style={{ height: '25px', position: 'relative', top: '11px', right: '6px' }}
+              />
+            </button>
+          </div>}
         <div className={styles.title}>
           <p>{project.title}</p>
         </div>
-        <div className={styles.idea}>{project.idea + '...'}</div>
+        <div className={styles.idea}>{project.idea}</div>
 
         <div className={styles.details}>
           <div
