@@ -1,3 +1,4 @@
+'use client';
 import styles from "@/styles/TodoCard.module.css";
 import { TodoItem } from "@/types/typedefs";
 import formatDateFromNow from "@/utils/dateFormatter";

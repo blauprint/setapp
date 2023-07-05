@@ -1,7 +1,7 @@
 .todoContainer {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -51,7 +51,7 @@
   transition: color 0.2s;
 }
 
- .deleteBtn:hover {
+.deleteBtn:hover {
   color: var(--text-color);
 }
 

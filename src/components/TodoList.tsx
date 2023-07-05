@@ -1,3 +1,4 @@
+'use client';
 import styles from '@/styles/TodoList.module.css';
 import TodoCard from './TodoCard';
 import { addBackendTodo, addFrontendTodo, deleteTodo, updateTodo, updateNewTodo } from '@/redux/currentProjectSlice';
@@ -39,7 +40,7 @@ function TodoList() {
     orgRole,
     orgSlug,
   } = useAuth();
-  
+
   const auth: Auth = {
     userId: userId?.toString(),
     sessionId: sessionId?.toString(),
