@@ -4,6 +4,7 @@ import { TodoItem } from "@/types/typedefs";
 import formatDateFromNow from "@/utils/dateFormatter";
 import { AiOutlineDelete } from 'react-icons/ai';
 import { useState } from "react";
+import { useTheme } from "next-themes";
 
 interface TodoCardProps {
   todo: TodoItem;
@@ -13,7 +14,18 @@ interface TodoCardProps {
 }
 
 const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChange, handleCheckboxChange }) => {
-  const colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+
+  const { resolvedTheme, setTheme } = useTheme();
+  let colors: string[] = []// ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+  let colorTitle: string = '';
+  if (resolvedTheme === "light") {
+    colorTitle = 'var(--text-color)'
+    colors = ['var(--color-card-1)', 'var(--color-card-2)', 'var(--color-card-3)', 'var(--color-card-4)', 'var(--color-card-5)'];
+  } else {
+    colorTitle = 'var(--primary-color)'
+    colors = ['var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)', 'var(--surface-color)']
+  }
+
   const todoDate = formatDateFromNow(todo.createdAt);
 
   const [isHovered, setIsHovered] = useState(false);

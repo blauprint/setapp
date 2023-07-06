@@ -57,12 +57,12 @@ export default function ProjectsPage() {
     }
   });
   useEffect(() => {
-    if (user && projects.length === 0) {
+    if (user) {
       getProjects(auth).then((res) => {
         dispatch(addProjects(res));
       });
     }
-  }, [user]);
+  }, []);
 
   return (
     <div className={styles.projectsPageWrapper}>

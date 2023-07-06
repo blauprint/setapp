@@ -20,20 +20,24 @@ export default function ModelDashboard({ model }: { model: Database }) {
         <p className={styles.description}>{model.whyGoodOption}</p>
       </div>
       <div className={styles.modelElement}>
+        {model.schema &&
+          <>
+            <h2 className={styles.descriptionTitle}>Schema</h2>
 
-        <h2 className={styles.descriptionTitle}>Schema</h2>
-        <div className={styles.schemaContainer}>
-          This is a sample {model.name} model schema for your app:
+            <div className={styles.schemaContainer}>
+              This is a sample {model.name} model schema for your app:
 
-          <SyntaxHighlighter
-            className={styles.schema}
-            language='javascript'
-            style={atomOneDark}
-          >
-            {model.schema}
-          </SyntaxHighlighter>
+              <SyntaxHighlighter
+                className={styles.schema}
+                language='javascript'
+                style={atomOneDark}
+              >
+                {model.schema}
+              </SyntaxHighlighter>
 
-        </div>
+            </div>
+          </>
+        }
       </div>
       <div className={styles.modelElement}>
         <hr />

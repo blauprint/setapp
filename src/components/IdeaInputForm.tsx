@@ -100,15 +100,15 @@ export default function IdeaInputForm() {
   }
 
   function showCharCounter() {
-      setCharCounterDisplay(true)
+    setCharCounterDisplay(true)
   }
 
   function hideCharCounter() {
-      setCharCounterDisplay(false)
+    setCharCounterDisplay(false)
   }
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
-  
+
 
     // Submit animations
     if (formRef.current) {
@@ -141,8 +141,11 @@ export default function IdeaInputForm() {
       const projectJson = await JSON.parse(`{${message.content}`);
       // Add the project idea to the object
       projectJson.idea = input;
-      projectJson.backend.database.schema = projectJson.backend.database.database_schema;
+
+      projectJson.backend.database.schema =
+        projectJson.backend.database.database_schema;
       delete projectJson.backend.database.database_schema;
+
       // Post the project to the database and get the project ID
       const response = await postProject(auth, projectJson);
       const projectId = response.id;
@@ -151,7 +154,7 @@ export default function IdeaInputForm() {
 
       // Redirect to the project page
       const url = `/${user?.username ? user.username : user?.firstName
-        }/projects/${projectId}/`;
+        }/projects/${projectId}/`;;
       router.push(url);
     } catch (error: any) {
       handleError(error);

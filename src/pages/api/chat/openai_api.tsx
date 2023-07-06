@@ -23,9 +23,10 @@ export default async function POST(req: Request) {
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo-16k',
     stream: true,
-    max_tokens: 1200,
-    temperature: 0.8,
-      messages: [
+    max_tokens: 10000,
+    temperature: 0.9,
+
+    messages: [
       {
         content: fullPrompt,
         role: 'user',
