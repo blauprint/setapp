@@ -36,6 +36,7 @@ import { updateProjectTitle } from '@/services/projectsService';
 import { changeTitle } from '@/redux/currentProjectSlice';
 
 export default function HomeNavigationBar() {
+  const [content, setContent] = useState('');
   const router = useRouter();
   const {
     userId,
@@ -81,6 +82,16 @@ export default function HomeNavigationBar() {
       e.currentTarget.blur();
     }
   }
+  const maxLength = 40;
+  const handleInput = (event: any) => {
+    const text = event.target.innerText;
+    if (text.length <= maxLength) {
+      setContent(text);
+    } else {
+      event.target.innerText = content;
+    }
+  };
+
 
   async function handleTitleBlur(e: React.FocusEvent<HTMLDivElement>) {
     if (auth) {
@@ -124,6 +135,7 @@ export default function HomeNavigationBar() {
                 <div
                   className={styles.projectName}
                   contentEditable='true'
+                  onInput={handleInput}
                   suppressContentEditableWarning={true}
                   onKeyDown={handleTitleChange}
                   onBlur={handleTitleBlur}
