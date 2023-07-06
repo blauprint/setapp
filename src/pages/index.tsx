@@ -4,6 +4,14 @@ import Typewriter from 'typewriter-effect';
 import setApp from '@/assets/setApp.json';
 import Lottie from 'react-lottie-player';
 
+import { Quicksand } from 'next/font/google';
+
+const quicksand = Quicksand({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+});
+import { BsTwitter, BsInstagram, BsGithub, BsDiscord } from 'react-icons/bs';
+
 import {
   AiFillBuild,
   AiOutlineBuild,
@@ -62,7 +70,7 @@ export default function Home() {
             <div className={styles.sell}>Start building now</div>
             <div className={styles.heroBtns}>
               <Link href="/idea">
-              <button className={styles.heroBtn}>Get Started</button>
+                <button className={styles.heroBtn}>Get Started</button>
               </Link>
             </div>
           </div>
@@ -100,7 +108,31 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className={styles.footer}>@SetApp - 2023</footer>
+      <footer className={styles.footer}>
+        <div className={styles.footerleft}>
+          <div className={styles.footerLogo}>
+            <AiFillBuild size={25} className={styles.setAppFooterLogo} />
+            <div
+              className={quicksand.className}
+              style={{
+                fontSize: '22px',
+                letterSpacing: '6px',
+                fontWeight: 600,
+              }}
+            >
+              SetApp
+            </div>
+          </div>
+        </div>
+        <div className={styles.footerRight}>
+          <p className={styles.followUs}>Follow Us</p>
+
+          <BsTwitter size={25} />
+          <BsInstagram size={25} />
+          <BsGithub size={25} />
+          <BsDiscord size={25} />
+        </div>
+      </footer>
     </>
   );
 }

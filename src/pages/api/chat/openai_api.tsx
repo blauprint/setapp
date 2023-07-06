@@ -25,8 +25,7 @@ export default async function POST(req: Request) {
     stream: true,
     max_tokens: 1200,
     temperature: 0.8,
-  
-    messages: [
+      messages: [
       {
         content: fullPrompt,
         role: 'user',
