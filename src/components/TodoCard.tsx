@@ -29,12 +29,24 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
   const todoDate = formatDateFromNow(todo.createdAt);
 
   const [isHovered, setIsHovered] = useState(false);
+  const [content, setContent] = useState('');
+  const maxLength = 75;
+ 
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+  };
+
+  const handleInput = (event: any) => {
+    const text = event.target.innerText;
+    if (text.length <= maxLength) {
+      setContent(text);
+    } else {
+      event.target.innerText = content;
+    }
   };
 
   function handleDeleteOnClick(e: React.SyntheticEvent) {
@@ -65,7 +77,6 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
     updatedTodo.done = e.target.checked;
     handleCheckboxChange(updatedTodo);
   }
-
   return (
     <div className={styles.todoContainer}>
       <div className={`${todo.done ? styles.todoCardDone : styles.todoCard}`}
@@ -86,6 +97,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, handleDelete, handleTitleChan
           suppressContentEditableWarning={true}
           contentEditable="true"
           className={styles.todo}
+          onInput={handleInput}
           onKeyDown={handleTodoKeyDown}
           onBlur={handleTodoBlur}
         >{todo.title}</div>
