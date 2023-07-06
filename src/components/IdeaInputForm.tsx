@@ -1,5 +1,5 @@
-'use client';
-import { useRef, FormEvent, useEffect, useState, ChangeEvent } from 'react';
+'use client'
+import { useState, useEffect, FormEvent, useRef, ChangeEvent } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
 import { ProjectData } from '@/types/typedefs';
@@ -14,16 +14,11 @@ import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
 import LinearProgress from '@mui/material/LinearProgress';
 
-// import * as Yup from "yup";
-// import dynamic from "next/dynamic";
-
-// const formSchema = Yup.object().shape({
-//   idea: Yup.string().required("Tell me your idea for an app."),
-// });
-
 export default function IdeaInputForm() {
   const dispatch = useAppDispatch();
-  let [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [charCounterIsDisplayed, setCharCounterDisplay] = useState(false);
+  const maxLength = 100;
 
   // CLERK AUTH
   const { user } = useUser();
@@ -61,9 +56,9 @@ export default function IdeaInputForm() {
     api: '/api/chat/openai_api',
     onError: handleError,
     onFinish: handleFinish,
+
   });
 
-  // Handler functions
 
   useEffect(() => {
     if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
@@ -96,20 +91,28 @@ export default function IdeaInputForm() {
     event: ChangeEvent<HTMLTextAreaElement>
   ) {
     handleInputChange(event);
-
+    setCharCounterDisplay(true)
     if (textAreaRef.current) {
       textAreaRef.current.style.height = 'auto';
       textAreaRef.current.style.height = `${event.target.scrollHeight - 5}px`;
     }
   }
 
+  function showCharCounter() {
+      setCharCounterDisplay(true)
+  }
+
+  function hideCharCounter() {
+      setCharCounterDisplay(false)
+  }
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
+  
 
     // Submit animations
     if (formRef.current) {
-      formRef.current.style.translate = '0 -100vh';
-      formRef.current.style.scale = '0';
+      formRef.current.style.transform = 'translateY(-100vh)';
+      formRef.current.style.opacity = '0';
       formRef.current.style.filter = 'blur(60px)';
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
@@ -134,10 +137,11 @@ export default function IdeaInputForm() {
 
     try {
       // Parse the message content into a JSON object
-      const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
+      const projectJson = await JSON.parse(`{${message.content}`);
       // Add the project idea to the object
       projectJson.idea = input;
-
+      projectJson.backend.database.schema = projectJson.backend.database.database_schema;
+      delete projectJson.backend.database.database_schema;
       // Post the project to the database and get the project ID
       const response = await postProject(auth, projectJson);
       const projectId = response.id;
@@ -145,42 +149,34 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/projects/${projectId}/`;
+      const url = `/${user?.username ? user.username : user?.firstName
+        }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
     }
   }
-
-  // ***********
-
   return (
     <>
       <div className={styles.inputContainer}>
-        <form
-          className={styles.form}
-          onSubmit={customHandleSubmit}
-          ref={formRef}
-        >
+        <form className={styles.form} onSubmit={customHandleSubmit} ref={formRef}>
           <textarea
             className={styles.ideaTextArea}
             ref={textAreaRef}
             autoFocus={true}
             onChange={customHandleInputChange}
+            onClick={showCharCounter}
+            onBlur={hideCharCounter}
             value={input}
             name="idea"
             rows={1}
             id="idea"
             required={true}
             autoComplete="off"
+            maxLength={maxLength}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                // TODO: Either change to input or fix textarea functionality
-                event.currentTarget.form?.dispatchEvent(
-                  new Event('submit', { cancelable: true, bubbles: true })
-                );
+                event.currentTarget.form?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
               }
             }}
           ></textarea>
@@ -190,28 +186,32 @@ export default function IdeaInputForm() {
           <button type="submit" className={styles.sendBtn}>
             <BiSend />
           </button>
+          {charCounterIsDisplayed && <div className={styles.charachterCounter}>
+            {maxLength - input.length}/{maxLength}
+          </div>
+          }
         </form>
         {/* <div className={styles.loadingContainer}> */}
         <div className={styles.spinnerContainer} ref={spinnerRef}>
           <Spinner />
         </div>
         {/* </div> */}
-        {/* <div className={styles.progressBarContainer} ref={progressBarRef}> */}
         <div className={styles.progressBarContainer}>
           <LinearProgress
             className={styles.progressBar}
             variant="determinate"
             value={progress}
             sx={{
-              backgroundColor: 'var(--secondary-color)',
-              '& .MuiLinearProgress-bar': {
-                backgroundColor: 'var(--primary-color)',
+              backgroundColor: "var(--secondary-color)",
+              "& .MuiLinearProgress-bar": {
+                backgroundColor: "var(--primary-color)",
               },
-              height: '20px',
+              height: "20px",
             }}
           />
         </div>
       </div>
     </>
   );
+
 }

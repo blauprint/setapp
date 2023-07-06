@@ -106,3 +106,10 @@ span.ideaSpan {
 .MuiLinearProgress-barColorPrimary {
   background-color: var(--primary-color);
 }
+
+.charachterCounter {
+  position: relative;
+  bottom: -20px;
+  opacity: 0.5;
+  font-size: small;
+}
