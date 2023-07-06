@@ -52,12 +52,14 @@ export default function IdeaInputForm() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const spinnerRef = useRef<HTMLDivElement | null>(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
-  const { input, handleInputChange, handleSubmit, messages } = useChat({
-    api: '/api/chat/openai_api',
-    onError: handleError,
-    onFinish: handleFinish,
-  });
+  const { input, handleInputChange, handleSubmit, messages, isLoading } =
+    useChat({
+      api: '/api/chat/openai_api',
+      onError: handleError,
+      onFinish: handleFinish,
+    });
 
   useEffect(() => {
     if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
@@ -116,6 +118,7 @@ export default function IdeaInputForm() {
         if (formRef.current && spinnerRef.current) {
           formRef.current.style.display = 'none';
           spinnerRef.current.style.display = 'flex';
+          setHasLoaded(true);
         }
       }, 600);
     }
@@ -205,32 +208,34 @@ export default function IdeaInputForm() {
             Setting up you app's blueprint
           </div>
           <Spinner />
-          <Typewriter
-            options={{
-              autoStart: true,
-              loop: false,
-            }}
-            onInit={(typewriter: any) => {
-              typewriter
-              .pauseFor(500)
-                .start()
-                // .changeDelay(50)
-                .typeString('SetApp is choosing ')
-                .typeString('your frontend')
-                .pauseFor(2500)
-                .deleteChars('frontend'.length)
-                .typeString('backend')
-                .pauseFor(2500)
-                .deleteChars('backend'.length)
-                .typeString('to-do lists')
-                .pauseFor(2500)
-                .deleteChars('your to-do lists'.length)
-                .typeString('the best color scheme')
-                .pauseFor(2500)
-                .deleteChars('choosing the best color scheme'.length)
-                .typeString('almost done!');
-            }}
-          />
+          {hasLoaded && (
+            <Typewriter
+              options={{
+                autoStart: true,
+                loop: false,
+              }}
+              onInit={(typewriter: any) => {
+                typewriter
+                  // .pauseFor(500)
+                  .start()
+                  .changeDelay(50)
+                  .typeString('SetApp is choosing ')
+                  .typeString('your frontend')
+                  .pauseFor(2500)
+                  .deleteChars('frontend'.length)
+                  .typeString('backend')
+                  .pauseFor(2500)
+                  .deleteChars('backend'.length)
+                  .typeString('to-do lists')
+                  .pauseFor(2500)
+                  .deleteChars('your to-do lists'.length)
+                  .typeString('the best color scheme')
+                  .pauseFor(2500)
+                  .deleteChars('choosing the best color scheme'.length)
+                  .typeString('almost done!');
+              }}
+            />
+          )}
         </div>
         {/* </div> */}
         <div className={styles.progressBarContainer}>
