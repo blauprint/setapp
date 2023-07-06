@@ -62,7 +62,7 @@ export default function ProjectsPage() {
         dispatch(addProjects(res));
       });
     }
-  }, []);
+  }, [user]);
 
   return (
     <div className={styles.projectsPageWrapper}>

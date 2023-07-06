@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect, FormEvent, useRef, ChangeEvent } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
@@ -57,9 +57,7 @@ export default function IdeaInputForm() {
     api: '/api/chat/openai_api',
     onError: handleError,
     onFinish: handleFinish,
-
   });
-
 
   useEffect(() => {
     if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
@@ -89,10 +87,10 @@ export default function IdeaInputForm() {
   }
 
   async function customHandleInputChange(
-    event: ChangeEvent<HTMLTextAreaElement>
+    event: ChangeEvent<HTMLTextAreaElement>,
   ) {
     handleInputChange(event);
-    setCharCounterDisplay(true)
+    setCharCounterDisplay(true);
     if (textAreaRef.current) {
       textAreaRef.current.style.height = 'auto';
       textAreaRef.current.style.height = `${event.target.scrollHeight - 5}px`;
@@ -100,15 +98,14 @@ export default function IdeaInputForm() {
   }
 
   function showCharCounter() {
-    setCharCounterDisplay(true)
+    setCharCounterDisplay(true);
   }
 
   function hideCharCounter() {
-    setCharCounterDisplay(false)
+    setCharCounterDisplay(false);
   }
   async function customHandleSubmit(event: FormEvent<HTMLFormElement>) {
     handleSubmit(event);
-
 
     // Submit animations
     if (formRef.current) {
@@ -153,8 +150,9 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${user?.username ? user.username : user?.firstName
-        }/projects/${projectId}/`;;
+      const url = `/${
+        user?.username ? user.username : user?.firstName
+      }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
@@ -163,7 +161,11 @@ export default function IdeaInputForm() {
   return (
     <>
       <div className={styles.inputContainer}>
-        <form className={styles.form} onSubmit={customHandleSubmit} ref={formRef}>
+        <form
+          className={styles.form}
+          onSubmit={customHandleSubmit}
+          ref={formRef}
+        >
           <textarea
             className={styles.ideaTextArea}
             ref={textAreaRef}
@@ -172,28 +174,31 @@ export default function IdeaInputForm() {
             onClick={showCharCounter}
             onBlur={hideCharCounter}
             value={input}
-            name="idea"
+            name='idea'
             rows={1}
-            id="idea"
+            id='idea'
             required={true}
-            autoComplete="off"
+            autoComplete='off'
             maxLength={maxLength}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                event.currentTarget.form?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                event.currentTarget.form?.dispatchEvent(
+                  new Event('submit', { cancelable: true, bubbles: true }),
+                );
               }
             }}
           ></textarea>
-          <label className={styles.ideaLabel} htmlFor="name">
+          <label className={styles.ideaLabel} htmlFor='name'>
             <span className={styles.ideaSpan}>Type in your app idea....</span>
           </label>
-          <button type="submit" className={styles.sendBtn}>
+          <button type='submit' className={styles.sendBtn}>
             <BiSend />
           </button>
-          {charCounterIsDisplayed && <div className={styles.charachterCounter}>
-            {maxLength - input.length}/{maxLength}
-          </div>
-          }
+          {charCounterIsDisplayed && (
+            <div className={styles.charachterCounter}>
+              {maxLength - input.length}/{maxLength}
+            </div>
+          )}
         </form>
         <div className={styles.spinnerContainer} ref={spinnerRef}>
           <div className={styles.spinnerMessage}>
@@ -207,7 +212,9 @@ export default function IdeaInputForm() {
             }}
             onInit={(typewriter: any) => {
               typewriter
-                .changeDelay(50)
+              .pauseFor(500)
+                .start()
+                // .changeDelay(50)
                 .typeString('SetApp is choosing ')
                 .typeString('your frontend')
                 .pauseFor(2500)
@@ -221,8 +228,7 @@ export default function IdeaInputForm() {
                 .typeString('the best color scheme')
                 .pauseFor(2500)
                 .deleteChars('choosing the best color scheme'.length)
-                .typeString('almost done!')
-                .start();
+                .typeString('almost done!');
             }}
           />
         </div>
@@ -230,19 +236,18 @@ export default function IdeaInputForm() {
         <div className={styles.progressBarContainer}>
           <LinearProgress
             className={styles.progressBar}
-            variant="determinate"
+            variant='determinate'
             value={progress}
             sx={{
-              backgroundColor: "var(--secondary-color)",
-              "& .MuiLinearProgress-bar": {
-                backgroundColor: "var(--primary-color)",
+              'backgroundColor': 'var(--secondary-color)',
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: 'var(--primary-color)',
               },
-              height: "20px",
+              'height': '20px',
             }}
           />
         </div>
       </div>
     </>
   );
-
 }

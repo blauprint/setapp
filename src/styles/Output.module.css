@@ -27,6 +27,10 @@
   position: relative;
 }
 
+.outputContent hr {
+  padding: 20px;
+}
+
 .outputContent {
   line-height: 1.75;
   padding-inline: 40px;
