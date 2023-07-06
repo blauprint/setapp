@@ -13,13 +13,7 @@ import { addCurrentProject } from '@/redux/currentProjectSlice';
 import { postProject } from '@/services/projectsService';
 import { Message, useChat } from 'ai/react';
 import LinearProgress from '@mui/material/LinearProgress';
-
-// import * as Yup from "yup";
-// import dynamic from "next/dynamic";
-
-// const formSchema = Yup.object().shape({
-//   idea: Yup.string().required("Tell me your idea for an app."),
-// });
+import Typewriter from 'typewriter-effect';
 
 export default function IdeaInputForm() {
   const dispatch = useAppDispatch();
@@ -114,7 +108,7 @@ export default function IdeaInputForm() {
       setTimeout(() => {
         if (formRef.current && spinnerRef.current) {
           formRef.current.style.display = 'none';
-          spinnerRef.current.style.display = 'block';
+          spinnerRef.current.style.display = 'flex';
         }
       }, 600);
     }
@@ -191,12 +185,33 @@ export default function IdeaInputForm() {
             <BiSend />
           </button>
         </form>
-        {/* <div className={styles.loadingContainer}> */}
+
         <div className={styles.spinnerContainer} ref={spinnerRef}>
+          <div className={styles.spinnerMessage}>
+            Setting up you app's blueprint
+          </div>
           <Spinner />
+          <Typewriter
+            options={{
+              autoStart: true,
+              loop: false,
+            }}
+            onInit={(typewriter: any) => {
+              typewriter
+                .pauseFor(1000)
+                .typeString('SetApp is generating the frontend')
+                .pauseFor(100)
+                .deleteAll()
+                .typeString('generating the backend')
+                .pauseFor(100)
+                .deleteAll()
+                .typeString('generating your to-do list')
+                .pauseFor(3000)
+                .start();
+            }}
+          />
         </div>
-        {/* </div> */}
-        {/* <div className={styles.progressBarContainer} ref={progressBarRef}> */}
+
         <div className={styles.progressBarContainer}>
           <LinearProgress
             className={styles.progressBar}
