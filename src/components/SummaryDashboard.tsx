@@ -9,14 +9,12 @@ export default function SummaryDashboard({
 }: {
   project: ProjectData;
 }) {
-
   let title = useAppSelector((state: RootState) => state.currentProject.title);
 
-
   return (
-    <>
-      <h1>{title}</h1>
+    <div className={styles.summaryContainer}>
+      <h1 className={styles.summaryTitle}>{title}</h1>
       <p className={styles.projectSummary}>{project.summary}</p>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,10 @@
-
 .descriptionTitle {
-  color: var(--secondary-color);
+  color: var(--accent-color);
+  /* color: var(--secondary-color); */
 }
 
 .description {
-  font-size: 1.5rem;
+  /* font-size: 20px; */
 }
 
 .link {
@@ -14,7 +14,7 @@
 
 .modelSchema {
   margin-top: 3rem;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 }
 
 .modelContainer {
@@ -24,18 +24,17 @@
 }
 
 .modelDescription {
-  margin-bottom: 3rem;
+  margin-bottom: 35px;
 }
 
 .modelElement {
-  font-size: larger;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   margin-bottom: 2em;
 }
 
 .modelName {
-  font-size: 6rem;
   margin-bottom: 4rem;
 }
 
