@@ -1,32 +1,31 @@
 .frameworkContainer {
-  max-width: 60vw;
+  /* max-width: 60vw; */
   display: flex;
   flex-direction: column;
 }
 
 .frameworkName {
-  font-size: 6rem;
   margin-bottom: 4rem;
 }
 
 .frameworkElement {
-  font-size: larger;
+  font-size: 20px;
   display: flex;
   flex-direction: column;
   margin-bottom: 2em;
 }
 
 .descriptionTitle {
-  color: var(--secondary-color);
+  color: var(--accent-color);
 }
 
 .frameworkDescription {
-  margin-bottom: 3rem;
+  margin-bottom: 30px;
 }
 
 .description {
   /* margin-bottom: 2em; */
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 }
 
 .link {
