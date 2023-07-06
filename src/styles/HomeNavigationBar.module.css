@@ -70,6 +70,18 @@
   gap: 10px;
 }
 
+@media (max-width: 700px) {
+  .logoAndName {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logoAndName {
+    gap: 20px;
+  }
+}
+
 /*
 font-family: 'Barlow', sans-serif;
 font-family: 'Jost', sans-serif;
