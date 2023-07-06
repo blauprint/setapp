@@ -24,7 +24,7 @@ export default async function POST(req: Request) {
     model: 'gpt-3.5-turbo-16k',
     stream: true,
     max_tokens: 10000,
-    temperature: 0.7,
+    temperature: 0.9,
 
     messages: [
       {

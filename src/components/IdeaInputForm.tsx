@@ -134,9 +134,13 @@ export default function IdeaInputForm() {
 
     try {
       // Parse the message content into a JSON object
-      const projectJson: ProjectData = await JSON.parse(`{${message.content}`);
+      const projectJson = await JSON.parse(`{${message.content}`);
       // Add the project idea to the object
       projectJson.idea = input;
+
+      projectJson.backend.database.schema =
+        projectJson.backend.database.database_schema;
+      delete projectJson.backend.database.database_schema;
 
       // Post the project to the database and get the project ID
       const response = await postProject(auth, projectJson);
@@ -145,9 +149,8 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/projects/${projectId}/`;
+      const url = `/${user?.username ? user.username : user?.firstName
+        }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
