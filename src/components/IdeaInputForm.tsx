@@ -198,15 +198,21 @@ export default function IdeaInputForm() {
             }}
             onInit={(typewriter: any) => {
               typewriter
-                .pauseFor(1000)
-                .typeString('SetApp is generating the frontend')
-                .pauseFor(100)
-                .deleteAll()
-                .typeString('generating the backend')
-                .pauseFor(100)
-                .deleteAll()
-                .typeString('generating your to-do list')
-                .pauseFor(3000)
+                .changeDelay(50)
+                .typeString('SetApp is choosing ')
+                .typeString('your frontend')
+                .pauseFor(2500)
+                .deleteChars('frontend'.length)
+                .typeString('backend')
+                .pauseFor(2500)
+                .deleteChars('backend'.length)
+                .typeString('to-do lists')
+                .pauseFor(2500)
+                .deleteChars('your to-do lists'.length)
+                .typeString('the best color scheme')
+                .pauseFor(2500)
+                .deleteChars('choosing the best color scheme'.length)
+                .typeString('almost done!')
                 .start();
             }}
           />
