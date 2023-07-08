@@ -132,7 +132,19 @@ const Page: NextPageWithLayout = () => {
   } else if (select === 'colors') {
     return <ColorsDashboard colorScheme={project.frontend.colorScheme} />;
   } else if (select === 'overview' || select === '') {
-    return <SummaryDashboard project={project} />;
+    // return <SummaryDashboard project={project} />;
+    return (
+<>
+    <SummaryDashboard project={project} />
+    <hr/>
+<FrameworkDashboard framework={project.frontend.framework} />
+<hr/>
+<ColorsDashboard colorScheme={project.frontend.colorScheme} />
+<hr/>
+<FrameworkDashboard framework={project.backend.framework} />
+<hr/>
+<ModelDashboard model={project.backend.database} />
+</>)
   }
 };
 

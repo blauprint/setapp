@@ -14,6 +14,7 @@ export default function SummaryDashboard({
   return (
     <div className={styles.summaryContainer}>
       <h1 className={styles.summaryTitle}>{title}</h1>
+      <hr/>
       <p className={styles.projectSummary}>{project.summary}</p>
     </div>
   );

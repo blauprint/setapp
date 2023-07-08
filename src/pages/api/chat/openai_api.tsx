@@ -17,7 +17,7 @@ export default async function POST(req: Request) {
 
   // Build the full prompt to be sent to OpenAI
   const fullPrompt =
-    process.env.COMPLETION_PROMPT + `"` + messages[0].content + `",\n`;
+    process.env.COMPLETION_PROMPT2 + `"` + messages[0].content + `",\n`;
 
   // Ask OpenAI for a streaming completion given the prompt
   const response = await openai.createChatCompletion({
