@@ -14,8 +14,19 @@ export default function SummaryDashboard({
   return (
     <div className={styles.summaryContainer}>
       <h1 className={styles.summaryTitle}>{title}</h1>
-      <hr/>
+      <hr />
       <p className={styles.projectSummary}>{project.summary}</p>
+      <hr />
+      <p className={styles.projectSummary}>Backend Framework: {project.backend.framework.name}</p>
+      <hr />
+      <p className={styles.projectSummary}>Database: {project.backend.database.name}</p>
+      <hr />
+      <p className={styles.projectSummary}>Frontend Framework: {project.frontend.framework.name}</p>
+      <hr />
+      <p className={styles.projectSummary}>Color schema:</p>
+      <ul>
+        {project.frontend.colorScheme.colorPalette.colors.map(color => <li className={styles.projectSummary}>{color.name}</li>)}
+      </ul>
     </div>
   );
 }

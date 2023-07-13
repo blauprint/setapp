@@ -6,34 +6,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from '@/styles/ProjectMenu.module.css';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addSelected } from '@/redux/selectedSlice';
-import Link from 'next/link';
 
-export default function ProjectMenu({
-  userName,
-  projectId,
-}: {
-  userName: string | string[];
-  projectId: string | string[];
-}) {
+export default function ProjectMenu() {
   const dispatch = useAppDispatch();
   let selected = useAppSelector((state) => state.selected);
 
   return (
     <>
       <div className={styles.menuContainer}>
-        {/* <Link
-          className={styles.menuButton}
-          onClick={() => dispatch(addSelected('overview'))}
-          // shallow={true}
-          href={{
-            pathname: `/${userName}/${projectId}/`,
-            query: {
-              id: 'overview',
-            },
-          }}
-        >
-          Overview
-        </Link> */}
         <a
           className={selected === 'overview' ? styles.menuButtonSelected : styles.menuButton}
           onClick={() => dispatch(addSelected('overview'))}

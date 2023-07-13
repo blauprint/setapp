@@ -9,6 +9,7 @@ export default function ColorCard({
   color: Color;
   handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) {
+
   return (
     <div className={styles.colorCard} style={{ backgroundColor: color.hex }}>
       <div className={styles.colorCardText}>

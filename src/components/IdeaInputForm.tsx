@@ -2,7 +2,6 @@
 import { useState, useEffect, FormEvent, useRef, ChangeEvent } from 'react';
 import styles from '@/styles/IdeaInputForm.module.css';
 import { BiSend } from 'react-icons/bi';
-import { ProjectData } from '@/types/typedefs';
 import { Auth } from '@/types/Auth';
 import { useAppDispatch } from '@/redux/hooks';
 import { addNewProject } from '@/redux/projectsSlice';
@@ -61,6 +60,7 @@ export default function IdeaInputForm() {
       onFinish: handleFinish,
     });
 
+  // progress bar
   useEffect(() => {
     if (messages[1]?.content.match(/"title":\s*"([^"]*)"/)?.[0]) {
       setProgress(25);
@@ -81,9 +81,7 @@ export default function IdeaInputForm() {
     if (spinnerRef.current) {
       spinnerRef.current.style.display = 'none';
     }
-
     alert('Sorry, there was an error. Please try again.');
-
     // Refresh the page
     router.reload();
   }
@@ -130,8 +128,6 @@ export default function IdeaInputForm() {
       formRef.current.remove();
     }
 
-    console.log('Message finished!');
-
     // Remove trailing backticks or quotation marks if they exist (common with GPT-3 completions)
     message.content = message.content.replace(/(\"|`)+$/, '');
     console.log('Message content:', message.content);
@@ -153,9 +149,8 @@ export default function IdeaInputForm() {
       dispatch(addCurrentProject(response));
 
       // Redirect to the project page
-      const url = `/${
-        user?.username ? user.username : user?.firstName
-      }/projects/${projectId}/`;
+      const url = `/${user?.username ? user.username : user?.firstName
+        }/projects/${projectId}/`;
       router.push(url);
     } catch (error: any) {
       handleError(error);
@@ -237,7 +232,6 @@ export default function IdeaInputForm() {
             />
           )}
         </div>
-        {/* </div> */}
         <div className={styles.progressBarContainer}>
           <LinearProgress
             className={styles.progressBar}

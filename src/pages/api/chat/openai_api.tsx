@@ -17,14 +17,14 @@ export default async function POST(req: Request) {
 
   // Build the full prompt to be sent to OpenAI
   const fullPrompt =
-    process.env.COMPLETION_PROMPT2 + `"` + messages[0].content + `",\n`;
+    process.env.COMPLETION_PROMPT + `"` + messages[0].content + `",\n`;
 
   // Ask OpenAI for a streaming completion given the prompt
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo-16k',
     stream: true,
-    max_tokens: 10000,
-    temperature: 0.9,
+    max_tokens: 1200,
+    temperature: 0.8,
 
     messages: [
       {

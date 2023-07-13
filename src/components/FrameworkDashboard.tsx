@@ -1,14 +1,26 @@
 'use client'
 import { Technology } from '@/types/typedefs';
 import styles from '@/styles/FrameworkDashboard.module.css';
-import { MdChevronRight } from 'react-icons/md';
 import Link from 'next/link';
+import { useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
 
-export default function FrameworkDashboard({
-  framework,
-}: {
-  framework: Technology;
-}) {
+export default function FrameworkDashboard() {
+
+  const select = useAppSelector((state: RootState) => state.selected);
+  let framework: Technology = {
+    name: '',
+    whyGoodOption: '',
+    description: '',
+    link: '',
+  };
+
+  if (select === 'frameworkBE') {
+    useAppSelector((state: RootState) => { framework = state.currentProject.backend.framework })
+  } else if (select === 'frameworkFE') {
+    useAppSelector((state: RootState) => { framework = state.currentProject.frontend.framework })
+  }
+
   return (
     <div className={styles.frameworkContainer}>
       <h1 className={styles.frameworkName}>{framework.name}</h1>
@@ -23,10 +35,6 @@ export default function FrameworkDashboard({
       </div>
 
       <div className={styles.frameworkElement}>
-        {/* <h2 className={styles.descriptionTitle}>
-          <MdChevronRight />
-        </h2> */}
-
         <hr />
         <h2 className={styles.descriptionTitle}>Learn more</h2>
         <p className={styles.description}>
