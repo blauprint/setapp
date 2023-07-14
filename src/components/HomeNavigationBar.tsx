@@ -1,6 +1,5 @@
 'use client';
 import styles from '@/styles/HomeNavigationBar.module.css';
-
 import {
   SignInButton,
   SignedIn,
@@ -9,31 +8,24 @@ import {
   useAuth,
   useUser,
 } from '@clerk/nextjs';
-
 import { Quicksand } from 'next/font/google';
-
-const quicksand = Quicksand({
-  weight: ['400', '600', '700'],
-  subsets: ['latin'],
-});
-
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ThemeSwitch from './ThemeSwitch';
-import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-import {
-  AiFillBuild,
-  AiOutlineBuild,
-  AiTwotoneBuild,
-  AiTwotoneEdit,
-} from 'react-icons/ai';
+import { AiFillBuild } from 'react-icons/ai';
 import { ProjectData } from '@/types/typedefs';
 import { RootState } from '@/redux/store';
 import { Auth } from '@/types/Auth';
 import { updateProjectTitle } from '@/services/projectsService';
 import { changeTitle } from '@/redux/currentProjectSlice';
+
+const quicksand = Quicksand({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+});
 
 export default function HomeNavigationBar() {
   const [content, setContent] = useState('');

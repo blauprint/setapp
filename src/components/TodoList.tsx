@@ -20,6 +20,7 @@ function TodoList() {
   } else if (select === 'todosFE') {
     useAppSelector((state: RootState) => { todoList = state.currentProject.frontend.todoList })
   }
+
   const sortedTodos = [...todoList].sort((a, b) => {
     if (a.done && !b.done) {
       return 1;
@@ -29,6 +30,7 @@ function TodoList() {
       return 0;
     }
   });
+
   const {
     userId,
     sessionId,

@@ -101,19 +101,18 @@ const Page: NextPageWithLayout = () => {
     orgSlug: orgSlug?.toString(),
   };
 
-  let proj = useAppSelector((state: RootState) => state.currentProject);
+  let currentProjectFromRedux = useAppSelector((state: RootState) => state.currentProject);
 
   useEffect(() => {
     if (user && project.idea === '') {
       getProject(auth, id!).then((res) => {
+        project = res;
         setProject(res);
         dispatch(addCurrentProject(res));
       });
     }
-    setProject(proj);
+    setProject(currentProjectFromRedux);
   }, [user]);
-
-  // setProject(useAppSelector((state: RootState) => state.currentProject));
 
   async function getProject(auth: Auth, id: string | string[]) {
     return await getProjectById(auth, id!);
@@ -122,29 +121,19 @@ const Page: NextPageWithLayout = () => {
   if (project && select === 'todosBE') {
     return <TodoList />;
   } else if (select === 'frameworkBE') {
-    return <FrameworkDashboard framework={project.backend.framework} />;
+    return <FrameworkDashboard />;
   } else if (select === 'model') {
     return <ModelDashboard model={project.backend.database} />;
   } else if (select === 'todosFE') {
     return <TodoList />;
   } else if (select === 'frameworkFE') {
-    return <FrameworkDashboard framework={project.frontend.framework} />;
+    return <FrameworkDashboard />;
   } else if (select === 'colors') {
     return <ColorsDashboard colorScheme={project.frontend.colorScheme} />;
   } else if (select === 'overview' || select === '') {
-    // return <SummaryDashboard project={project} />;
-    return (
-<>
-    <SummaryDashboard project={project} />
-    <hr/>
-<FrameworkDashboard framework={project.frontend.framework} />
-<hr/>
-<ColorsDashboard colorScheme={project.frontend.colorScheme} />
-<hr/>
-<FrameworkDashboard framework={project.backend.framework} />
-<hr/>
-<ModelDashboard model={project.backend.database} />
-</>)
+    return <SummaryDashboard project={project} />;
+  } else {
+    return <p>404</p>
   }
 };
 

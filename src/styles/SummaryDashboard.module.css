@@ -12,8 +12,9 @@
 }
 
 .projectSummary {
-  /* font-size: 1.5rem; */
-  /* margin-top: 3rem; */
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  text-align: justify;
 }
 
 .summaryTitle {
@@ -23,4 +24,13 @@
 
 .summaryTitle hr {
   margin-block: 20px;
+}
+
+.summaryContainer ul {
+  list-style: inside square;
+}
+
+.summaryContainer li {
+  font-size: 1.2rem;
+  margin: 0;
 }
